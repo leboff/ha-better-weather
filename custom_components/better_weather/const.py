@@ -77,7 +77,8 @@ CORRECTION_VARS = {
     "wind_gusts_10m": ("wind_gust", "ratio"),
     "shortwave_radiation": ("irradiance", "ratio"),
 }
-PRECEDING = {"shortwave_radiation", "precipitation"}
+# Open-Meteo reports these for the PRECEDING hour (weather_code is derived from that hour's precipitation).
+PRECEDING = {"shortwave_radiation", "precipitation", "weather_code"}
 GROUP_CODES = (
     (0,),
     (1, 2),
@@ -102,3 +103,8 @@ WMO_TO_CONDITION = {
     code: GROUP_CONDITIONS[i] for i, codes in enumerate(GROUP_CODES) for code in codes
 }
 ATTRIBUTION = "Open-Meteo (GEM/ICON/ECMWF blend, bias-corrected to your station)"
+
+# Blended hourly precipitation (mm) at/above which a forecast hour counts as rainy.
+FORECAST_RAIN_MM = 0.25
+# A day with at least this much blended precipitation (mm) gets a precipitation icon.
+DAILY_PRECIP_CONDITION_MM = 1.0

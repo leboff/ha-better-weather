@@ -25,7 +25,7 @@ def metric_value(value, key, unit):
         if key == "precipitation_rate":
             return value * 25.4 if unit == "in/h" else value if unit == "mm/h" else None
         return value
-    except HomeAssistantError, ValueError, TypeError:
+    except (HomeAssistantError, ValueError, TypeError):
         return None
 
 

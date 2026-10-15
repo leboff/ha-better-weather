@@ -3,3 +3,6 @@ __pycache__/
 .pytest_cache/
 .coverage
 .codex_run.log
+.codex_last.md
+.codex_run.log
+.ruff_cache/

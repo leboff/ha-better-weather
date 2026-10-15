@@ -123,3 +123,25 @@ pytest-homeassistant-custom-component 0.13.372.
 - The copied workflow is present; GitHub-hosted HACS/hassfest jobs were not run
   locally or remotely. No live Open-Meteo requests were needed: integration tests
   use the supplied real responses and station data.
+
+## Orchestrator review (Alice, Oct 15 2026)
+
+Fixes applied after the Codex build. Each one has a regression test that fails on the pre-fix code.
+
+- **Python 3.13 syntax:** `except A, B:` (PEP 758) only parses on 3.14+. This was changed to `except (A, B):`
+  in api/station/config_flow, so the code also compiles on 3.13 tooling (hassfest/CI).
+- **Forecast trace rain capped the hour:** `forecast_score` passed the raw blended `precipitation` (mm) as
+  the rain rate, so any trace above 0 mm (often a single model's drizzle averaged in) capped the hourly score
+  at 10. It now uses the same `>= FORECAST_RAIN_MM` (0.25 mm) threshold as `day_score`.
+  Test: `test_forecast_trace_precip_is_not_rain`.
+- **weather_code was not shifted with precipitation:** Open-Meteo derives the hourly weather code from the
+  preceding hour's precipitation. A 30-day check showed same-stamp agreement of 1.000/0.985/1.000 versus about
+  0.94 when offset by one hour (`tools/check_code_alignment.py`). The code is now in `PRECEDING`, so it lines up with precip.
+  Test: `test_weather_code_shifted_with_precipitation`.
+- **Daily condition hid wet days:** the daylight-hours vote rendered a 0.43 in (86% PoP) evening-storm day as
+  `cloudy`. Days with blended precip `>= DAILY_PRECIP_CONDITION_MM` (1 mm) now take the vote among the wet
+  hours. Test: `test_daily_condition_wet_day_with_mostly_dry_daylight`.
+- **hacs.json minimum** raised to 2026.10.0, the only version this has been validated on.
+
+A live smoke test (`tools/smoke_live.py`) ran the real Open-Meteo forecast through the pure pipeline.
+The 8-day outlook was plausible, and the corrections shift tomorrow's high by about 0.7 °F versus raw.

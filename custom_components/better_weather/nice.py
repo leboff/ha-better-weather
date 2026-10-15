@@ -4,7 +4,7 @@ import math
 from datetime import timedelta
 from statistics import mean
 
-from .const import DEFAULTS, OPTION_DEFAULTS
+from .const import DEFAULTS, FORECAST_RAIN_MM, OPTION_DEFAULTS
 from .solar import elevation
 
 
@@ -62,6 +62,11 @@ def nice_score(
     )[0]
 
 
+def forecast_rain(row):
+    """A forecast hour is rainy only at >= FORECAST_RAIN_MM of blended precipitation."""
+    return (row.get("precipitation") or 0) >= FORECAST_RAIN_MM
+
+
 def forecast_score(row, latitude, longitude, cfg=None):
     required = (
         "apparent_temperature",
@@ -78,7 +83,8 @@ def forecast_score(row, latitude, longitude, cfg=None):
         row["wind_speed_10m"] / 1.609344,
         row["wind_gusts_10m"] / 1.609344,
         row["score_irradiance"],
-        row.get("precipitation", 0),
+        # Blended precipitation is a member mean: a trace from one model is not rain.
+        1.0 if forecast_rain(row) else 0.0,
         elevation(row["time"] + timedelta(minutes=30), latitude, longitude),
         cfg,
     )
@@ -108,7 +114,7 @@ def day_score(rows, day, tz, latitude, longitude, cfg=None, observed=None, now=N
             if value is None:
                 continue
             score = value[0]
-            rain = row.get("precipitation", 0) >= 0.25
+            rain = forecast_rain(row)
         if rain:
             score = min(score, 10)
             rain_hours += 1

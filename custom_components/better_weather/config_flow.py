@@ -68,7 +68,7 @@ class BetterWeatherConfigFlow(ConfigFlow, domain=DOMAIN):
                     for r in rows.values()
                 ):
                     raise UpdateFailed("No forecast temperatures")
-            except UpdateFailed, ValueError, TypeError, KeyError:
+            except (UpdateFailed, ValueError, TypeError, KeyError):
                 errors["base"] = "cannot_connect"
             else:
                 return self.async_create_entry(

@@ -94,3 +94,44 @@ def test_variable_members_are_independent():
     assert result[0]["temperature_2m"] == 10
     assert result[0]["precipitation"] == 3
     assert result[0]["member_count"] == 1
+
+
+def test_daily_condition_wet_day_with_mostly_dry_daylight():
+    """0.43 in of evening rain must not render as 'cloudy' just because daylight was dry."""
+    from datetime import UTC, datetime, timedelta
+    from zoneinfo import ZoneInfo
+
+    tz = ZoneInfo("America/New_York")
+    start = datetime(2026, 10, 16, 4, tzinfo=UTC)  # 00:00 local
+    rows = []
+    for i in range(24):
+        wet = i in (19, 20)
+        rows.append(
+            dict(
+                time=start + timedelta(hours=i),
+                temperature_2m=20,
+                weather_code=61 if wet else 3,
+                precipitation=5.0 if wet else 0.0,
+            )
+        )
+    (day,) = aggregate_daily(rows, tz)
+    assert day["condition"] == "rainy"
+    dry = [dict(r, precipitation=0.0, weather_code=3) for r in rows]
+    assert aggregate_daily(dry, tz)[0]["condition"] == "cloudy"
+
+
+def test_weather_code_shifted_with_precipitation():
+    """weather_code describes the preceding hour, like precipitation, so they stay aligned."""
+    from custom_components.better_weather.api import parse_members
+
+    payload = {
+        "hourly": {
+            "time": ["2026-10-16T19:00", "2026-10-16T20:00"],
+            "weather_code_gem_seamless": [3, 61],
+            "precipitation_gem_seamless": [0.0, 4.0],
+            "temperature_2m_gem_seamless": [20, 20],
+        }
+    }
+    rows = parse_members(payload, ["gem_seamless"])["gem_seamless"]
+    (hour19,) = [r for t, r in rows.items() if t.hour == 19]
+    assert hour19["weather_code"] == 61 and hour19["precipitation"] == 4.0

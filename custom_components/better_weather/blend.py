@@ -5,7 +5,9 @@ from collections import Counter, defaultdict
 from datetime import datetime, time
 from statistics import mean
 
-from .const import GROUP_CODES, GROUP_CONDITIONS, VARIABLES
+from .const import DAILY_PRECIP_CONDITION_MM, GROUP_CODES, GROUP_CONDITIONS, VARIABLES
+
+PRECIP_GROUP_MIN = 4  # drizzle and wetter
 
 
 def group(code):
@@ -128,12 +130,22 @@ def aggregate_daily(rows, tz):
             values = [h[var] for h in hours if h.get(var) is not None]
             if values:
                 entry[key] = func(values)
-        daytime = [
+        wet_codes = [
             h.get("weather_code")
             for h in hours
-            if 8 <= h["time"].astimezone(tz).hour < 20
+            if h.get("weather_code") is not None
+            and group(h["weather_code"]) >= PRECIP_GROUP_MIN
         ]
-        code = voted_code(daytime or [h.get("weather_code") for h in hours])
+        if entry.get("native_precipitation", 0) >= DAILY_PRECIP_CONDITION_MM and wet_codes:
+            # A wet day is a wet day even if most daylight hours are dry.
+            code = voted_code(wet_codes)
+        else:
+            daytime = [
+                h.get("weather_code")
+                for h in hours
+                if 8 <= h["time"].astimezone(tz).hour < 20
+            ]
+            code = voted_code(daytime or [h.get("weather_code") for h in hours])
         entry["condition"] = condition({"weather_code": code, "is_day": 1})
         result.append(entry)
     return result

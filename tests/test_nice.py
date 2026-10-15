@@ -27,3 +27,22 @@ def test_rain_and_night():
     assert score == 100
     assert attrs["s_sun"] is None
     assert nice_score(60, 40, 2, 5, 1000, 0, 0) == score
+
+
+def test_forecast_trace_precip_is_not_rain():
+    """A 0.1 mm member-mean trace must not cap a forecast hour; >= 0.25 mm must."""
+    from datetime import UTC, datetime
+
+    from custom_components.better_weather.nice import forecast_score
+
+    row = dict(
+        time=datetime(2026, 5, 12, 16, tzinfo=UTC),
+        apparent_temperature=21,
+        dew_point_2m=3,
+        wind_speed_10m=6,
+        wind_gusts_10m=15,
+        score_irradiance=700,
+    )
+    assert forecast_score(dict(row, precipitation=0.0), 39.94, -75.18)[0] == 100
+    assert forecast_score(dict(row, precipitation=0.1), 39.94, -75.18)[0] == 100
+    assert forecast_score(dict(row, precipitation=0.3), 39.94, -75.18)[0] == 10
