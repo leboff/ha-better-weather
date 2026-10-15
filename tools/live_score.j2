@@ -1,0 +1,53 @@
+{#- Nice Right Now — Bryan's outdoor comfort score (0-100), League weather station.
+    Source of truth: /root/nice-days/live_score.j2 (backfill.py renders this same file).
+    Taste: crisp + dry + sunny, t-shirt-and-jeans by day, hoodie at dawn/dusk.
+    Any rain = loser (hard cap). Humidity weighs nearly as much as temperature. -#}
+{%- set c = {
+  'day_lo': 62, 'day_hi': 72,
+  'dusk_lo': 52, 'dusk_hi': 66,
+  'band_full_sun_elev': 25,
+  'cold_falloff': 12, 'hot_falloff': 8,
+  'dew_ok': 48, 'dew_bad': 62,
+  'wind_ok': 8, 'wind_bad': 20,
+  'gust_ok': 18, 'gust_bad': 35,
+  'sun_min_elev': 10, 'clear_sky_frac': 0.75,
+  'w_temp': 0.30, 'w_dew': 0.30, 'w_sun': 0.25, 'w_wind': 0.15,
+  'rain_cap': 10
+} -%}
+{%- set ft = states('sensor.league_feels_like') | float(none) -%}
+{%- set dew = states('sensor.league_dew_point') | float(none) -%}
+{%- set wind = states('sensor.league_wind_speed') | float(0) -%}
+{%- set gust = states('sensor.league_wind_gust') | float(0) -%}
+{%- set irr = states('sensor.league_irradiance') | float(0) -%}
+{%- set rain = states('sensor.league_precipitation_intensity') | float(0) -%}
+{%- set elev = state_attr('sun.sun', 'elevation') | float(-90) -%}
+{%- if ft is none or dew is none -%}
+unknown
+{%- else -%}
+{#- comfort band slides from hoodie (sun low) to t-shirt (sun high) -#}
+{%- set f = [0, [1, elev / c.band_full_sun_elev] | min] | max -%}
+{%- set lo = c.dusk_lo + (c.day_lo - c.dusk_lo) * f -%}
+{%- set hi = c.dusk_hi + (c.day_hi - c.dusk_hi) * f -%}
+{%- if ft < lo -%}{%- set s_temp = 1 - (lo - ft) / c.cold_falloff -%}
+{%- elif ft > hi -%}{%- set s_temp = 1 - (ft - hi) / c.hot_falloff -%}
+{%- else -%}{%- set s_temp = 1 -%}{%- endif -%}
+{%- set s_temp = [0, s_temp] | max -%}
+{%- set s_dew = 1 - (dew - c.dew_ok) / (c.dew_bad - c.dew_ok) -%}
+{%- set s_dew = [0, [1, s_dew] | min] | max -%}
+{%- set s_w1 = 1 - (wind - c.wind_ok) / (c.wind_bad - c.wind_ok) -%}
+{%- set s_w2 = 1 - (gust - c.gust_ok) / (c.gust_bad - c.gust_ok) -%}
+{%- set s_wind = [0, [1, s_w1, s_w2] | min] | max -%}
+{%- set num = c.w_temp * s_temp + c.w_dew * s_dew + c.w_wind * s_wind -%}
+{%- set den = c.w_temp + c.w_dew + c.w_wind -%}
+{%- if elev > c.sun_min_elev -%}
+  {#- Haurwitz clear-sky model; station reads ~75% of it on a clear hour -#}
+  {%- set sz = sin(elev * pi / 180) -%}
+  {%- set clear = 1098 * sz * e ** (-0.057 / sz) -%}
+  {%- set s_sun = [1, irr / (clear * c.clear_sky_frac)] | min -%}
+  {%- set num = num + c.w_sun * s_sun -%}
+  {%- set den = den + c.w_sun -%}
+{%- endif -%}
+{%- set score = 100 * num / den -%}
+{%- if rain > 0 -%}{%- set score = [score, c.rain_cap] | min -%}{%- endif -%}
+{{ score | round(0) | int }}
+{%- endif -%}

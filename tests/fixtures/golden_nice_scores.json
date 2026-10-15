@@ -1,0 +1,4005 @@
+{
+"units": "imperial (\u00b0F, mph, W/m\u00b2, in/h); score is 0-100 int, rounded half-to-even like Jinja round(0)",
+"cases": [
+{
+"feels_like": 30.7,
+"dew_point": 67.6,
+"wind_speed": 19.1,
+"wind_gust": 11.5,
+"irradiance": 495.4,
+"precipitation_intensity": 0,
+"sun_elevation": 23.4,
+"expected_score": 26
+},
+{
+"feels_like": 50.4,
+"dew_point": 24.3,
+"wind_speed": 12.2,
+"wind_gust": 40.2,
+"irradiance": 389.8,
+"precipitation_intensity": 0.02,
+"sun_elevation": 50.1,
+"expected_score": 10
+},
+{
+"feels_like": 20.2,
+"dew_point": 40.3,
+"wind_speed": 18.0,
+"wind_gust": 10.3,
+"irradiance": 945.3,
+"precipitation_intensity": 0,
+"sun_elevation": -17.2,
+"expected_score": 43
+},
+{
+"feels_like": 22.0,
+"dew_point": 46.8,
+"wind_speed": 23.5,
+"wind_gust": 17.2,
+"irradiance": 216.6,
+"precipitation_intensity": 0,
+"sun_elevation": 46.8,
+"expected_score": 40
+},
+{
+"feels_like": 62.2,
+"dew_point": 61.9,
+"wind_speed": 23.5,
+"wind_gust": 24.9,
+"irradiance": 345.7,
+"precipitation_intensity": 0.3,
+"sun_elevation": 0.1,
+"expected_score": 10
+},
+{
+"feels_like": 56.8,
+"dew_point": 29.7,
+"wind_speed": 0.5,
+"wind_gust": 37.7,
+"irradiance": 556.5,
+"precipitation_intensity": 0.3,
+"sun_elevation": -10.8,
+"expected_score": 10
+},
+{
+"feels_like": 70.3,
+"dew_point": 59.2,
+"wind_speed": 7.4,
+"wind_gust": 33.4,
+"irradiance": 895.6,
+"precipitation_intensity": 0.3,
+"sun_elevation": 26.1,
+"expected_score": 10
+},
+{
+"feels_like": 97.4,
+"dew_point": 44.5,
+"wind_speed": 22.8,
+"wind_gust": 8.5,
+"irradiance": 284.2,
+"precipitation_intensity": 0,
+"sun_elevation": 57.9,
+"expected_score": 41
+},
+{
+"feels_like": 60.4,
+"dew_point": 50.1,
+"wind_speed": 0.9,
+"wind_gust": 10.9,
+"irradiance": 797.4,
+"precipitation_intensity": 0,
+"sun_elevation": 41.2,
+"expected_score": 91
+},
+{
+"feels_like": 49.4,
+"dew_point": 70.0,
+"wind_speed": 19.4,
+"wind_gust": 33.2,
+"irradiance": 86.5,
+"precipitation_intensity": 0.3,
+"sun_elevation": 26.8,
+"expected_score": 7
+},
+{
+"feels_like": 82.3,
+"dew_point": 45.4,
+"wind_speed": 9.8,
+"wind_gust": 22.0,
+"irradiance": 29.6,
+"precipitation_intensity": 0,
+"sun_elevation": 8.4,
+"expected_score": 55
+},
+{
+"feels_like": 87.9,
+"dew_point": 51.8,
+"wind_speed": 14.5,
+"wind_gust": 29.1,
+"irradiance": 168.6,
+"precipitation_intensity": 0,
+"sun_elevation": 70.4,
+"expected_score": 33
+},
+{
+"feels_like": 81.6,
+"dew_point": 46.7,
+"wind_speed": 21.5,
+"wind_gust": 10.4,
+"irradiance": 513.8,
+"precipitation_intensity": 0.02,
+"sun_elevation": 12.5,
+"expected_score": 10
+},
+{
+"feels_like": 92.8,
+"dew_point": 54.8,
+"wind_speed": 15.2,
+"wind_gust": 32.8,
+"irradiance": 383.7,
+"precipitation_intensity": 0.3,
+"sun_elevation": 27.1,
+"expected_score": 10
+},
+{
+"feels_like": 30.3,
+"dew_point": 62.9,
+"wind_speed": 5.1,
+"wind_gust": 42.7,
+"irradiance": 481.1,
+"precipitation_intensity": 0,
+"sun_elevation": 32.4,
+"expected_score": 25
+},
+{
+"feels_like": 36.0,
+"dew_point": 44.3,
+"wind_speed": 12.1,
+"wind_gust": 16.1,
+"irradiance": 346.1,
+"precipitation_intensity": 0.02,
+"sun_elevation": 29.7,
+"expected_score": 10
+},
+{
+"feels_like": 82.9,
+"dew_point": 32.5,
+"wind_speed": 15.0,
+"wind_gust": 36.2,
+"irradiance": 635.4,
+"precipitation_intensity": 0.02,
+"sun_elevation": 33.8,
+"expected_score": 10
+},
+{
+"feels_like": 88.9,
+"dew_point": 64.3,
+"wind_speed": 19.9,
+"wind_gust": 36.7,
+"irradiance": 255.3,
+"precipitation_intensity": 0.3,
+"sun_elevation": -13.5,
+"expected_score": 0
+},
+{
+"feels_like": 89.4,
+"dew_point": 40.8,
+"wind_speed": 18.9,
+"wind_gust": 12.7,
+"irradiance": 268.6,
+"precipitation_intensity": 0.02,
+"sun_elevation": -3.0,
+"expected_score": 10
+},
+{
+"feels_like": 43.2,
+"dew_point": 21.4,
+"wind_speed": 6.4,
+"wind_gust": 42.8,
+"irradiance": 656.7,
+"precipitation_intensity": 0.3,
+"sun_elevation": 45.5,
+"expected_score": 10
+},
+{
+"feels_like": 56.4,
+"dew_point": 31.9,
+"wind_speed": 11.8,
+"wind_gust": 1.1,
+"irradiance": 386.6,
+"precipitation_intensity": 0,
+"sun_elevation": 53.3,
+"expected_score": 72
+},
+{
+"feels_like": 40.7,
+"dew_point": 27.2,
+"wind_speed": 18.3,
+"wind_gust": 44.0,
+"irradiance": 965.6,
+"precipitation_intensity": 0,
+"sun_elevation": 55.2,
+"expected_score": 55
+},
+{
+"feels_like": 21.7,
+"dew_point": 11.2,
+"wind_speed": 3.7,
+"wind_gust": 32.3,
+"irradiance": 160.2,
+"precipitation_intensity": 0.3,
+"sun_elevation": 26.6,
+"expected_score": 10
+},
+{
+"feels_like": 54.1,
+"dew_point": 66.6,
+"wind_speed": 24.4,
+"wind_gust": 28.4,
+"irradiance": 695.1,
+"precipitation_intensity": 0,
+"sun_elevation": 0.5,
+"expected_score": 40
+},
+{
+"feels_like": 71.9,
+"dew_point": 36.9,
+"wind_speed": 14.4,
+"wind_gust": 14.5,
+"irradiance": 630.9,
+"precipitation_intensity": 0,
+"sun_elevation": 47.8,
+"expected_score": 92
+},
+{
+"feels_like": 30.1,
+"dew_point": 24.4,
+"wind_speed": 1.2,
+"wind_gust": 3.2,
+"irradiance": 76.4,
+"precipitation_intensity": 0,
+"sun_elevation": 48.4,
+"expected_score": 48
+},
+{
+"feels_like": 53.3,
+"dew_point": 27.2,
+"wind_speed": 0.2,
+"wind_gust": 39.5,
+"irradiance": 37.9,
+"precipitation_intensity": 0,
+"sun_elevation": 68.5,
+"expected_score": 40
+},
+{
+"feels_like": 65.6,
+"dew_point": 21.7,
+"wind_speed": 21.7,
+"wind_gust": 43.8,
+"irradiance": 704.0,
+"precipitation_intensity": 0.02,
+"sun_elevation": -16.6,
+"expected_score": 10
+},
+{
+"feels_like": 36.0,
+"dew_point": 16.7,
+"wind_speed": 14.3,
+"wind_gust": 40.3,
+"irradiance": 591.4,
+"precipitation_intensity": 0,
+"sun_elevation": -10.4,
+"expected_score": 40
+},
+{
+"feels_like": 73.3,
+"dew_point": 30.1,
+"wind_speed": 12.5,
+"wind_gust": 14.6,
+"irradiance": 871.6,
+"precipitation_intensity": 0,
+"sun_elevation": -18.3,
+"expected_score": 56
+},
+{
+"feels_like": 36.1,
+"dew_point": 32.3,
+"wind_speed": 24.7,
+"wind_gust": 35.2,
+"irradiance": 339.1,
+"precipitation_intensity": 0,
+"sun_elevation": 4.5,
+"expected_score": 40
+},
+{
+"feels_like": 27.7,
+"dew_point": 35.8,
+"wind_speed": 13.7,
+"wind_gust": 41.2,
+"irradiance": 837.7,
+"precipitation_intensity": 0.02,
+"sun_elevation": 24.6,
+"expected_score": 10
+},
+{
+"feels_like": 98.8,
+"dew_point": 26.0,
+"wind_speed": 18.1,
+"wind_gust": 3.8,
+"irradiance": 169.7,
+"precipitation_intensity": 0.02,
+"sun_elevation": -0.4,
+"expected_score": 10
+},
+{
+"feels_like": 80.7,
+"dew_point": 50.8,
+"wind_speed": 21.0,
+"wind_gust": 16.6,
+"irradiance": 340.3,
+"precipitation_intensity": 0,
+"sun_elevation": 1.6,
+"expected_score": 32
+},
+{
+"feels_like": 95.5,
+"dew_point": 63.0,
+"wind_speed": 17.9,
+"wind_gust": 22.0,
+"irradiance": 580.0,
+"precipitation_intensity": 0,
+"sun_elevation": 9.5,
+"expected_score": 4
+},
+{
+"feels_like": 52.5,
+"dew_point": 35.9,
+"wind_speed": 24.8,
+"wind_gust": 6.6,
+"irradiance": 125.0,
+"precipitation_intensity": 0,
+"sun_elevation": 36.6,
+"expected_score": 43
+},
+{
+"feels_like": 82.6,
+"dew_point": 35.7,
+"wind_speed": 14.3,
+"wind_gust": 10.1,
+"irradiance": 81.7,
+"precipitation_intensity": 0,
+"sun_elevation": 13.6,
+"expected_score": 51
+},
+{
+"feels_like": 43.6,
+"dew_point": 46.3,
+"wind_speed": 2.9,
+"wind_gust": 40.4,
+"irradiance": 107.7,
+"precipitation_intensity": 0,
+"sun_elevation": 56.2,
+"expected_score": 34
+},
+{
+"feels_like": 21.0,
+"dew_point": 55.6,
+"wind_speed": 2.3,
+"wind_gust": 5.2,
+"irradiance": 885.1,
+"precipitation_intensity": 0,
+"sun_elevation": -2.7,
+"expected_score": 38
+},
+{
+"feels_like": 82.8,
+"dew_point": 49.9,
+"wind_speed": 4.1,
+"wind_gust": 20.3,
+"irradiance": 680.9,
+"precipitation_intensity": 0,
+"sun_elevation": 48.4,
+"expected_score": 64
+},
+{
+"feels_like": 28.2,
+"dew_point": 71.9,
+"wind_speed": 9.5,
+"wind_gust": 43.7,
+"irradiance": 909.2,
+"precipitation_intensity": 0,
+"sun_elevation": 30.6,
+"expected_score": 25
+},
+{
+"feels_like": 76.9,
+"dew_point": 31.4,
+"wind_speed": 5.2,
+"wind_gust": 14.3,
+"irradiance": 27.3,
+"precipitation_intensity": 0,
+"sun_elevation": 46.8,
+"expected_score": 58
+},
+{
+"feels_like": 45.6,
+"dew_point": 36.6,
+"wind_speed": 10.0,
+"wind_gust": 2.9,
+"irradiance": 317.3,
+"precipitation_intensity": 0.02,
+"sun_elevation": 69.2,
+"expected_score": 10
+},
+{
+"feels_like": 28.9,
+"dew_point": 24.6,
+"wind_speed": 15.4,
+"wind_gust": 44.1,
+"irradiance": 542.9,
+"precipitation_intensity": 0.3,
+"sun_elevation": 23.1,
+"expected_score": 10
+},
+{
+"feels_like": 48.5,
+"dew_point": 22.5,
+"wind_speed": 5.2,
+"wind_gust": 9.0,
+"irradiance": 360.5,
+"precipitation_intensity": 0,
+"sun_elevation": -11.8,
+"expected_score": 88
+},
+{
+"feels_like": 80.3,
+"dew_point": 16.2,
+"wind_speed": 14.4,
+"wind_gust": 15.2,
+"irradiance": 227.4,
+"precipitation_intensity": 0,
+"sun_elevation": -16.2,
+"expected_score": 49
+},
+{
+"feels_like": 34.9,
+"dew_point": 63.9,
+"wind_speed": 14.5,
+"wind_gust": 41.5,
+"irradiance": 245.8,
+"precipitation_intensity": 0,
+"sun_elevation": 30.1,
+"expected_score": 17
+},
+{
+"feels_like": 66.3,
+"dew_point": 50.5,
+"wind_speed": 6.1,
+"wind_gust": 0.9,
+"irradiance": 243.8,
+"precipitation_intensity": 0,
+"sun_elevation": 4.7,
+"expected_score": 93
+},
+{
+"feels_like": 89.4,
+"dew_point": 59.6,
+"wind_speed": 0.5,
+"wind_gust": 0.4,
+"irradiance": 750.7,
+"precipitation_intensity": 0,
+"sun_elevation": 25.4,
+"expected_score": 45
+},
+{
+"feels_like": 89.0,
+"dew_point": 20.5,
+"wind_speed": 12.5,
+"wind_gust": 35.8,
+"irradiance": 77.1,
+"precipitation_intensity": 0.3,
+"sun_elevation": -4.1,
+"expected_score": 10
+},
+{
+"feels_like": 82.1,
+"dew_point": 77.0,
+"wind_speed": 20.5,
+"wind_gust": 14.4,
+"irradiance": 106.9,
+"precipitation_intensity": 0.02,
+"sun_elevation": 56.8,
+"expected_score": 4
+},
+{
+"feels_like": 68.2,
+"dew_point": 18.6,
+"wind_speed": 5.2,
+"wind_gust": 24.5,
+"irradiance": 722.6,
+"precipitation_intensity": 0,
+"sun_elevation": 55.5,
+"expected_score": 94
+},
+{
+"feels_like": 69.9,
+"dew_point": 55.7,
+"wind_speed": 13.8,
+"wind_gust": 42.5,
+"irradiance": 986.9,
+"precipitation_intensity": 0,
+"sun_elevation": -3.6,
+"expected_score": 38
+},
+{
+"feels_like": 54.6,
+"dew_point": 20.7,
+"wind_speed": 17.9,
+"wind_gust": 30.1,
+"irradiance": 252.6,
+"precipitation_intensity": 0,
+"sun_elevation": 42.8,
+"expected_score": 56
+},
+{
+"feels_like": 55.7,
+"dew_point": 39.3,
+"wind_speed": 6.3,
+"wind_gust": 19.8,
+"irradiance": 538.1,
+"precipitation_intensity": 0,
+"sun_elevation": 16.4,
+"expected_score": 91
+},
+{
+"feels_like": 47.1,
+"dew_point": 27.5,
+"wind_speed": 0.6,
+"wind_gust": 29.1,
+"irradiance": 416.7,
+"precipitation_intensity": 0.02,
+"sun_elevation": -18.3,
+"expected_score": 10
+},
+{
+"feels_like": 75.3,
+"dew_point": 49.4,
+"wind_speed": 14.8,
+"wind_gust": 6.2,
+"irradiance": 983.2,
+"precipitation_intensity": 0,
+"sun_elevation": 16.6,
+"expected_score": 69
+},
+{
+"feels_like": 52.1,
+"dew_point": 51.6,
+"wind_speed": 5.8,
+"wind_gust": 0.3,
+"irradiance": 528.7,
+"precipitation_intensity": 0.02,
+"sun_elevation": 62.2,
+"expected_score": 10
+},
+{
+"feels_like": 93.6,
+"dew_point": 73.2,
+"wind_speed": 16.0,
+"wind_gust": 10.2,
+"irradiance": 313.0,
+"precipitation_intensity": 0.3,
+"sun_elevation": 24.1,
+"expected_score": 10
+},
+{
+"feels_like": 38.0,
+"dew_point": 38.0,
+"wind_speed": 14.0,
+"wind_gust": 40.8,
+"irradiance": 917.7,
+"precipitation_intensity": 0,
+"sun_elevation": 69.5,
+"expected_score": 55
+},
+{
+"feels_like": 37.6,
+"dew_point": 72.7,
+"wind_speed": 19.1,
+"wind_gust": 29.0,
+"irradiance": 368.7,
+"precipitation_intensity": 0.02,
+"sun_elevation": 50.5,
+"expected_score": 10
+},
+{
+"feels_like": 90.6,
+"dew_point": 31.2,
+"wind_speed": 17.3,
+"wind_gust": 38.2,
+"irradiance": 371.6,
+"precipitation_intensity": 0.3,
+"sun_elevation": 44.5,
+"expected_score": 10
+},
+{
+"feels_like": 57.2,
+"dew_point": 15.8,
+"wind_speed": 3.1,
+"wind_gust": 27.3,
+"irradiance": 514.0,
+"precipitation_intensity": 0,
+"sun_elevation": -3.8,
+"expected_score": 89
+},
+{
+"feels_like": 40.0,
+"dew_point": 24.8,
+"wind_speed": 14.2,
+"wind_gust": 34.1,
+"irradiance": 52.1,
+"precipitation_intensity": 0.3,
+"sun_elevation": 16.2,
+"expected_score": 10
+},
+{
+"feels_like": 71.0,
+"dew_point": 36.1,
+"wind_speed": 21.1,
+"wind_gust": 24.5,
+"irradiance": 994.3,
+"precipitation_intensity": 0.02,
+"sun_elevation": 70.3,
+"expected_score": 10
+},
+{
+"feels_like": 84.6,
+"dew_point": 52.7,
+"wind_speed": 6.7,
+"wind_gust": 41.1,
+"irradiance": 959.4,
+"precipitation_intensity": 0,
+"sun_elevation": 69.2,
+"expected_score": 45
+},
+{
+"feels_like": 69.4,
+"dew_point": 75.7,
+"wind_speed": 17.2,
+"wind_gust": 3.7,
+"irradiance": 851.0,
+"precipitation_intensity": 0,
+"sun_elevation": 69.4,
+"expected_score": 58
+},
+{
+"feels_like": 50.6,
+"dew_point": 64.6,
+"wind_speed": 10.8,
+"wind_gust": 7.4,
+"irradiance": 325.5,
+"precipitation_intensity": 0,
+"sun_elevation": 37.3,
+"expected_score": 31
+},
+{
+"feels_like": 59.0,
+"dew_point": 24.4,
+"wind_speed": 10.8,
+"wind_gust": 24.0,
+"irradiance": 909.3,
+"precipitation_intensity": 0.3,
+"sun_elevation": 7.2,
+"expected_score": 10
+},
+{
+"feels_like": 39.9,
+"dew_point": 61.0,
+"wind_speed": 0.1,
+"wind_gust": 8.5,
+"irradiance": 438.8,
+"precipitation_intensity": 0,
+"sun_elevation": -17.2,
+"expected_score": 23
+},
+{
+"feels_like": 97.8,
+"dew_point": 26.5,
+"wind_speed": 6.5,
+"wind_gust": 7.8,
+"irradiance": 148.4,
+"precipitation_intensity": 0,
+"sun_elevation": 5.1,
+"expected_score": 60
+},
+{
+"feels_like": 66.9,
+"dew_point": 27.1,
+"wind_speed": 17.1,
+"wind_gust": 35.6,
+"irradiance": 808.7,
+"precipitation_intensity": 0,
+"sun_elevation": 30.2,
+"expected_score": 85
+},
+{
+"feels_like": 59.3,
+"dew_point": 68.2,
+"wind_speed": 19.2,
+"wind_gust": 25.7,
+"irradiance": 383.3,
+"precipitation_intensity": 0,
+"sun_elevation": 54.6,
+"expected_score": 40
+},
+{
+"feels_like": 92.3,
+"dew_point": 11.6,
+"wind_speed": 14.2,
+"wind_gust": 0.6,
+"irradiance": 296.4,
+"precipitation_intensity": 0.3,
+"sun_elevation": 50.0,
+"expected_score": 10
+},
+{
+"feels_like": 97.9,
+"dew_point": 19.3,
+"wind_speed": 12.5,
+"wind_gust": 25.8,
+"irradiance": 311.3,
+"precipitation_intensity": 0.02,
+"sun_elevation": 42.3,
+"expected_score": 10
+},
+{
+"feels_like": 80.7,
+"dew_point": 32.0,
+"wind_speed": 3.1,
+"wind_gust": 32.3,
+"irradiance": 350.2,
+"precipitation_intensity": 0.02,
+"sun_elevation": 16.7,
+"expected_score": 10
+},
+{
+"feels_like": 82.6,
+"dew_point": 56.5,
+"wind_speed": 12.3,
+"wind_gust": 29.1,
+"irradiance": 377.6,
+"precipitation_intensity": 0,
+"sun_elevation": 31.2,
+"expected_score": 42
+},
+{
+"feels_like": 99.6,
+"dew_point": 53.2,
+"wind_speed": 18.1,
+"wind_gust": 33.2,
+"irradiance": 728.4,
+"precipitation_intensity": 0,
+"sun_elevation": 70.8,
+"expected_score": 45
+},
+{
+"feels_like": 56.9,
+"dew_point": 66.8,
+"wind_speed": 10.2,
+"wind_gust": 33.5,
+"irradiance": 987.6,
+"precipitation_intensity": 0,
+"sun_elevation": 44.7,
+"expected_score": 44
+},
+{
+"feels_like": 56.0,
+"dew_point": 55.5,
+"wind_speed": 4.9,
+"wind_gust": 23.7,
+"irradiance": 678.5,
+"precipitation_intensity": 0.02,
+"sun_elevation": 19.2,
+"expected_score": 10
+},
+{
+"feels_like": 52.4,
+"dew_point": 68.6,
+"wind_speed": 14.6,
+"wind_gust": 33.0,
+"irradiance": 897.9,
+"precipitation_intensity": 0.3,
+"sun_elevation": -13.8,
+"expected_score": 10
+},
+{
+"feels_like": 99.0,
+"dew_point": 26.8,
+"wind_speed": 24.2,
+"wind_gust": 13.1,
+"irradiance": 20.8,
+"precipitation_intensity": 0.3,
+"sun_elevation": 37.9,
+"expected_score": 10
+},
+{
+"feels_like": 70.7,
+"dew_point": 73.7,
+"wind_speed": 19.6,
+"wind_gust": 38.1,
+"irradiance": 767.5,
+"precipitation_intensity": 0.02,
+"sun_elevation": -19.1,
+"expected_score": 10
+},
+{
+"feels_like": 93.0,
+"dew_point": 64.3,
+"wind_speed": 10.3,
+"wind_gust": 30.8,
+"irradiance": 303.7,
+"precipitation_intensity": 0,
+"sun_elevation": 56.6,
+"expected_score": 16
+},
+{
+"feels_like": 58.8,
+"dew_point": 41.8,
+"wind_speed": 1.1,
+"wind_gust": 23.0,
+"irradiance": 744.7,
+"precipitation_intensity": 0,
+"sun_elevation": -13.6,
+"expected_score": 94
+},
+{
+"feels_like": 25.4,
+"dew_point": 40.1,
+"wind_speed": 4.1,
+"wind_gust": 32.0,
+"irradiance": 161.6,
+"precipitation_intensity": 0,
+"sun_elevation": 17.0,
+"expected_score": 53
+},
+{
+"feels_like": 75.1,
+"dew_point": 51.1,
+"wind_speed": 5.2,
+"wind_gust": 9.3,
+"irradiance": 886.0,
+"precipitation_intensity": 0,
+"sun_elevation": -13.7,
+"expected_score": 51
+},
+{
+"feels_like": 75.9,
+"dew_point": 71.9,
+"wind_speed": 16.5,
+"wind_gust": 21.1,
+"irradiance": 557.7,
+"precipitation_intensity": 0,
+"sun_elevation": -4.5,
+"expected_score": 6
+},
+{
+"feels_like": 72.2,
+"dew_point": 58.5,
+"wind_speed": 20.4,
+"wind_gust": 12.1,
+"irradiance": 609.7,
+"precipitation_intensity": 0,
+"sun_elevation": 16.1,
+"expected_score": 54
+},
+{
+"feels_like": 52.0,
+"dew_point": 42.9,
+"wind_speed": 6.5,
+"wind_gust": 27.5,
+"irradiance": 716.1,
+"precipitation_intensity": 0,
+"sun_elevation": 68.7,
+"expected_score": 66
+},
+{
+"feels_like": 76.5,
+"dew_point": 67.4,
+"wind_speed": 0.8,
+"wind_gust": 40.5,
+"irradiance": 622.5,
+"precipitation_intensity": 0,
+"sun_elevation": 65.4,
+"expected_score": 35
+},
+{
+"feels_like": 94.6,
+"dew_point": 26.9,
+"wind_speed": 6.7,
+"wind_gust": 3.3,
+"irradiance": 732.3,
+"precipitation_intensity": 0.02,
+"sun_elevation": 20.8,
+"expected_score": 10
+},
+{
+"feels_like": 93.1,
+"dew_point": 59.5,
+"wind_speed": 15.2,
+"wind_gust": 11.8,
+"irradiance": 526.6,
+"precipitation_intensity": 0,
+"sun_elevation": 51.6,
+"expected_score": 33
+},
+{
+"feels_like": 91.5,
+"dew_point": 40.0,
+"wind_speed": 7.7,
+"wind_gust": 18.0,
+"irradiance": 115.8,
+"precipitation_intensity": 0,
+"sun_elevation": 46.1,
+"expected_score": 50
+},
+{
+"feels_like": 44.4,
+"dew_point": 17.2,
+"wind_speed": 9.9,
+"wind_gust": 22.2,
+"irradiance": 100.0,
+"precipitation_intensity": 0,
+"sun_elevation": -15.9,
+"expected_score": 70
+},
+{
+"feels_like": 84.8,
+"dew_point": 11.6,
+"wind_speed": 18.8,
+"wind_gust": 30.7,
+"irradiance": 494.5,
+"precipitation_intensity": 0.02,
+"sun_elevation": 55.0,
+"expected_score": 10
+},
+{
+"feels_like": 97.1,
+"dew_point": 51.7,
+"wind_speed": 8.6,
+"wind_gust": 37.7,
+"irradiance": 118.1,
+"precipitation_intensity": 0.3,
+"sun_elevation": -4.1,
+"expected_score": 10
+},
+{
+"feels_like": 37.8,
+"dew_point": 25.9,
+"wind_speed": 11.2,
+"wind_gust": 33.8,
+"irradiance": 973.4,
+"precipitation_intensity": 0,
+"sun_elevation": 55.5,
+"expected_score": 56
+},
+{
+"feels_like": 57.0,
+"dew_point": 49.4,
+"wind_speed": 5.3,
+"wind_gust": 32.2,
+"irradiance": 330.1,
+"precipitation_intensity": 0.02,
+"sun_elevation": -9.8,
+"expected_score": 10
+},
+{
+"feels_like": 37.1,
+"dew_point": 15.4,
+"wind_speed": 0.4,
+"wind_gust": 0.2,
+"irradiance": 480.4,
+"precipitation_intensity": 0,
+"sun_elevation": 58.0,
+"expected_score": 63
+},
+{
+"feels_like": 43.0,
+"dew_point": 23.3,
+"wind_speed": 4.0,
+"wind_gust": 37.1,
+"irradiance": 646.0,
+"precipitation_intensity": 0,
+"sun_elevation": -18.6,
+"expected_score": 50
+},
+{
+"feels_like": 31.6,
+"dew_point": 55.2,
+"wind_speed": 1.4,
+"wind_gust": 17.1,
+"irradiance": 130.0,
+"precipitation_intensity": 0,
+"sun_elevation": 40.0,
+"expected_score": 36
+},
+{
+"feels_like": 44.3,
+"dew_point": 11.0,
+"wind_speed": 13.4,
+"wind_gust": 23.6,
+"irradiance": 128.9,
+"precipitation_intensity": 0,
+"sun_elevation": 51.8,
+"expected_score": 44
+},
+{
+"feels_like": 54.6,
+"dew_point": 22.9,
+"wind_speed": 12.5,
+"wind_gust": 5.9,
+"irradiance": 279.3,
+"precipitation_intensity": 0,
+"sun_elevation": 41.0,
+"expected_score": 65
+},
+{
+"feels_like": 51.2,
+"dew_point": 52.9,
+"wind_speed": 24.2,
+"wind_gust": 28.9,
+"irradiance": 243.1,
+"precipitation_intensity": 0,
+"sun_elevation": 34.1,
+"expected_score": 37
+},
+{
+"feels_like": 83.0,
+"dew_point": 21.9,
+"wind_speed": 10.7,
+"wind_gust": 31.4,
+"irradiance": 638.4,
+"precipitation_intensity": 0,
+"sun_elevation": 63.3,
+"expected_score": 56
+},
+{
+"feels_like": 63.8,
+"dew_point": 46.6,
+"wind_speed": 17.8,
+"wind_gust": 24.1,
+"irradiance": 919.9,
+"precipitation_intensity": 0,
+"sun_elevation": 45.6,
+"expected_score": 88
+},
+{
+"feels_like": 79.5,
+"dew_point": 59.0,
+"wind_speed": 18.8,
+"wind_gust": 11.3,
+"irradiance": 976.4,
+"precipitation_intensity": 0,
+"sun_elevation": -14.6,
+"expected_score": 11
+},
+{
+"feels_like": 36.3,
+"dew_point": 39.1,
+"wind_speed": 1.1,
+"wind_gust": 28.7,
+"irradiance": 912.4,
+"precipitation_intensity": 0.02,
+"sun_elevation": 23.2,
+"expected_score": 10
+},
+{
+"feels_like": 49.6,
+"dew_point": 77.0,
+"wind_speed": 1.0,
+"wind_gust": 23.9,
+"irradiance": 443.3,
+"precipitation_intensity": 0,
+"sun_elevation": 62.4,
+"expected_score": 26
+},
+{
+"feels_like": 81.1,
+"dew_point": 71.1,
+"wind_speed": 11.2,
+"wind_gust": 33.1,
+"irradiance": 270.0,
+"precipitation_intensity": 0,
+"sun_elevation": 53.6,
+"expected_score": 13
+},
+{
+"feels_like": 26.9,
+"dew_point": 12.3,
+"wind_speed": 9.6,
+"wind_gust": 33.0,
+"irradiance": 313.2,
+"precipitation_intensity": 0,
+"sun_elevation": 3.9,
+"expected_score": 42
+},
+{
+"feels_like": 50.4,
+"dew_point": 18.0,
+"wind_speed": 16.9,
+"wind_gust": 4.2,
+"irradiance": 841.4,
+"precipitation_intensity": 0.02,
+"sun_elevation": 31.3,
+"expected_score": 10
+},
+{
+"feels_like": 46.4,
+"dew_point": 33.0,
+"wind_speed": 19.6,
+"wind_gust": 43.0,
+"irradiance": 584.1,
+"precipitation_intensity": 0,
+"sun_elevation": -8.1,
+"expected_score": 61
+},
+{
+"feels_like": 85.2,
+"dew_point": 45.6,
+"wind_speed": 14.0,
+"wind_gust": 38.0,
+"irradiance": 581.4,
+"precipitation_intensity": 0.02,
+"sun_elevation": 29.3,
+"expected_score": 10
+},
+{
+"feels_like": 91.7,
+"dew_point": 66.5,
+"wind_speed": 7.3,
+"wind_gust": 7.1,
+"irradiance": 370.4,
+"precipitation_intensity": 0.02,
+"sun_elevation": 9.8,
+"expected_score": 10
+},
+{
+"feels_like": 52.8,
+"dew_point": 18.6,
+"wind_speed": 1.6,
+"wind_gust": 13.5,
+"irradiance": 799.0,
+"precipitation_intensity": 0.02,
+"sun_elevation": 8.9,
+"expected_score": 10
+},
+{
+"feels_like": 43.9,
+"dew_point": 34.0,
+"wind_speed": 8.1,
+"wind_gust": 33.7,
+"irradiance": 501.1,
+"precipitation_intensity": 0.02,
+"sun_elevation": -8.8,
+"expected_score": 10
+},
+{
+"feels_like": 45.4,
+"dew_point": 59.4,
+"wind_speed": 19.6,
+"wind_gust": 25.8,
+"irradiance": 451.8,
+"precipitation_intensity": 0,
+"sun_elevation": 24.1,
+"expected_score": 31
+},
+{
+"feels_like": 93.0,
+"dew_point": 73.1,
+"wind_speed": 24.2,
+"wind_gust": 36.7,
+"irradiance": 925.4,
+"precipitation_intensity": 0.02,
+"sun_elevation": 53.7,
+"expected_score": 10
+},
+{
+"feels_like": 30.8,
+"dew_point": 45.6,
+"wind_speed": 14.4,
+"wind_gust": 44.7,
+"irradiance": 783.9,
+"precipitation_intensity": 0.3,
+"sun_elevation": 32.8,
+"expected_score": 10
+},
+{
+"feels_like": 47.1,
+"dew_point": 77.4,
+"wind_speed": 19.9,
+"wind_gust": 16.7,
+"irradiance": 307.4,
+"precipitation_intensity": 0.02,
+"sun_elevation": 70.1,
+"expected_score": 10
+},
+{
+"feels_like": 62.6,
+"dew_point": 21.4,
+"wind_speed": 3.7,
+"wind_gust": 30.9,
+"irradiance": 562.8,
+"precipitation_intensity": 0,
+"sun_elevation": -3.0,
+"expected_score": 85
+},
+{
+"feels_like": 52.9,
+"dew_point": 59.5,
+"wind_speed": 1.3,
+"wind_gust": 4.5,
+"irradiance": 545.7,
+"precipitation_intensity": 0,
+"sun_elevation": 45.7,
+"expected_score": 53
+},
+{
+"feels_like": 36.3,
+"dew_point": 14.5,
+"wind_speed": 14.3,
+"wind_gust": 28.8,
+"irradiance": 855.2,
+"precipitation_intensity": 0,
+"sun_elevation": 39.2,
+"expected_score": 60
+},
+{
+"feels_like": 33.9,
+"dew_point": 68.6,
+"wind_speed": 0.5,
+"wind_gust": 16.6,
+"irradiance": 847.6,
+"precipitation_intensity": 0.3,
+"sun_elevation": 54.3,
+"expected_score": 10
+},
+{
+"feels_like": 37.6,
+"dew_point": 23.6,
+"wind_speed": 12.3,
+"wind_gust": 40.4,
+"irradiance": 235.2,
+"precipitation_intensity": 0,
+"sun_elevation": 42.2,
+"expected_score": 42
+},
+{
+"feels_like": 63.6,
+"dew_point": 74.2,
+"wind_speed": 20.0,
+"wind_gust": 32.7,
+"irradiance": 814.0,
+"precipitation_intensity": 0,
+"sun_elevation": 17.5,
+"expected_score": 55
+},
+{
+"feels_like": 20.7,
+"dew_point": 46.2,
+"wind_speed": 9.5,
+"wind_gust": 39.4,
+"irradiance": 76.4,
+"precipitation_intensity": 0.02,
+"sun_elevation": 61.2,
+"expected_score": 10
+},
+{
+"feels_like": 83.7,
+"dew_point": 49.8,
+"wind_speed": 1.0,
+"wind_gust": 38.3,
+"irradiance": 458.5,
+"precipitation_intensity": 0,
+"sun_elevation": 68.4,
+"expected_score": 42
+},
+{
+"feels_like": 75.7,
+"dew_point": 53.7,
+"wind_speed": 13.5,
+"wind_gust": 37.0,
+"irradiance": 512.5,
+"precipitation_intensity": 0.3,
+"sun_elevation": 9.0,
+"expected_score": 10
+},
+{
+"feels_like": 82.1,
+"dew_point": 53.9,
+"wind_speed": 24.8,
+"wind_gust": 12.7,
+"irradiance": 411.4,
+"precipitation_intensity": 0.02,
+"sun_elevation": 17.6,
+"expected_score": 10
+},
+{
+"feels_like": 70.4,
+"dew_point": 30.9,
+"wind_speed": 7.5,
+"wind_gust": 22.8,
+"irradiance": 586.3,
+"precipitation_intensity": 0.02,
+"sun_elevation": 51.1,
+"expected_score": 10
+},
+{
+"feels_like": 98.0,
+"dew_point": 27.2,
+"wind_speed": 0.2,
+"wind_gust": 19.1,
+"irradiance": 661.5,
+"precipitation_intensity": 0,
+"sun_elevation": 13.9,
+"expected_score": 69
+},
+{
+"feels_like": 52.2,
+"dew_point": 73.7,
+"wind_speed": 22.4,
+"wind_gust": 30.1,
+"irradiance": 898.7,
+"precipitation_intensity": 0,
+"sun_elevation": 57.9,
+"expected_score": 31
+},
+{
+"feels_like": 50.7,
+"dew_point": 41.6,
+"wind_speed": 19.9,
+"wind_gust": 16.8,
+"irradiance": 749.4,
+"precipitation_intensity": 0,
+"sun_elevation": 50.7,
+"expected_score": 57
+},
+{
+"feels_like": 51.1,
+"dew_point": 64.6,
+"wind_speed": 12.1,
+"wind_gust": 6.5,
+"irradiance": 148.3,
+"precipitation_intensity": 0,
+"sun_elevation": 54.9,
+"expected_score": 19
+},
+{
+"feels_like": 49.4,
+"dew_point": 18.6,
+"wind_speed": 19.7,
+"wind_gust": 42.7,
+"irradiance": 412.9,
+"precipitation_intensity": 0.02,
+"sun_elevation": 6.4,
+"expected_score": 10
+},
+{
+"feels_like": 53.7,
+"dew_point": 28.6,
+"wind_speed": 8.4,
+"wind_gust": 41.1,
+"irradiance": 215.5,
+"precipitation_intensity": 0,
+"sun_elevation": 67.3,
+"expected_score": 47
+},
+{
+"feels_like": 52.2,
+"dew_point": 38.9,
+"wind_speed": 1.6,
+"wind_gust": 9.3,
+"irradiance": 149.6,
+"precipitation_intensity": 0.3,
+"sun_elevation": -17.6,
+"expected_score": 10
+},
+{
+"feels_like": 40.3,
+"dew_point": 42.6,
+"wind_speed": 23.8,
+"wind_gust": 18.0,
+"irradiance": 723.5,
+"precipitation_intensity": 0,
+"sun_elevation": -11.8,
+"expected_score": 41
+},
+{
+"feels_like": 69.0,
+"dew_point": 77.7,
+"wind_speed": 13.7,
+"wind_gust": 24.1,
+"irradiance": 346.7,
+"precipitation_intensity": 0.3,
+"sun_elevation": 69.2,
+"expected_score": 10
+},
+{
+"feels_like": 28.3,
+"dew_point": 47.6,
+"wind_speed": 10.5,
+"wind_gust": 30.2,
+"irradiance": 118.6,
+"precipitation_intensity": 0,
+"sun_elevation": 43.0,
+"expected_score": 40
+},
+{
+"feels_like": 34.3,
+"dew_point": 64.7,
+"wind_speed": 17.6,
+"wind_gust": 2.1,
+"irradiance": 214.2,
+"precipitation_intensity": 0.3,
+"sun_elevation": -12.0,
+"expected_score": 4
+},
+{
+"feels_like": 51.2,
+"dew_point": 55.5,
+"wind_speed": 7.4,
+"wind_gust": 22.9,
+"irradiance": 905.1,
+"precipitation_intensity": 0,
+"sun_elevation": 35.8,
+"expected_score": 53
+},
+{
+"feels_like": 58.3,
+"dew_point": 20.1,
+"wind_speed": 15.3,
+"wind_gust": 31.6,
+"irradiance": 167.1,
+"precipitation_intensity": 0,
+"sun_elevation": 18.3,
+"expected_score": 80
+},
+{
+"feels_like": 91.0,
+"dew_point": 77.5,
+"wind_speed": 7.2,
+"wind_gust": 22.2,
+"irradiance": 895.0,
+"precipitation_intensity": 0.02,
+"sun_elevation": 64.0,
+"expected_score": 10
+},
+{
+"feels_like": 83.1,
+"dew_point": 52.4,
+"wind_speed": 21.5,
+"wind_gust": 4.6,
+"irradiance": 757.8,
+"precipitation_intensity": 0.3,
+"sun_elevation": 40.5,
+"expected_score": 10
+},
+{
+"feels_like": 94.1,
+"dew_point": 75.9,
+"wind_speed": 6.7,
+"wind_gust": 24.3,
+"irradiance": 440.3,
+"precipitation_intensity": 0,
+"sun_elevation": 1.0,
+"expected_score": 13
+},
+{
+"feels_like": 42.0,
+"dew_point": 58.0,
+"wind_speed": 10.3,
+"wind_gust": 5.9,
+"irradiance": 195.3,
+"precipitation_intensity": 0.02,
+"sun_elevation": 38.0,
+"expected_score": 10
+},
+{
+"feels_like": 92.3,
+"dew_point": 14.0,
+"wind_speed": 20.9,
+"wind_gust": 22.9,
+"irradiance": 945.9,
+"precipitation_intensity": 0,
+"sun_elevation": 5.7,
+"expected_score": 40
+},
+{
+"feels_like": 75.6,
+"dew_point": 28.2,
+"wind_speed": 5.4,
+"wind_gust": 16.5,
+"irradiance": 470.5,
+"precipitation_intensity": 0,
+"sun_elevation": -3.8,
+"expected_score": 60
+},
+{
+"feels_like": 80.7,
+"dew_point": 60.3,
+"wind_speed": 14.5,
+"wind_gust": 20.3,
+"irradiance": 149.4,
+"precipitation_intensity": 0.02,
+"sun_elevation": 10.0,
+"expected_score": 10
+},
+{
+"feels_like": 75.2,
+"dew_point": 53.9,
+"wind_speed": 20.3,
+"wind_gust": 40.1,
+"irradiance": 315.4,
+"precipitation_intensity": 0,
+"sun_elevation": 24.2,
+"expected_score": 60
+},
+{
+"feels_like": 29.5,
+"dew_point": 70.3,
+"wind_speed": 17.5,
+"wind_gust": 10.1,
+"irradiance": 635.3,
+"precipitation_intensity": 0.3,
+"sun_elevation": -15.4,
+"expected_score": 4
+},
+{
+"feels_like": 33.8,
+"dew_point": 17.9,
+"wind_speed": 14.1,
+"wind_gust": 22.6,
+"irradiance": 659.9,
+"precipitation_intensity": 0,
+"sun_elevation": 18.8,
+"expected_score": 62
+},
+{
+"feels_like": 20.3,
+"dew_point": 11.4,
+"wind_speed": 7.6,
+"wind_gust": 27.7,
+"irradiance": 84.6,
+"precipitation_intensity": 0,
+"sun_elevation": 5.8,
+"expected_score": 49
+},
+{
+"feels_like": 70.1,
+"dew_point": 68.6,
+"wind_speed": 6.7,
+"wind_gust": 32.3,
+"irradiance": 379.3,
+"precipitation_intensity": 0,
+"sun_elevation": 10.3,
+"expected_score": 51
+},
+{
+"feels_like": 31.2,
+"dew_point": 27.1,
+"wind_speed": 19.2,
+"wind_gust": 30.7,
+"irradiance": 41.0,
+"precipitation_intensity": 0,
+"sun_elevation": -11.6,
+"expected_score": 41
+},
+{
+"feels_like": 99.9,
+"dew_point": 30.4,
+"wind_speed": 6.2,
+"wind_gust": 23.8,
+"irradiance": 361.8,
+"precipitation_intensity": 0,
+"sun_elevation": -7.2,
+"expected_score": 53
+},
+{
+"feels_like": 51.9,
+"dew_point": 73.5,
+"wind_speed": 16.0,
+"wind_gust": 10.9,
+"irradiance": 679.6,
+"precipitation_intensity": 0,
+"sun_elevation": -19.3,
+"expected_score": 46
+},
+{
+"feels_like": 91.1,
+"dew_point": 75.2,
+"wind_speed": 2.8,
+"wind_gust": 41.5,
+"irradiance": 791.0,
+"precipitation_intensity": 0.3,
+"sun_elevation": 57.6,
+"expected_score": 10
+},
+{
+"feels_like": 68.5,
+"dew_point": 69.2,
+"wind_speed": 10.1,
+"wind_gust": 30.6,
+"irradiance": 620.6,
+"precipitation_intensity": 0.02,
+"sun_elevation": 23.8,
+"expected_score": 10
+},
+{
+"feels_like": 53.5,
+"dew_point": 73.5,
+"wind_speed": 7.5,
+"wind_gust": 9.9,
+"irradiance": 302.7,
+"precipitation_intensity": 0,
+"sun_elevation": -15.0,
+"expected_score": 60
+},
+{
+"feels_like": 60.7,
+"dew_point": 21.9,
+"wind_speed": 5.4,
+"wind_gust": 19.6,
+"irradiance": 546.0,
+"precipitation_intensity": 0,
+"sun_elevation": 29.6,
+"expected_score": 95
+},
+{
+"feels_like": 95.6,
+"dew_point": 27.8,
+"wind_speed": 3.2,
+"wind_gust": 31.9,
+"irradiance": 744.9,
+"precipitation_intensity": 0,
+"sun_elevation": 40.2,
+"expected_score": 58
+},
+{
+"feels_like": 63.5,
+"dew_point": 47.0,
+"wind_speed": 21.1,
+"wind_gust": 32.5,
+"irradiance": 684.6,
+"precipitation_intensity": 0,
+"sun_elevation": 37.0,
+"expected_score": 85
+},
+{
+"feels_like": 55.6,
+"dew_point": 19.0,
+"wind_speed": 1.9,
+"wind_gust": 26.1,
+"irradiance": 676.6,
+"precipitation_intensity": 0,
+"sun_elevation": 24.5,
+"expected_score": 77
+},
+{
+"feels_like": 84.1,
+"dew_point": 62.2,
+"wind_speed": 9.1,
+"wind_gust": 13.2,
+"irradiance": 155.6,
+"precipitation_intensity": 0,
+"sun_elevation": 56.6,
+"expected_score": 20
+},
+{
+"feels_like": 52.5,
+"dew_point": 76.4,
+"wind_speed": 3.6,
+"wind_gust": 13.3,
+"irradiance": 687.0,
+"precipitation_intensity": 0.3,
+"sun_elevation": 35.5,
+"expected_score": 10
+},
+{
+"feels_like": 20.7,
+"dew_point": 74.8,
+"wind_speed": 23.0,
+"wind_gust": 28.9,
+"irradiance": 379.5,
+"precipitation_intensity": 0.02,
+"sun_elevation": 66.7,
+"expected_score": 10
+},
+{
+"feels_like": 28.1,
+"dew_point": 12.1,
+"wind_speed": 10.8,
+"wind_gust": 30.6,
+"irradiance": 276.1,
+"precipitation_intensity": 0,
+"sun_elevation": 17.6,
+"expected_score": 59
+},
+{
+"feels_like": 68.5,
+"dew_point": 13.6,
+"wind_speed": 11.8,
+"wind_gust": 1.7,
+"irradiance": 704.1,
+"precipitation_intensity": 0,
+"sun_elevation": 54.7,
+"expected_score": 95
+},
+{
+"feels_like": 86.5,
+"dew_point": 49.9,
+"wind_speed": 13.3,
+"wind_gust": 34.3,
+"irradiance": 551.0,
+"precipitation_intensity": 0.02,
+"sun_elevation": 63.6,
+"expected_score": 10
+},
+{
+"feels_like": 72.4,
+"dew_point": 64.5,
+"wind_speed": 20.5,
+"wind_gust": 11.0,
+"irradiance": 808.3,
+"precipitation_intensity": 0,
+"sun_elevation": -10.3,
+"expected_score": 8
+},
+{
+"feels_like": 96.2,
+"dew_point": 69.3,
+"wind_speed": 2.9,
+"wind_gust": 1.8,
+"irradiance": 704.1,
+"precipitation_intensity": 0,
+"sun_elevation": 60.9,
+"expected_score": 40
+},
+{
+"feels_like": 47.7,
+"dew_point": 54.7,
+"wind_speed": 24.9,
+"wind_gust": 34.7,
+"irradiance": 55.7,
+"precipitation_intensity": 0,
+"sun_elevation": 18.2,
+"expected_score": 23
+},
+{
+"feels_like": 48.7,
+"dew_point": 61.3,
+"wind_speed": 8.5,
+"wind_gust": 35.9,
+"irradiance": 238.1,
+"precipitation_intensity": 0.02,
+"sun_elevation": 27.7,
+"expected_score": 10
+},
+{
+"feels_like": 24.5,
+"dew_point": 55.8,
+"wind_speed": 22.3,
+"wind_gust": 7.7,
+"irradiance": 642.7,
+"precipitation_intensity": 0,
+"sun_elevation": 62.3,
+"expected_score": 37
+},
+{
+"feels_like": 80.6,
+"dew_point": 18.3,
+"wind_speed": 14.6,
+"wind_gust": 21.6,
+"irradiance": 209.2,
+"precipitation_intensity": 0.3,
+"sun_elevation": 56.7,
+"expected_score": 10
+},
+{
+"feels_like": 34.0,
+"dew_point": 58.7,
+"wind_speed": 2.5,
+"wind_gust": 15.1,
+"irradiance": 969.9,
+"precipitation_intensity": 0.3,
+"sun_elevation": 2.6,
+"expected_score": 10
+},
+{
+"feels_like": 74.1,
+"dew_point": 60.5,
+"wind_speed": 9.2,
+"wind_gust": 29.3,
+"irradiance": 663.2,
+"precipitation_intensity": 0,
+"sun_elevation": 19.7,
+"expected_score": 51
+},
+{
+"feels_like": 51.9,
+"dew_point": 18.2,
+"wind_speed": 12.2,
+"wind_gust": 12.0,
+"irradiance": 125.2,
+"precipitation_intensity": 0,
+"sun_elevation": 14.6,
+"expected_score": 74
+},
+{
+"feels_like": 28.7,
+"dew_point": 11.8,
+"wind_speed": 1.9,
+"wind_gust": 8.2,
+"irradiance": 766.1,
+"precipitation_intensity": 0.3,
+"sun_elevation": 26.2,
+"expected_score": 10
+},
+{
+"feels_like": 85.2,
+"dew_point": 72.4,
+"wind_speed": 3.9,
+"wind_gust": 23.6,
+"irradiance": 105.7,
+"precipitation_intensity": 0,
+"sun_elevation": -18.3,
+"expected_score": 13
+},
+{
+"feels_like": 51.7,
+"dew_point": 53.1,
+"wind_speed": 18.4,
+"wind_gust": 41.1,
+"irradiance": 537.7,
+"precipitation_intensity": 0,
+"sun_elevation": 71.2,
+"expected_score": 42
+},
+{
+"feels_like": 63.5,
+"dew_point": 27.0,
+"wind_speed": 10.6,
+"wind_gust": 7.2,
+"irradiance": 179.1,
+"precipitation_intensity": 0.3,
+"sun_elevation": 2.0,
+"expected_score": 10
+},
+{
+"feels_like": 82.0,
+"dew_point": 73.6,
+"wind_speed": 24.0,
+"wind_gust": 7.9,
+"irradiance": 585.4,
+"precipitation_intensity": 0.02,
+"sun_elevation": -0.0,
+"expected_score": 0
+},
+{
+"feels_like": 38.9,
+"dew_point": 12.8,
+"wind_speed": 12.9,
+"wind_gust": 8.6,
+"irradiance": 504.0,
+"precipitation_intensity": 0.02,
+"sun_elevation": 40.1,
+"expected_score": 10
+},
+{
+"feels_like": 62.9,
+"dew_point": 26.9,
+"wind_speed": 19.5,
+"wind_gust": 5.4,
+"irradiance": 643.9,
+"precipitation_intensity": 0,
+"sun_elevation": -11.7,
+"expected_score": 81
+},
+{
+"feels_like": 27.6,
+"dew_point": 65.4,
+"wind_speed": 1.1,
+"wind_gust": 23.3,
+"irradiance": 777.4,
+"precipitation_intensity": 0,
+"sun_elevation": 67.9,
+"expected_score": 35
+},
+{
+"feels_like": 45.0,
+"dew_point": 28.9,
+"wind_speed": 10.4,
+"wind_gust": 26.8,
+"irradiance": 986.1,
+"precipitation_intensity": 0.3,
+"sun_elevation": 56.1,
+"expected_score": 10
+},
+{
+"feels_like": 81.6,
+"dew_point": 53.3,
+"wind_speed": 24.8,
+"wind_gust": 36.1,
+"irradiance": 553.8,
+"precipitation_intensity": 0.3,
+"sun_elevation": 16.4,
+"expected_score": 10
+},
+{
+"feels_like": 51.1,
+"dew_point": 23.6,
+"wind_speed": 20.4,
+"wind_gust": 16.2,
+"irradiance": 151.5,
+"precipitation_intensity": 0.02,
+"sun_elevation": 5.7,
+"expected_score": 10
+},
+{
+"feels_like": 34.0,
+"dew_point": 59.0,
+"wind_speed": 2.1,
+"wind_gust": 16.2,
+"irradiance": 928.4,
+"precipitation_intensity": 0,
+"sun_elevation": 3.5,
+"expected_score": 29
+},
+{
+"feels_like": 47.9,
+"dew_point": 29.0,
+"wind_speed": 11.7,
+"wind_gust": 6.7,
+"irradiance": 130.3,
+"precipitation_intensity": 0,
+"sun_elevation": 0.8,
+"expected_score": 79
+},
+{
+"feels_like": 25.6,
+"dew_point": 49.4,
+"wind_speed": 15.5,
+"wind_gust": 24.4,
+"irradiance": 716.1,
+"precipitation_intensity": 0,
+"sun_elevation": 33.1,
+"expected_score": 58
+},
+{
+"feels_like": 64.3,
+"dew_point": 36.6,
+"wind_speed": 4.9,
+"wind_gust": 28.1,
+"irradiance": 77.1,
+"precipitation_intensity": 0.3,
+"sun_elevation": -14.7,
+"expected_score": 10
+},
+{
+"feels_like": 79.7,
+"dew_point": 36.0,
+"wind_speed": 17.1,
+"wind_gust": 26.6,
+"irradiance": 129.2,
+"precipitation_intensity": 0.02,
+"sun_elevation": 30.3,
+"expected_score": 10
+},
+{
+"feels_like": 94.2,
+"dew_point": 67.8,
+"wind_speed": 3.5,
+"wind_gust": 9.1,
+"irradiance": 718.9,
+"precipitation_intensity": 0,
+"sun_elevation": 12.8,
+"expected_score": 40
+},
+{
+"feels_like": 87.1,
+"dew_point": 25.3,
+"wind_speed": 17.7,
+"wind_gust": 15.6,
+"irradiance": 535.4,
+"precipitation_intensity": 0,
+"sun_elevation": 27.3,
+"expected_score": 58
+},
+{
+"feels_like": 43.9,
+"dew_point": 58.0,
+"wind_speed": 0.5,
+"wind_gust": 36.0,
+"irradiance": 622.1,
+"precipitation_intensity": 0,
+"sun_elevation": 36.6,
+"expected_score": 34
+},
+{
+"feels_like": 80.4,
+"dew_point": 27.3,
+"wind_speed": 1.5,
+"wind_gust": 37.3,
+"irradiance": 315.6,
+"precipitation_intensity": 0,
+"sun_elevation": 68.0,
+"expected_score": 41
+},
+{
+"feels_like": 70.3,
+"dew_point": 17.0,
+"wind_speed": 21.3,
+"wind_gust": 28.5,
+"irradiance": 245.9,
+"precipitation_intensity": 0,
+"sun_elevation": 26.4,
+"expected_score": 79
+},
+{
+"feels_like": 51.7,
+"dew_point": 72.0,
+"wind_speed": 24.6,
+"wind_gust": 9.5,
+"irradiance": 947.2,
+"precipitation_intensity": 0.3,
+"sun_elevation": 64.9,
+"expected_score": 10
+},
+{
+"feels_like": 30.7,
+"dew_point": 58.7,
+"wind_speed": 6.4,
+"wind_gust": 0.2,
+"irradiance": 120.9,
+"precipitation_intensity": 0,
+"sun_elevation": 70.7,
+"expected_score": 26
+},
+{
+"feels_like": 65.0,
+"dew_point": 55.1,
+"wind_speed": 13.6,
+"wind_gust": 10.4,
+"irradiance": 37.7,
+"precipitation_intensity": 0,
+"sun_elevation": 41.8,
+"expected_score": 55
+},
+{
+"feels_like": 93.7,
+"dew_point": 44.2,
+"wind_speed": 21.4,
+"wind_gust": 43.5,
+"irradiance": 768.9,
+"precipitation_intensity": 0,
+"sun_elevation": 16.7,
+"expected_score": 55
+},
+{
+"feels_like": 59.5,
+"dew_point": 55.5,
+"wind_speed": 20.8,
+"wind_gust": 8.4,
+"irradiance": 15.9,
+"precipitation_intensity": 0,
+"sun_elevation": 24.9,
+"expected_score": 39
+},
+{
+"feels_like": 51.5,
+"dew_point": 59.6,
+"wind_speed": 20.6,
+"wind_gust": 15.1,
+"irradiance": 243.5,
+"precipitation_intensity": 0,
+"sun_elevation": 42.4,
+"expected_score": 21
+},
+{
+"feels_like": 23.4,
+"dew_point": 38.7,
+"wind_speed": 11.0,
+"wind_gust": 43.1,
+"irradiance": 595.3,
+"precipitation_intensity": 0,
+"sun_elevation": 58.0,
+"expected_score": 53
+},
+{
+"feels_like": 50.8,
+"dew_point": 34.5,
+"wind_speed": 5.8,
+"wind_gust": 29.6,
+"irradiance": 586.1,
+"precipitation_intensity": 0,
+"sun_elevation": 11.4,
+"expected_score": 75
+},
+{
+"feels_like": 24.1,
+"dew_point": 13.0,
+"wind_speed": 15.3,
+"wind_gust": 40.1,
+"irradiance": 853.8,
+"precipitation_intensity": 0,
+"sun_elevation": 23.2,
+"expected_score": 55
+},
+{
+"feels_like": 66.7,
+"dew_point": 14.4,
+"wind_speed": 21.6,
+"wind_gust": 25.4,
+"irradiance": 92.0,
+"precipitation_intensity": 0,
+"sun_elevation": 53.3,
+"expected_score": 64
+},
+{
+"feels_like": 87.4,
+"dew_point": 53.9,
+"wind_speed": 9.9,
+"wind_gust": 40.8,
+"irradiance": 470.6,
+"precipitation_intensity": 0,
+"sun_elevation": 30.8,
+"expected_score": 42
+},
+{
+"feels_like": 92.8,
+"dew_point": 42.4,
+"wind_speed": 10.7,
+"wind_gust": 26.5,
+"irradiance": 317.3,
+"precipitation_intensity": 0,
+"sun_elevation": 34.8,
+"expected_score": 56
+},
+{
+"feels_like": 64.5,
+"dew_point": 77.8,
+"wind_speed": 1.6,
+"wind_gust": 27.3,
+"irradiance": 790.9,
+"precipitation_intensity": 0,
+"sun_elevation": 18.2,
+"expected_score": 62
+},
+{
+"feels_like": 99.9,
+"dew_point": 63.8,
+"wind_speed": 14.4,
+"wind_gust": 5.1,
+"irradiance": 573.8,
+"precipitation_intensity": 0,
+"sun_elevation": -10.7,
+"expected_score": 9
+},
+{
+"feels_like": 46.6,
+"dew_point": 73.4,
+"wind_speed": 18.8,
+"wind_gust": 1.6,
+"irradiance": 370.2,
+"precipitation_intensity": 0,
+"sun_elevation": 24.6,
+"expected_score": 26
+},
+{
+"feels_like": 70.7,
+"dew_point": 67.6,
+"wind_speed": 11.2,
+"wind_gust": 22.5,
+"irradiance": 810.3,
+"precipitation_intensity": 0,
+"sun_elevation": 64.9,
+"expected_score": 66
+},
+{
+"feels_like": 92.8,
+"dew_point": 34.5,
+"wind_speed": 3.7,
+"wind_gust": 26.1,
+"irradiance": 589.6,
+"precipitation_intensity": 0,
+"sun_elevation": 9.2,
+"expected_score": 50
+},
+{
+"feels_like": 60.7,
+"dew_point": 65.9,
+"wind_speed": 24.9,
+"wind_gust": 38.3,
+"irradiance": 608.8,
+"precipitation_intensity": 0,
+"sun_elevation": 45.4,
+"expected_score": 52
+},
+{
+"feels_like": 81.4,
+"dew_point": 26.8,
+"wind_speed": 19.8,
+"wind_gust": 34.0,
+"irradiance": 397.0,
+"precipitation_intensity": 0,
+"sun_elevation": 32.8,
+"expected_score": 55
+},
+{
+"feels_like": 69.5,
+"dew_point": 15.1,
+"wind_speed": 4.3,
+"wind_gust": 42.1,
+"irradiance": 267.3,
+"precipitation_intensity": 0,
+"sun_elevation": -8.4,
+"expected_score": 62
+},
+{
+"feels_like": 64.1,
+"dew_point": 53.6,
+"wind_speed": 5.9,
+"wind_gust": 4.4,
+"irradiance": 721.7,
+"precipitation_intensity": 0,
+"sun_elevation": 47.9,
+"expected_score": 88
+},
+{
+"feels_like": 44.1,
+"dew_point": 69.4,
+"wind_speed": 24.4,
+"wind_gust": 37.0,
+"irradiance": 75.1,
+"precipitation_intensity": 0,
+"sun_elevation": 11.2,
+"expected_score": 16
+},
+{
+"feels_like": 43.7,
+"dew_point": 45.1,
+"wind_speed": 0.9,
+"wind_gust": 36.6,
+"irradiance": 799.1,
+"precipitation_intensity": 0,
+"sun_elevation": -17.4,
+"expected_score": 52
+},
+{
+"feels_like": 45.2,
+"dew_point": 61.0,
+"wind_speed": 22.2,
+"wind_gust": 1.8,
+"irradiance": 588.4,
+"precipitation_intensity": 0.3,
+"sun_elevation": 37.9,
+"expected_score": 10
+},
+{
+"feels_like": 62.1,
+"dew_point": 22.5,
+"wind_speed": 22.6,
+"wind_gust": 10.5,
+"irradiance": 587.4,
+"precipitation_intensity": 0.02,
+"sun_elevation": 26.6,
+"expected_score": 10
+},
+{
+"feels_like": 77.7,
+"dew_point": 41.2,
+"wind_speed": 19.5,
+"wind_gust": 16.3,
+"irradiance": 456.1,
+"precipitation_intensity": 0.02,
+"sun_elevation": 46.5,
+"expected_score": 10
+},
+{
+"feels_like": 37.6,
+"dew_point": 73.4,
+"wind_speed": 0.2,
+"wind_gust": 44.2,
+"irradiance": 32.3,
+"precipitation_intensity": 0,
+"sun_elevation": 62.7,
+"expected_score": 1
+},
+{
+"feels_like": 23.2,
+"dew_point": 25.6,
+"wind_speed": 22.2,
+"wind_gust": 23.6,
+"irradiance": 173.3,
+"precipitation_intensity": 0.02,
+"sun_elevation": -1.6,
+"expected_score": 10
+},
+{
+"feels_like": 55.4,
+"dew_point": 26.5,
+"wind_speed": 12.6,
+"wind_gust": 14.6,
+"irradiance": 944.4,
+"precipitation_intensity": 0,
+"sun_elevation": -2.0,
+"expected_score": 92
+},
+{
+"feels_like": 34.5,
+"dew_point": 56.5,
+"wind_speed": 7.4,
+"wind_gust": 42.0,
+"irradiance": 426.2,
+"precipitation_intensity": 0,
+"sun_elevation": 13.4,
+"expected_score": 37
+},
+{
+"feels_like": 59.0,
+"dew_point": 73.2,
+"wind_speed": 16.5,
+"wind_gust": 26.0,
+"irradiance": 619.8,
+"precipitation_intensity": 0,
+"sun_elevation": 56.1,
+"expected_score": 51
+},
+{
+"feels_like": 66.6,
+"dew_point": 33.0,
+"wind_speed": 16.2,
+"wind_gust": 8.8,
+"irradiance": 514.2,
+"precipitation_intensity": 0,
+"sun_elevation": 67.6,
+"expected_score": 83
+},
+{
+"feels_like": 86.6,
+"dew_point": 48.3,
+"wind_speed": 13.8,
+"wind_gust": 22.5,
+"irradiance": 477.6,
+"precipitation_intensity": 0.3,
+"sun_elevation": 47.9,
+"expected_score": 10
+},
+{
+"feels_like": 92.4,
+"dew_point": 62.2,
+"wind_speed": 15.1,
+"wind_gust": 7.4,
+"irradiance": 268.3,
+"precipitation_intensity": 0.02,
+"sun_elevation": 7.7,
+"expected_score": 8
+},
+{
+"feels_like": 81.2,
+"dew_point": 37.0,
+"wind_speed": 13.5,
+"wind_gust": 11.5,
+"irradiance": 14.7,
+"precipitation_intensity": 0,
+"sun_elevation": 51.9,
+"expected_score": 39
+},
+{
+"feels_like": 56.6,
+"dew_point": 34.2,
+"wind_speed": 12.7,
+"wind_gust": 9.4,
+"irradiance": 476.0,
+"precipitation_intensity": 0,
+"sun_elevation": 44.1,
+"expected_score": 78
+},
+{
+"feels_like": 70.1,
+"dew_point": 36.1,
+"wind_speed": 10.9,
+"wind_gust": 28.9,
+"irradiance": 356.3,
+"precipitation_intensity": 0,
+"sun_elevation": 3.5,
+"expected_score": 71
+},
+{
+"feels_like": 63.3,
+"dew_point": 13.7,
+"wind_speed": 9.5,
+"wind_gust": 14.6,
+"irradiance": 308.8,
+"precipitation_intensity": 0,
+"sun_elevation": -0.8,
+"expected_score": 98
+},
+{
+"feels_like": 26.5,
+"dew_point": 18.2,
+"wind_speed": 24.7,
+"wind_gust": 29.0,
+"irradiance": 128.4,
+"precipitation_intensity": 0.3,
+"sun_elevation": 7.1,
+"expected_score": 10
+},
+{
+"feels_like": 52.8,
+"dew_point": 33.2,
+"wind_speed": 0.7,
+"wind_gust": 29.0,
+"irradiance": 689.6,
+"precipitation_intensity": 0.02,
+"sun_elevation": 49.0,
+"expected_score": 10
+},
+{
+"feels_like": 71.3,
+"dew_point": 30.6,
+"wind_speed": 9.5,
+"wind_gust": 41.7,
+"irradiance": 973.0,
+"precipitation_intensity": 0,
+"sun_elevation": 66.5,
+"expected_score": 85
+},
+{
+"feels_like": 52.6,
+"dew_point": 25.7,
+"wind_speed": 1.1,
+"wind_gust": 10.8,
+"irradiance": 224.6,
+"precipitation_intensity": 0.3,
+"sun_elevation": 16.3,
+"expected_score": 10
+},
+{
+"feels_like": 36.8,
+"dew_point": 20.3,
+"wind_speed": 24.7,
+"wind_gust": 33.5,
+"irradiance": 879.1,
+"precipitation_intensity": 0,
+"sun_elevation": 45.6,
+"expected_score": 55
+},
+{
+"feels_like": 75.0,
+"dew_point": 40.2,
+"wind_speed": 4.3,
+"wind_gust": 6.6,
+"irradiance": 992.1,
+"precipitation_intensity": 0,
+"sun_elevation": 31.0,
+"expected_score": 89
+},
+{
+"feels_like": 90.0,
+"dew_point": 44.9,
+"wind_speed": 7.9,
+"wind_gust": 27.2,
+"irradiance": 583.6,
+"precipitation_intensity": 0,
+"sun_elevation": 54.6,
+"expected_score": 60
+},
+{
+"feels_like": 73.0,
+"dew_point": 39.2,
+"wind_speed": 21.0,
+"wind_gust": 33.9,
+"irradiance": 638.7,
+"precipitation_intensity": 0,
+"sun_elevation": 26.1,
+"expected_score": 81
+},
+{
+"feels_like": 89.6,
+"dew_point": 60.9,
+"wind_speed": 18.7,
+"wind_gust": 44.5,
+"irradiance": 264.7,
+"precipitation_intensity": 0,
+"sun_elevation": 52.2,
+"expected_score": 13
+},
+{
+"feels_like": 24.3,
+"dew_point": 50.6,
+"wind_speed": 12.9,
+"wind_gust": 7.3,
+"irradiance": 292.1,
+"precipitation_intensity": 0,
+"sun_elevation": 70.0,
+"expected_score": 43
+},
+{
+"feels_like": 25.5,
+"dew_point": 10.2,
+"wind_speed": 1.5,
+"wind_gust": 32.9,
+"irradiance": 852.5,
+"precipitation_intensity": 0,
+"sun_elevation": -14.9,
+"expected_score": 42
+},
+{
+"feels_like": 22.8,
+"dew_point": 33.1,
+"wind_speed": 19.6,
+"wind_gust": 27.5,
+"irradiance": 559.0,
+"precipitation_intensity": 0,
+"sun_elevation": -1.6,
+"expected_score": 41
+},
+{
+"feels_like": 43.6,
+"dew_point": 47.4,
+"wind_speed": 6.3,
+"wind_gust": 10.5,
+"irradiance": 210.7,
+"precipitation_intensity": 0,
+"sun_elevation": 2.0,
+"expected_score": 69
+},
+{
+"feels_like": 64.4,
+"dew_point": 40.8,
+"wind_speed": 8.3,
+"wind_gust": 18.3,
+"irradiance": 16.0,
+"precipitation_intensity": 0,
+"sun_elevation": 26.5,
+"expected_score": 76
+},
+{
+"feels_like": 27.5,
+"dew_point": 22.6,
+"wind_speed": 5.6,
+"wind_gust": 13.7,
+"irradiance": 806.0,
+"precipitation_intensity": 0,
+"sun_elevation": 53.1,
+"expected_score": 70
+},
+{
+"feels_like": 90.2,
+"dew_point": 19.9,
+"wind_speed": 20.8,
+"wind_gust": 6.8,
+"irradiance": 43.1,
+"precipitation_intensity": 0,
+"sun_elevation": 68.5,
+"expected_score": 31
+},
+{
+"feels_like": 24.7,
+"dew_point": 16.1,
+"wind_speed": 5.0,
+"wind_gust": 10.3,
+"irradiance": 185.1,
+"precipitation_intensity": 0,
+"sun_elevation": -1.4,
+"expected_score": 60
+},
+{
+"feels_like": 79.7,
+"dew_point": 17.9,
+"wind_speed": 23.8,
+"wind_gust": 36.5,
+"irradiance": 219.8,
+"precipitation_intensity": 0,
+"sun_elevation": 45.7,
+"expected_score": 41
+},
+{
+"feels_like": 62.2,
+"dew_point": 69.2,
+"wind_speed": 18.1,
+"wind_gust": 32.6,
+"irradiance": 765.0,
+"precipitation_intensity": 0,
+"sun_elevation": 12.2,
+"expected_score": 57
+},
+{
+"feels_like": 56.3,
+"dew_point": 69.5,
+"wind_speed": 16.5,
+"wind_gust": 27.7,
+"irradiance": 864.5,
+"precipitation_intensity": 0,
+"sun_elevation": -11.8,
+"expected_score": 46
+},
+{
+"feels_like": 94.5,
+"dew_point": 66.6,
+"wind_speed": 12.2,
+"wind_gust": 15.5,
+"irradiance": 178.6,
+"precipitation_intensity": 0.3,
+"sun_elevation": -9.5,
+"expected_score": 10
+},
+{
+"feels_like": 25.8,
+"dew_point": 64.2,
+"wind_speed": 22.1,
+"wind_gust": 24.0,
+"irradiance": 920.8,
+"precipitation_intensity": 0,
+"sun_elevation": 49.4,
+"expected_score": 25
+},
+{
+"feels_like": 49.6,
+"dew_point": 41.0,
+"wind_speed": 8.8,
+"wind_gust": 17.8,
+"irradiance": 471.3,
+"precipitation_intensity": 0,
+"sun_elevation": 14.1,
+"expected_score": 79
+},
+{
+"feels_like": 44.2,
+"dew_point": 30.6,
+"wind_speed": 3.2,
+"wind_gust": 24.7,
+"irradiance": 726.8,
+"precipitation_intensity": 0,
+"sun_elevation": 22.1,
+"expected_score": 64
+},
+{
+"feels_like": 70.2,
+"dew_point": 19.2,
+"wind_speed": 2.0,
+"wind_gust": 27.5,
+"irradiance": 235.4,
+"precipitation_intensity": 0.3,
+"sun_elevation": 9.0,
+"expected_score": 10
+},
+{
+"feels_like": 42.2,
+"dew_point": 42.2,
+"wind_speed": 1.9,
+"wind_gust": 6.9,
+"irradiance": 353.3,
+"precipitation_intensity": 0,
+"sun_elevation": 64.3,
+"expected_score": 58
+},
+{
+"feels_like": 87.6,
+"dew_point": 56.5,
+"wind_speed": 1.7,
+"wind_gust": 8.4,
+"irradiance": 534.6,
+"precipitation_intensity": 0,
+"sun_elevation": 46.8,
+"expected_score": 51
+},
+{
+"feels_like": 35.3,
+"dew_point": 34.2,
+"wind_speed": 24.1,
+"wind_gust": 22.8,
+"irradiance": 870.3,
+"precipitation_intensity": 0.02,
+"sun_elevation": 37.7,
+"expected_score": 10
+},
+{
+"feels_like": 73.3,
+"dew_point": 33.3,
+"wind_speed": 3.0,
+"wind_gust": 42.7,
+"irradiance": 32.6,
+"precipitation_intensity": 0,
+"sun_elevation": 61.4,
+"expected_score": 56
+},
+{
+"feels_like": 76.9,
+"dew_point": 64.3,
+"wind_speed": 1.6,
+"wind_gust": 37.7,
+"irradiance": 304.4,
+"precipitation_intensity": 0.02,
+"sun_elevation": 17.1,
+"expected_score": 10
+},
+{
+"feels_like": 48.8,
+"dew_point": 13.4,
+"wind_speed": 23.5,
+"wind_gust": 31.4,
+"irradiance": 6.8,
+"precipitation_intensity": 0,
+"sun_elevation": 69.8,
+"expected_score": 30
+},
+{
+"feels_like": 37.8,
+"dew_point": 44.4,
+"wind_speed": 6.7,
+"wind_gust": 7.3,
+"irradiance": 75.4,
+"precipitation_intensity": 0.02,
+"sun_elevation": 27.0,
+"expected_score": 10
+},
+{
+"feels_like": 92.1,
+"dew_point": 46.7,
+"wind_speed": 22.6,
+"wind_gust": 24.4,
+"irradiance": 432.1,
+"precipitation_intensity": 0,
+"sun_elevation": 33.4,
+"expected_score": 55
+},
+{
+"feels_like": 58.0,
+"dew_point": 44.8,
+"wind_speed": 8.9,
+"wind_gust": 19.5,
+"irradiance": 74.2,
+"precipitation_intensity": 0,
+"sun_elevation": 1.1,
+"expected_score": 98
+},
+{
+"feels_like": 31.4,
+"dew_point": 62.5,
+"wind_speed": 0.5,
+"wind_gust": 21.9,
+"irradiance": 183.9,
+"precipitation_intensity": 0,
+"sun_elevation": -12.4,
+"expected_score": 15
+},
+{
+"feels_like": 39.0,
+"dew_point": 57.3,
+"wind_speed": 5.3,
+"wind_gust": 19.9,
+"irradiance": 656.0,
+"precipitation_intensity": 0.02,
+"sun_elevation": 11.5,
+"expected_score": 10
+},
+{
+"feels_like": 66.0,
+"dew_point": 67.0,
+"wind_speed": 16.8,
+"wind_gust": 44.3,
+"irradiance": 17.9,
+"precipitation_intensity": 0,
+"sun_elevation": 61.8,
+"expected_score": 31
+},
+{
+"feels_like": 64.2,
+"dew_point": 71.3,
+"wind_speed": 21.3,
+"wind_gust": 22.5,
+"irradiance": 349.5,
+"precipitation_intensity": 0,
+"sun_elevation": -13.7,
+"expected_score": 40
+},
+{
+"feels_like": 45.5,
+"dew_point": 60.4,
+"wind_speed": 14.2,
+"wind_gust": 44.9,
+"irradiance": 605.1,
+"precipitation_intensity": 0.02,
+"sun_elevation": -11.8,
+"expected_score": 10
+},
+{
+"feels_like": 47.0,
+"dew_point": 67.9,
+"wind_speed": 6.6,
+"wind_gust": 44.6,
+"irradiance": 645.8,
+"precipitation_intensity": 0,
+"sun_elevation": -18.2,
+"expected_score": 23
+},
+{
+"feels_like": 34.4,
+"dew_point": 32.3,
+"wind_speed": 7.8,
+"wind_gust": 37.5,
+"irradiance": 252.4,
+"precipitation_intensity": 0,
+"sun_elevation": 67.6,
+"expected_score": 39
+},
+{
+"feels_like": 53.3,
+"dew_point": 10.8,
+"wind_speed": 4.1,
+"wind_gust": 13.1,
+"irradiance": 115.8,
+"precipitation_intensity": 0,
+"sun_elevation": 65.3,
+"expected_score": 57
+},
+{
+"feels_like": 37.4,
+"dew_point": 34.2,
+"wind_speed": 16.4,
+"wind_gust": 25.4,
+"irradiance": 576.0,
+"precipitation_intensity": 0.02,
+"sun_elevation": 3.5,
+"expected_score": 10
+},
+{
+"feels_like": 33.8,
+"dew_point": 19.7,
+"wind_speed": 2.4,
+"wind_gust": 16.1,
+"irradiance": 744.5,
+"precipitation_intensity": 0.3,
+"sun_elevation": 60.4,
+"expected_score": 10
+},
+{
+"feels_like": 51.7,
+"dew_point": 40.5,
+"wind_speed": 20.8,
+"wind_gust": 43.7,
+"irradiance": 242.9,
+"precipitation_intensity": 0.3,
+"sun_elevation": 38.9,
+"expected_score": 10
+},
+{
+"feels_like": 26.3,
+"dew_point": 14.8,
+"wind_speed": 13.0,
+"wind_gust": 21.2,
+"irradiance": 484.3,
+"precipitation_intensity": 0,
+"sun_elevation": 64.4,
+"expected_score": 56
+},
+{
+"feels_like": 83.6,
+"dew_point": 48.3,
+"wind_speed": 12.4,
+"wind_gust": 0.6,
+"irradiance": 552.7,
+"precipitation_intensity": 0.02,
+"sun_elevation": 56.4,
+"expected_score": 10
+},
+{
+"feels_like": 56.0,
+"dew_point": 50.4,
+"wind_speed": 9.3,
+"wind_gust": 37.8,
+"irradiance": 368.3,
+"precipitation_intensity": 0,
+"sun_elevation": 20.3,
+"expected_score": 70
+},
+{
+"feels_like": 75.0,
+"dew_point": 55.0,
+"wind_speed": 7.6,
+"wind_gust": 4.0,
+"irradiance": 758.0,
+"precipitation_intensity": 0,
+"sun_elevation": -2.0,
+"expected_score": 40
+},
+{
+"feels_like": 30.8,
+"dew_point": 73.3,
+"wind_speed": 1.1,
+"wind_gust": 16.4,
+"irradiance": 337.2,
+"precipitation_intensity": 0,
+"sun_elevation": 32.3,
+"expected_score": 36
+},
+{
+"feels_like": 58.3,
+"dew_point": 49.2,
+"wind_speed": 22.1,
+"wind_gust": 27.4,
+"irradiance": 444.1,
+"precipitation_intensity": 0,
+"sun_elevation": 26.9,
+"expected_score": 73
+},
+{
+"feels_like": 99.0,
+"dew_point": 77.6,
+"wind_speed": 3.1,
+"wind_gust": 11.8,
+"irradiance": 991.4,
+"precipitation_intensity": 0,
+"sun_elevation": -7.9,
+"expected_score": 20
+},
+{
+"feels_like": 84.4,
+"dew_point": 60.4,
+"wind_speed": 13.3,
+"wind_gust": 10.5,
+"irradiance": 706.6,
+"precipitation_intensity": 0,
+"sun_elevation": 22.1,
+"expected_score": 37
+},
+{
+"feels_like": 64.2,
+"dew_point": 21.5,
+"wind_speed": 15.4,
+"wind_gust": 43.0,
+"irradiance": 592.0,
+"precipitation_intensity": 0,
+"sun_elevation": 6.0,
+"expected_score": 80
+},
+{
+"feels_like": 32.4,
+"dew_point": 10.4,
+"wind_speed": 24.5,
+"wind_gust": 5.4,
+"irradiance": 380.0,
+"precipitation_intensity": 0.3,
+"sun_elevation": 27.2,
+"expected_score": 10
+},
+{
+"feels_like": 34.3,
+"dew_point": 70.3,
+"wind_speed": 11.2,
+"wind_gust": 24.0,
+"irradiance": 363.8,
+"precipitation_intensity": 0,
+"sun_elevation": -15.0,
+"expected_score": 13
+},
+{
+"feels_like": 77.8,
+"dew_point": 16.6,
+"wind_speed": 9.7,
+"wind_gust": 20.0,
+"irradiance": 182.0,
+"precipitation_intensity": 0,
+"sun_elevation": 28.0,
+"expected_score": 64
+},
+{
+"feels_like": 67.5,
+"dew_point": 49.9,
+"wind_speed": 23.7,
+"wind_gust": 26.6,
+"irradiance": 488.3,
+"precipitation_intensity": 0,
+"sun_elevation": 64.0,
+"expected_score": 74
+},
+{
+"feels_like": 82.1,
+"dew_point": 21.8,
+"wind_speed": 14.9,
+"wind_gust": 8.1,
+"irradiance": 775.7,
+"precipitation_intensity": 0.02,
+"sun_elevation": -14.4,
+"expected_score": 10
+},
+{
+"feels_like": 73.7,
+"dew_point": 76.3,
+"wind_speed": 13.8,
+"wind_gust": 20.1,
+"irradiance": 319.0,
+"precipitation_intensity": 0,
+"sun_elevation": 61.8,
+"expected_score": 43
+},
+{
+"feels_like": 28.1,
+"dew_point": 13.7,
+"wind_speed": 11.7,
+"wind_gust": 41.9,
+"irradiance": 465.3,
+"precipitation_intensity": 0.02,
+"sun_elevation": -11.2,
+"expected_score": 10
+},
+{
+"feels_like": 52.1,
+"dew_point": 68.9,
+"wind_speed": 22.1,
+"wind_gust": 27.6,
+"irradiance": 856.1,
+"precipitation_intensity": 0.02,
+"sun_elevation": -6.3,
+"expected_score": 10
+},
+{
+"feels_like": 31.7,
+"dew_point": 76.0,
+"wind_speed": 15.3,
+"wind_gust": 10.1,
+"irradiance": 811.0,
+"precipitation_intensity": 0,
+"sun_elevation": 61.6,
+"expected_score": 31
+},
+{
+"feels_like": 72.0,
+"dew_point": 20.6,
+"wind_speed": 17.5,
+"wind_gust": 19.1,
+"irradiance": 453.6,
+"precipitation_intensity": 0,
+"sun_elevation": 31.5,
+"expected_score": 88
+},
+{
+"feels_like": 95.0,
+"dew_point": 37.1,
+"wind_speed": 9.7,
+"wind_gust": 32.3,
+"irradiance": 301.7,
+"precipitation_intensity": 0.3,
+"sun_elevation": 7.9,
+"expected_score": 10
+},
+{
+"feels_like": 66.5,
+"dew_point": 31.3,
+"wind_speed": 18.8,
+"wind_gust": 7.8,
+"irradiance": 489.4,
+"precipitation_intensity": 0,
+"sun_elevation": -5.9,
+"expected_score": 80
+},
+{
+"feels_like": 28.4,
+"dew_point": 18.4,
+"wind_speed": 8.0,
+"wind_gust": 44.8,
+"irradiance": 494.3,
+"precipitation_intensity": 0.3,
+"sun_elevation": 31.4,
+"expected_score": 10
+},
+{
+"feels_like": 70.8,
+"dew_point": 59.2,
+"wind_speed": 8.0,
+"wind_gust": 26.7,
+"irradiance": 462.6,
+"precipitation_intensity": 0,
+"sun_elevation": 43.6,
+"expected_score": 65
+},
+{
+"feels_like": 85.9,
+"dew_point": 71.7,
+"wind_speed": 4.2,
+"wind_gust": 24.1,
+"irradiance": 858.8,
+"precipitation_intensity": 0,
+"sun_elevation": -15.3,
+"expected_score": 13
+},
+{
+"feels_like": 45.7,
+"dew_point": 52.1,
+"wind_speed": 1.5,
+"wind_gust": 18.9,
+"irradiance": 29.7,
+"precipitation_intensity": 0,
+"sun_elevation": 13.3,
+"expected_score": 41
+},
+{
+"feels_like": 67.6,
+"dew_point": 54.9,
+"wind_speed": 10.2,
+"wind_gust": 35.4,
+"irradiance": 853.5,
+"precipitation_intensity": 0,
+"sun_elevation": 63.5,
+"expected_score": 70
+},
+{
+"feels_like": 45.1,
+"dew_point": 77.7,
+"wind_speed": 9.6,
+"wind_gust": 34.8,
+"irradiance": 8.4,
+"precipitation_intensity": 0.3,
+"sun_elevation": 63.0,
+"expected_score": 0
+},
+{
+"feels_like": 96.8,
+"dew_point": 51.1,
+"wind_speed": 19.5,
+"wind_gust": 37.8,
+"irradiance": 222.2,
+"precipitation_intensity": 0,
+"sun_elevation": 55.7,
+"expected_score": 32
+},
+{
+"feels_like": 45.6,
+"dew_point": 23.9,
+"wind_speed": 21.8,
+"wind_gust": 4.3,
+"irradiance": 4.0,
+"precipitation_intensity": 0,
+"sun_elevation": -11.4,
+"expected_score": 59
+},
+{
+"feels_like": 52.6,
+"dew_point": 20.4,
+"wind_speed": 13.3,
+"wind_gust": 33.0,
+"irradiance": 987.2,
+"precipitation_intensity": 0,
+"sun_elevation": -6.7,
+"expected_score": 82
+},
+{
+"feels_like": 55.0,
+"dew_point": 46.9,
+"wind_speed": 15.9,
+"wind_gust": 31.5,
+"irradiance": 973.3,
+"precipitation_intensity": 0,
+"sun_elevation": -2.2,
+"expected_score": 84
+},
+{
+"feels_like": 33.2,
+"dew_point": 46.6,
+"wind_speed": 24.1,
+"wind_gust": 6.6,
+"irradiance": 442.0,
+"precipitation_intensity": 0.02,
+"sun_elevation": -8.1,
+"expected_score": 10
+},
+{
+"feels_like": 30.7,
+"dew_point": 32.7,
+"wind_speed": 19.8,
+"wind_gust": 31.6,
+"irradiance": 317.3,
+"precipitation_intensity": 0,
+"sun_elevation": -18.1,
+"expected_score": 40
+},
+{
+"feels_like": 82.3,
+"dew_point": 25.4,
+"wind_speed": 17.3,
+"wind_gust": 26.7,
+"irradiance": 34.3,
+"precipitation_intensity": 0.3,
+"sun_elevation": -11.7,
+"expected_score": 10
+},
+{
+"feels_like": 62.6,
+"dew_point": 48.4,
+"wind_speed": 3.6,
+"wind_gust": 16.2,
+"irradiance": 137.9,
+"precipitation_intensity": 0.3,
+"sun_elevation": 12.1,
+"expected_score": 10
+},
+{
+"feels_like": 25.2,
+"dew_point": 42.3,
+"wind_speed": 13.2,
+"wind_gust": 39.9,
+"irradiance": 719.1,
+"precipitation_intensity": 0,
+"sun_elevation": 43.4,
+"expected_score": 55
+},
+{
+"feels_like": 83.8,
+"dew_point": 59.1,
+"wind_speed": 7.6,
+"wind_gust": 12.0,
+"irradiance": 519.0,
+"precipitation_intensity": 0,
+"sun_elevation": 53.4,
+"expected_score": 42
+},
+{
+"feels_like": 85.1,
+"dew_point": 62.5,
+"wind_speed": 2.8,
+"wind_gust": 18.0,
+"irradiance": 104.8,
+"precipitation_intensity": 0.3,
+"sun_elevation": 65.6,
+"expected_score": 10
+},
+{
+"feels_like": 66.1,
+"dew_point": 58.3,
+"wind_speed": 12.1,
+"wind_gust": 12.6,
+"irradiance": 431.2,
+"precipitation_intensity": 0.3,
+"sun_elevation": 12.1,
+"expected_score": 10
+},
+{
+"feels_like": 80.0,
+"dew_point": 38.0,
+"wind_speed": 9.2,
+"wind_gust": 24.7,
+"irradiance": 205.9,
+"precipitation_intensity": 0,
+"sun_elevation": -6.7,
+"expected_score": 52
+},
+{
+"feels_like": 39.2,
+"dew_point": 26.4,
+"wind_speed": 9.8,
+"wind_gust": 35.3,
+"irradiance": 440.8,
+"precipitation_intensity": 0,
+"sun_elevation": -15.0,
+"expected_score": 40
+},
+{
+"feels_like": 85.2,
+"dew_point": 65.7,
+"wind_speed": 0.2,
+"wind_gust": 19.4,
+"irradiance": 785.7,
+"precipitation_intensity": 0,
+"sun_elevation": -7.8,
+"expected_score": 18
+},
+{
+"feels_like": 38.9,
+"dew_point": 62.5,
+"wind_speed": 9.4,
+"wind_gust": 18.7,
+"irradiance": 341.8,
+"precipitation_intensity": 0.3,
+"sun_elevation": -15.6,
+"expected_score": 10
+},
+{
+"feels_like": 56.4,
+"dew_point": 56.8,
+"wind_speed": 13.1,
+"wind_gust": 26.3,
+"irradiance": 349.4,
+"precipitation_intensity": 0,
+"sun_elevation": 38.5,
+"expected_score": 53
+},
+{
+"feels_like": 30.0,
+"dew_point": 74.7,
+"wind_speed": 20.1,
+"wind_gust": 16.4,
+"irradiance": 150.5,
+"precipitation_intensity": 0,
+"sun_elevation": 23.5,
+"expected_score": 13
+},
+{
+"feels_like": 22.1,
+"dew_point": 14.6,
+"wind_speed": 19.9,
+"wind_gust": 44.1,
+"irradiance": 431.0,
+"precipitation_intensity": 0,
+"sun_elevation": 30.1,
+"expected_score": 55
+},
+{
+"feels_like": 60.1,
+"dew_point": 18.8,
+"wind_speed": 21.2,
+"wind_gust": 31.8,
+"irradiance": 393.6,
+"precipitation_intensity": 0.02,
+"sun_elevation": 30.1,
+"expected_score": 10
+},
+{
+"feels_like": 52.8,
+"dew_point": 72.0,
+"wind_speed": 13.1,
+"wind_gust": 21.5,
+"irradiance": 733.8,
+"precipitation_intensity": 0,
+"sun_elevation": -9.3,
+"expected_score": 52
+},
+{
+"feels_like": 36.9,
+"dew_point": 51.5,
+"wind_speed": 17.4,
+"wind_gust": 4.7,
+"irradiance": 354.9,
+"precipitation_intensity": 0,
+"sun_elevation": -9.8,
+"expected_score": 34
+},
+{
+"feels_like": 72.3,
+"dew_point": 16.0,
+"wind_speed": 12.8,
+"wind_gust": 41.0,
+"irradiance": 234.5,
+"precipitation_intensity": 0,
+"sun_elevation": 24.9,
+"expected_score": 78
+},
+{
+"feels_like": 24.9,
+"dew_point": 39.2,
+"wind_speed": 7.5,
+"wind_gust": 28.3,
+"irradiance": 670.2,
+"precipitation_intensity": 0,
+"sun_elevation": 5.5,
+"expected_score": 48
+},
+{
+"feels_like": 69.6,
+"dew_point": 39.8,
+"wind_speed": 6.7,
+"wind_gust": 44.8,
+"irradiance": 321.6,
+"precipitation_intensity": 0,
+"sun_elevation": 20.6,
+"expected_score": 85
+},
+{
+"feels_like": 24.4,
+"dew_point": 44.9,
+"wind_speed": 18.6,
+"wind_gust": 19.7,
+"irradiance": 295.7,
+"precipitation_intensity": 0.02,
+"sun_elevation": -3.2,
+"expected_score": 10
+},
+{
+"feels_like": 60.8,
+"dew_point": 54.8,
+"wind_speed": 19.0,
+"wind_gust": 30.0,
+"irradiance": 413.8,
+"precipitation_intensity": 0.3,
+"sun_elevation": 31.5,
+"expected_score": 10
+},
+{
+"feels_like": 51.9,
+"dew_point": 61.1,
+"wind_speed": 5.5,
+"wind_gust": 0.8,
+"irradiance": 993.1,
+"precipitation_intensity": 0,
+"sun_elevation": 69.5,
+"expected_score": 47
+},
+{
+"feels_like": 91.4,
+"dew_point": 66.2,
+"wind_speed": 6.5,
+"wind_gust": 37.7,
+"irradiance": 789.6,
+"precipitation_intensity": 0.02,
+"sun_elevation": 60.9,
+"expected_score": 10
+},
+{
+"feels_like": 31.1,
+"dew_point": 44.1,
+"wind_speed": 3.4,
+"wind_gust": 20.5,
+"irradiance": 38.0,
+"precipitation_intensity": 0,
+"sun_elevation": 47.1,
+"expected_score": 44
+},
+{
+"feels_like": 92.8,
+"dew_point": 46.9,
+"wind_speed": 3.1,
+"wind_gust": 43.9,
+"irradiance": 537.7,
+"precipitation_intensity": 0,
+"sun_elevation": 37.3,
+"expected_score": 55
+},
+{
+"feels_like": 25.2,
+"dew_point": 41.4,
+"wind_speed": 0.3,
+"wind_gust": 12.0,
+"irradiance": 961.5,
+"precipitation_intensity": 0.3,
+"sun_elevation": -18.0,
+"expected_score": 10
+},
+{
+"feels_like": 52.1,
+"dew_point": 16.7,
+"wind_speed": 8.1,
+"wind_gust": 27.9,
+"irradiance": 695.7,
+"precipitation_intensity": 0.02,
+"sun_elevation": 65.4,
+"expected_score": 10
+},
+{
+"feels_like": 55.8,
+"dew_point": 51.5,
+"wind_speed": 13.2,
+"wind_gust": 26.5,
+"irradiance": 679.3,
+"precipitation_intensity": 0,
+"sun_elevation": -4.4,
+"expected_score": 80
+},
+{
+"feels_like": 69.4,
+"dew_point": 64.8,
+"wind_speed": 2.9,
+"wind_gust": 23.8,
+"irradiance": 753.0,
+"precipitation_intensity": 0,
+"sun_elevation": -5.1,
+"expected_score": 36
+},
+{
+"feels_like": 32.0,
+"dew_point": 68.9,
+"wind_speed": 2.2,
+"wind_gust": 15.9,
+"irradiance": 690.1,
+"precipitation_intensity": 0.02,
+"sun_elevation": 20.0,
+"expected_score": 10
+},
+{
+"feels_like": 69.2,
+"dew_point": 29.4,
+"wind_speed": 20.3,
+"wind_gust": 3.1,
+"irradiance": 596.0,
+"precipitation_intensity": 0,
+"sun_elevation": 65.8,
+"expected_score": 81
+},
+{
+"feels_like": 21.7,
+"dew_point": 51.5,
+"wind_speed": 7.1,
+"wind_gust": 21.4,
+"irradiance": 436.5,
+"precipitation_intensity": 0,
+"sun_elevation": -3.0,
+"expected_score": 46
+},
+{
+"feels_like": 81.4,
+"dew_point": 12.3,
+"wind_speed": 15.9,
+"wind_gust": 37.1,
+"irradiance": 429.4,
+"precipitation_intensity": 0,
+"sun_elevation": 12.6,
+"expected_score": 55
+},
+{
+"feels_like": 48.4,
+"dew_point": 71.9,
+"wind_speed": 24.8,
+"wind_gust": 35.5,
+"irradiance": 229.5,
+"precipitation_intensity": 0,
+"sun_elevation": 13.6,
+"expected_score": 32
+},
+{
+"feels_like": 89.4,
+"dew_point": 31.9,
+"wind_speed": 5.4,
+"wind_gust": 11.6,
+"irradiance": 690.9,
+"precipitation_intensity": 0.3,
+"sun_elevation": 27.9,
+"expected_score": 10
+},
+{
+"feels_like": 28.6,
+"dew_point": 56.6,
+"wind_speed": 22.5,
+"wind_gust": 35.2,
+"irradiance": 1.8,
+"precipitation_intensity": 0,
+"sun_elevation": 4.2,
+"expected_score": 15
+},
+{
+"feels_like": 83.4,
+"dew_point": 29.8,
+"wind_speed": 24.4,
+"wind_gust": 9.4,
+"irradiance": 132.8,
+"precipitation_intensity": 0.3,
+"sun_elevation": 15.0,
+"expected_score": 10
+},
+{
+"feels_like": 22.8,
+"dew_point": 62.2,
+"wind_speed": 11.4,
+"wind_gust": 38.9,
+"irradiance": 131.8,
+"precipitation_intensity": 0,
+"sun_elevation": 39.4,
+"expected_score": 7
+},
+{
+"feels_like": 90.9,
+"dew_point": 57.7,
+"wind_speed": 10.9,
+"wind_gust": 23.2,
+"irradiance": 98.4,
+"precipitation_intensity": 0,
+"sun_elevation": 25.2,
+"expected_score": 28
+},
+{
+"feels_like": 29.3,
+"dew_point": 43.8,
+"wind_speed": 17.7,
+"wind_gust": 42.4,
+"irradiance": 634.5,
+"precipitation_intensity": 0.02,
+"sun_elevation": 19.9,
+"expected_score": 10
+},
+{
+"feels_like": 64.3,
+"dew_point": 38.7,
+"wind_speed": 18.9,
+"wind_gust": 28.2,
+"irradiance": 945.3,
+"precipitation_intensity": 0,
+"sun_elevation": 19.2,
+"expected_score": 86
+},
+{
+"feels_like": 24.9,
+"dew_point": 36.4,
+"wind_speed": 10.8,
+"wind_gust": 4.3,
+"irradiance": 598.2,
+"precipitation_intensity": 0,
+"sun_elevation": 34.8,
+"expected_score": 66
+},
+{
+"feels_like": 41.2,
+"dew_point": 66.4,
+"wind_speed": 2.7,
+"wind_gust": 35.2,
+"irradiance": 153.0,
+"precipitation_intensity": 0.3,
+"sun_elevation": 29.5,
+"expected_score": 10
+},
+{
+"feels_like": 40.8,
+"dew_point": 55.7,
+"wind_speed": 16.9,
+"wind_gust": 25.3,
+"irradiance": 733.2,
+"precipitation_intensity": 0,
+"sun_elevation": 50.9,
+"expected_score": 42
+},
+{
+"feels_like": 56.3,
+"dew_point": 61.0,
+"wind_speed": 7.1,
+"wind_gust": 36.1,
+"irradiance": 406.3,
+"precipitation_intensity": 0,
+"sun_elevation": -17.4,
+"expected_score": 43
+},
+{
+"feels_like": 66.6,
+"dew_point": 18.8,
+"wind_speed": 19.2,
+"wind_gust": 43.7,
+"irradiance": 492.0,
+"precipitation_intensity": 0,
+"sun_elevation": 26.9,
+"expected_score": 85
+},
+{
+"feels_like": 50.1,
+"dew_point": 14.2,
+"wind_speed": 15.0,
+"wind_gust": 11.2,
+"irradiance": 39.7,
+"precipitation_intensity": 0,
+"sun_elevation": -12.3,
+"expected_score": 82
+},
+{
+"feels_like": 68.9,
+"dew_point": 33.6,
+"wind_speed": 1.1,
+"wind_gust": 3.3,
+"irradiance": 45.3,
+"precipitation_intensity": 0,
+"sun_elevation": 12.6,
+"expected_score": 83
+},
+{
+"feels_like": 27.3,
+"dew_point": 42.0,
+"wind_speed": 8.9,
+"wind_gust": 14.7,
+"irradiance": 768.7,
+"precipitation_intensity": 0.3,
+"sun_elevation": 12.7,
+"expected_score": 10
+},
+{
+"feels_like": 62.1,
+"dew_point": 32.3,
+"wind_speed": 5.8,
+"wind_gust": 11.2,
+"irradiance": 772.3,
+"precipitation_intensity": 0,
+"sun_elevation": 8.6,
+"expected_score": 100
+},
+{
+"feels_like": 99.4,
+"dew_point": 66.5,
+"wind_speed": 8.1,
+"wind_gust": 13.6,
+"irradiance": 4.8,
+"precipitation_intensity": 0,
+"sun_elevation": 3.3,
+"expected_score": 20
+},
+{
+"feels_like": 72.6,
+"dew_point": 25.7,
+"wind_speed": 24.3,
+"wind_gust": 38.7,
+"irradiance": 84.5,
+"precipitation_intensity": 0,
+"sun_elevation": -1.4,
+"expected_score": 47
+},
+{
+"feels_like": 33.2,
+"dew_point": 47.6,
+"wind_speed": 22.9,
+"wind_gust": 38.5,
+"irradiance": 621.3,
+"precipitation_intensity": 0,
+"sun_elevation": 15.5,
+"expected_score": 55
+},
+{
+"feels_like": 76.4,
+"dew_point": 20.8,
+"wind_speed": 11.1,
+"wind_gust": 18.0,
+"irradiance": 112.6,
+"precipitation_intensity": 0,
+"sun_elevation": 51.0,
+"expected_score": 59
+},
+{
+"feels_like": 77.7,
+"dew_point": 29.7,
+"wind_speed": 24.6,
+"wind_gust": 29.3,
+"irradiance": 336.5,
+"precipitation_intensity": 0,
+"sun_elevation": -13.5,
+"expected_score": 40
+},
+{
+"feels_like": 38.5,
+"dew_point": 45.6,
+"wind_speed": 17.9,
+"wind_gust": 25.0,
+"irradiance": 9.8,
+"precipitation_intensity": 0,
+"sun_elevation": 22.2,
+"expected_score": 34
+},
+{
+"feels_like": 63.2,
+"dew_point": 23.1,
+"wind_speed": 6.1,
+"wind_gust": 9.6,
+"irradiance": 606.5,
+"precipitation_intensity": 0,
+"sun_elevation": 4.3,
+"expected_score": 100
+},
+{
+"feels_like": 48.0,
+"dew_point": 29.5,
+"wind_speed": 0.7,
+"wind_gust": 0.5,
+"irradiance": 781.0,
+"precipitation_intensity": 0,
+"sun_elevation": -16.1,
+"expected_score": 87
+},
+{
+"feels_like": 26.2,
+"dew_point": 40.7,
+"wind_speed": 7.6,
+"wind_gust": 11.1,
+"irradiance": 869.8,
+"precipitation_intensity": 0,
+"sun_elevation": -17.2,
+"expected_score": 60
+},
+{
+"feels_like": 70.9,
+"dew_point": 19.2,
+"wind_speed": 14.9,
+"wind_gust": 39.8,
+"irradiance": 974.1,
+"precipitation_intensity": 0,
+"sun_elevation": 70.0,
+"expected_score": 85
+},
+{
+"feels_like": 22.3,
+"dew_point": 25.5,
+"wind_speed": 11.9,
+"wind_gust": 37.7,
+"irradiance": 949.5,
+"precipitation_intensity": 0,
+"sun_elevation": 0.6,
+"expected_score": 40
+},
+{
+"feels_like": 25.0,
+"dew_point": 69.2,
+"wind_speed": 8.0,
+"wind_gust": 26.0,
+"irradiance": 517.5,
+"precipitation_intensity": 0,
+"sun_elevation": -2.1,
+"expected_score": 11
+},
+{
+"feels_like": 20.6,
+"dew_point": 29.0,
+"wind_speed": 6.5,
+"wind_gust": 24.4,
+"irradiance": 873.8,
+"precipitation_intensity": 0.02,
+"sun_elevation": 28.6,
+"expected_score": 10
+},
+{
+"feels_like": 57.2,
+"dew_point": 16.0,
+"wind_speed": 19.0,
+"wind_gust": 25.3,
+"irradiance": 133.1,
+"precipitation_intensity": 0.02,
+"sun_elevation": -0.8,
+"expected_score": 10
+},
+{
+"feels_like": 22.1,
+"dew_point": 13.5,
+"wind_speed": 7.9,
+"wind_gust": 9.8,
+"irradiance": 396.9,
+"precipitation_intensity": 0,
+"sun_elevation": 47.0,
+"expected_score": 63
+},
+{
+"feels_like": 67.5,
+"dew_point": 66.6,
+"wind_speed": 22.0,
+"wind_gust": 2.9,
+"irradiance": 689.1,
+"precipitation_intensity": 0,
+"sun_elevation": 31.1,
+"expected_score": 55
+},
+{
+"feels_like": 63.7,
+"dew_point": 47.0,
+"wind_speed": 14.8,
+"wind_gust": 9.8,
+"irradiance": 304.2,
+"precipitation_intensity": 0,
+"sun_elevation": 68.1,
+"expected_score": 77
+},
+{
+"feels_like": 92.8,
+"dew_point": 11.6,
+"wind_speed": 14.2,
+"wind_gust": 8.6,
+"irradiance": 520.9,
+"precipitation_intensity": 0.02,
+"sun_elevation": 61.6,
+"expected_score": 10
+},
+{
+"feels_like": 38.4,
+"dew_point": 24.3,
+"wind_speed": 4.1,
+"wind_gust": 29.6,
+"irradiance": 402.6,
+"precipitation_intensity": 0,
+"sun_elevation": -18.6,
+"expected_score": 46
+},
+{
+"feels_like": 84.1,
+"dew_point": 67.0,
+"wind_speed": 1.0,
+"wind_gust": 26.4,
+"irradiance": 474.9,
+"precipitation_intensity": 0,
+"sun_elevation": 66.6,
+"expected_score": 24
+},
+{
+"feels_like": 37.4,
+"dew_point": 41.9,
+"wind_speed": 16.5,
+"wind_gust": 4.9,
+"irradiance": 864.2,
+"precipitation_intensity": 0,
+"sun_elevation": 60.3,
+"expected_score": 59
+},
+{
+"feels_like": 25.1,
+"dew_point": 33.0,
+"wind_speed": 11.9,
+"wind_gust": 23.0,
+"irradiance": 367.6,
+"precipitation_intensity": 0.02,
+"sun_elevation": 2.8,
+"expected_score": 10
+},
+{
+"feels_like": 96.1,
+"dew_point": 27.7,
+"wind_speed": 10.1,
+"wind_gust": 17.4,
+"irradiance": 802.3,
+"precipitation_intensity": 0,
+"sun_elevation": 14.7,
+"expected_score": 67
+},
+{
+"feels_like": 69.7,
+"dew_point": 17.2,
+"wind_speed": 17.2,
+"wind_gust": 27.0,
+"irradiance": 805.2,
+"precipitation_intensity": 0,
+"sun_elevation": -17.6,
+"expected_score": 66
+},
+{
+"feels_like": 90.0,
+"dew_point": 43.6,
+"wind_speed": 24.5,
+"wind_gust": 20.7,
+"irradiance": 110.1,
+"precipitation_intensity": 0.3,
+"sun_elevation": 50.3,
+"expected_score": 10
+},
+{
+"feels_like": 95.6,
+"dew_point": 40.9,
+"wind_speed": 12.8,
+"wind_gust": 40.0,
+"irradiance": 676.8,
+"precipitation_intensity": 0,
+"sun_elevation": 57.5,
+"expected_score": 55
+},
+{
+"feels_like": 61.9,
+"dew_point": 51.8,
+"wind_speed": 8.4,
+"wind_gust": 25.7,
+"irradiance": 429.8,
+"precipitation_intensity": 0,
+"sun_elevation": 45.9,
+"expected_score": 79
+},
+{
+"feels_like": 78.4,
+"dew_point": 43.3,
+"wind_speed": 9.6,
+"wind_gust": 43.2,
+"irradiance": 254.7,
+"precipitation_intensity": 0,
+"sun_elevation": 3.9,
+"expected_score": 40
+},
+{
+"feels_like": 65.2,
+"dew_point": 32.1,
+"wind_speed": 12.9,
+"wind_gust": 8.2,
+"irradiance": 293.6,
+"precipitation_intensity": 0,
+"sun_elevation": -4.3,
+"expected_score": 92
+},
+{
+"feels_like": 49.8,
+"dew_point": 53.3,
+"wind_speed": 19.4,
+"wind_gust": 20.4,
+"irradiance": 808.4,
+"precipitation_intensity": 0,
+"sun_elevation": 41.1,
+"expected_score": 44
+}
+]
+}
