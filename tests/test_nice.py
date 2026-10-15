@@ -1,11 +1,24 @@
+import pytest
+
 from custom_components.better_weather.nice import nice_score, score_components
+
 from .conftest import fixture_json
 
 
-def test_golden_scores():
-    for c in fixture_json("golden_nice_scores.json")["cases"]:
-        assert nice_score(c["feels_like"], c["dew_point"], c["wind_speed"], c["wind_gust"],
-                          c["irradiance"], c["precipitation_intensity"], c["sun_elevation"]) == c["expected_score"]
+@pytest.mark.parametrize("c", fixture_json("golden_nice_scores.json")["cases"])
+def test_golden_scores(c):
+    assert (
+        nice_score(
+            c["feels_like"],
+            c["dew_point"],
+            c["wind_speed"],
+            c["wind_gust"],
+            c["irradiance"],
+            c["precipitation_intensity"],
+            c["sun_elevation"],
+        )
+        == c["expected_score"]
+    )
 
 
 def test_rain_and_night():

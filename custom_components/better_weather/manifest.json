@@ -1,0 +1,13 @@
+{
+  "domain": "better_weather",
+  "name": "Better Weather",
+  "codeowners": ["@leboff"],
+  "config_flow": true,
+  "dependencies": ["recorder"],
+  "documentation": "https://github.com/leboff/ha-better-weather",
+  "integration_type": "service",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/leboff/ha-better-weather/issues",
+  "requirements": [],
+  "version": "0.1.0"
+}

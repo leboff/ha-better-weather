@@ -1,0 +1,114 @@
+{
+  "title": "Better Weather",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Better Weather",
+        "description": "Blend global forecasts and learn from your weather station.",
+        "data": {
+          "name": "Name",
+          "latitude": "Latitude",
+          "longitude": "Longitude",
+          "station_temperature": "Station temperature",
+          "station_dew_point": "Station dew point",
+          "station_humidity": "Station humidity",
+          "station_wind_speed": "Station wind speed",
+          "station_wind_gust": "Station wind gust",
+          "station_wind_bearing": "Station wind bearing",
+          "station_pressure": "Station pressure",
+          "station_irradiance": "Station irradiance",
+          "station_precipitation_rate": "Station precipitation rate",
+          "station_uv_index": "Station uv index",
+          "station_feels_like": "Station feels like"
+        }
+      },
+      "reconfigure": {
+        "title": "Station sensors",
+        "data": {
+          "station_temperature": "Station temperature",
+          "station_dew_point": "Station dew point",
+          "station_humidity": "Station humidity",
+          "station_wind_speed": "Station wind speed",
+          "station_wind_gust": "Station wind gust",
+          "station_wind_bearing": "Station wind bearing",
+          "station_pressure": "Station pressure",
+          "station_irradiance": "Station irradiance",
+          "station_precipitation_rate": "Station precipitation rate",
+          "station_uv_index": "Station uv index",
+          "station_feels_like": "Station feels like"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Unable to connect to Open-Meteo."
+    },
+    "abort": {
+      "already_configured": "This location is already configured.",
+      "reconfigure_successful": "Station sensors updated."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Forecast and comfort preferences",
+        "data": {
+          "day_lo": "Day lo",
+          "day_hi": "Day hi",
+          "dusk_lo": "Dusk lo",
+          "dusk_hi": "Dusk hi",
+          "band_full_sun_elev": "Band full sun elev",
+          "cold_falloff": "Cold falloff",
+          "hot_falloff": "Hot falloff",
+          "dew_ok": "Dew ok",
+          "dew_bad": "Dew bad",
+          "wind_ok": "Wind ok",
+          "wind_bad": "Wind bad",
+          "gust_ok": "Gust ok",
+          "gust_bad": "Gust bad",
+          "sun_min_elev": "Sun min elev",
+          "clear_sky_frac": "Clear sky frac",
+          "w_temp": "W temp",
+          "w_dew": "W dew",
+          "w_sun": "W sun",
+          "w_wind": "W wind",
+          "rain_cap": "Rain cap",
+          "models": "Forecast models",
+          "correction_window_days": "Correction window (days)",
+          "correction_enabled": "Enable bias corrections",
+          "nice_wake_hour": "Wake hour (local)",
+          "nice_sleep_hour": "Sleep hour (local)",
+          "day_rain_cap": "Rainy day score cap",
+          "rain_hour_min_in": "Rainy hour threshold (in/h)"
+        }
+      }
+    },
+    "error": {
+      "no_models": "Select at least one model.",
+      "invalid_thresholds": "Use increasing comfort bounds, a wake hour before sleep, and positive total temperature/dew/wind weight."
+    }
+  },
+  "entity": {
+    "weather": {
+      "weather": {
+        "name": "Weather"
+      }
+    },
+    "sensor": {
+      "nice_right_now": {
+        "name": "Nice right now"
+      },
+      "nice_today": {
+        "name": "Nice today"
+      },
+      "nice_tomorrow": {
+        "name": "Nice tomorrow"
+      },
+      "forecast_skill": {
+        "name": "Forecast skill"
+      },
+      "corrections": {
+        "name": "Corrections"
+      }
+    }
+  }
+}
