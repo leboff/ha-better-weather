@@ -6,8 +6,12 @@ from homeassistant.components.sensor import SensorEntity, SensorStateClass
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.util import dt as dt_util
+from homeassistant.util.unit_conversion import DistanceConverter, SpeedConverter, TemperatureConverter
 
+from .blend import aggregate_daily
 from .entity import device_info
+
+FORECAST_DAYS = 8
 
 
 async def async_setup_entry(hass, entry, async_add_entities):
@@ -20,6 +24,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
                 "nice_tomorrow",
                 "corrections",
                 "forecast_skill",
+                "daily_forecast",
             )
         ]
     )
@@ -27,6 +32,8 @@ async def async_setup_entry(hass, entry, async_add_entities):
 
 class BetterWeatherSensor(CoordinatorEntity, SensorEntity):
     _attr_has_entity_name = True
+    # Large list attributes are for dashboards, not the recorder.
+    _unrecorded_attributes = frozenset({"forecast", "hourly", "last_10", "models"})
 
     def __init__(self, entry, key):
         super().__init__(entry.runtime_data.forecast)
@@ -34,15 +41,53 @@ class BetterWeatherSensor(CoordinatorEntity, SensorEntity):
         self._attr_unique_id = f"{entry.entry_id}_{key}"
         self._attr_translation_key = key
         self._attr_device_info = device_info(entry)
-        if key in ("corrections", "forecast_skill"):
+        if key == "daily_forecast":
+            self._attr_icon = "mdi:calendar-weather"
+        elif key in ("corrections", "forecast_skill"):
             self._attr_entity_category = EntityCategory.DIAGNOSTIC
             self._attr_icon = "mdi:chart-line"
         else:
             self._attr_state_class = SensorStateClass.MEASUREMENT
             self._attr_icon = "mdi:weather-sunny"
 
+    def daily_forecast(self):
+        """Daily forecast in the user's units, shaped like weather.get_forecasts output.
+
+        Lets dashboards read the forecast from state attributes (no service call needed).
+        """
+        data = self.coordinator.data or {}
+        tz = self.runtime.corrections.tz
+        today = dt_util.now(tz).date()
+        rows = [r for r in data.get("hourly", []) if r["time"].astimezone(tz).date() >= today]
+        units = self.hass.config.units
+        temp_unit = units.temperature_unit
+        temp_digits = 0 if temp_unit == "°F" else 1
+        precip_unit = units.accumulated_precipitation_unit
+        wind_unit = units.wind_speed_unit
+        out = []
+        for day in aggregate_daily(rows, tz)[:FORECAST_DAYS]:
+            item = {"datetime": day["datetime"], "condition": day.get("condition")}
+            for src, dst in (("native_temperature", "temperature"), ("native_templow", "templow")):
+                if day.get(src) is not None:
+                    item[dst] = round(TemperatureConverter.convert(day[src], "°C", temp_unit), temp_digits)
+            if day.get("native_precipitation") is not None:
+                item["precipitation"] = round(DistanceConverter.convert(day["native_precipitation"], "mm", precip_unit), 2)
+            if day.get("precipitation_probability") is not None:
+                item["precipitation_probability"] = round(day["precipitation_probability"])
+            for src, dst in (("native_wind_speed", "wind_speed"), ("native_wind_gust_speed", "wind_gust_speed")):
+                if day.get(src) is not None:
+                    item[dst] = round(SpeedConverter.convert(day[src], "km/h", wind_unit), 1)
+            if day.get("uv_index") is not None:
+                item["uv_index"] = round(day["uv_index"], 1)
+            out.append(item)
+        if not out:
+            return None, {}
+        return out[0]["condition"], {"forecast": out}
+
     def value_and_attributes(self):
         skill = self.runtime.skill
+        if self.key == "daily_forecast":
+            return self.daily_forecast()
         if self.key == "nice_right_now":
             return skill.current()
         if self.key in ("nice_today", "nice_tomorrow"):

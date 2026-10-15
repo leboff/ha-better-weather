@@ -108,6 +108,9 @@
       },
       "corrections": {
         "name": "Corrections"
+      },
+      "daily_forecast": {
+        "name": "Daily forecast"
       }
     }
   }

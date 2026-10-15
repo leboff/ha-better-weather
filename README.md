@@ -166,3 +166,11 @@ real station fixture, and golden calculations are checked directly.
 Weather data: [Open-Meteo](https://open-meteo.com/), provided under
 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Respect the service's
 usage terms. Code is MIT licensed.
+
+### Daily forecast sensor (v0.2.0)
+
+`sensor.<name>_daily_forecast`: state is today's condition, and the `forecast` attribute is the daily
+forecast in your unit system (same keys as `weather.get_forecasts`: `datetime`, `condition`,
+`temperature`, `templow`, `precipitation`, `precipitation_probability`, `wind_speed`,
+`wind_gust_speed`, `uv_index`). Dashboard cards can read it directly from state attributes without
+calling a service, which makes it a drop-in replacement for the common "template forecast sensor" pattern.

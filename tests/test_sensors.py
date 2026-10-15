@@ -256,3 +256,27 @@ async def test_scheduled_snapshot_and_startup_catchup(hass, setup_entry, freezer
     assert await hass.config_entries.async_setup(setup_entry.entry_id)
     await hass.async_block_till_done()
     assert "2026-10-16" in setup_entry.runtime_data.skill.records
+
+
+async def test_daily_forecast_sensor_matches_weather_service(hass, setup_entry):
+    """The attribute forecast is a drop-in for template forecast sensors (user units)."""
+    state = hass.states.get("sensor.better_weather_daily_forecast")
+    assert state is not None and state.state not in ("unavailable", "unknown")
+    fc = state.attributes["forecast"]
+    assert 1 <= len(fc) <= 8
+    resp = await hass.services.async_call(
+        "weather",
+        "get_forecasts",
+        {"entity_id": "weather.better_weather", "type": "daily"},
+        blocking=True,
+        return_response=True,
+    )
+    svc = resp["weather.better_weather"]["forecast"]
+    by_day = {f["datetime"]: f for f in svc}
+    for day in fc:
+        ref = by_day[day["datetime"]]
+        assert day["condition"] == ref["condition"]
+        assert abs(day["temperature"] - ref["temperature"]) <= 0.51
+        assert abs(day["templow"] - ref["templow"]) <= 0.51
+        assert day["temperature"] >= day["templow"]
+    assert state.state == fc[0]["condition"]
