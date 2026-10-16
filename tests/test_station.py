@@ -23,3 +23,31 @@ def test_guard_uses_original_sensor_unit(hass):
     )
     assert stats["temperature"][0]["max"] - stats["temperature"][0]["min"] < 0.01
     assert not stats["temperature"][0]["flat"]
+
+
+def test_unit_falls_back_to_statistics_metadata(hass):
+    """No state yet (integration still loading) -> rows are in the stored statistics unit."""
+    stats = metric_statistics(
+        hass,
+        {"station_temperature": "sensor.t"},
+        {"sensor.t": [dict(start=0, mean=68, min=68, max=68.5)]},
+        {"sensor.t": "°F"},
+    )
+    assert stats["temperature"][0]["mean"] == 20
+
+
+def test_unitless_restored_state_uses_statistics_unit(hass):
+    hass.states.async_set("sensor.t", "unavailable", {"restored": True})
+    stats = metric_statistics(
+        hass,
+        {"station_temperature": "sensor.t"},
+        {"sensor.t": [dict(start=0, mean=68, min=68, max=68.5)]},
+        {"sensor.t": "°F"},
+    )
+    assert stats["temperature"][0]["mean"] == 20
+
+
+def test_no_unit_anywhere_is_skipped(hass):
+    assert metric_statistics(
+        hass, {"station_temperature": "sensor.t"}, {"sensor.t": [dict(start=0, mean=1)]}
+    ) == {}

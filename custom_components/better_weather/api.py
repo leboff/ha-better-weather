@@ -94,7 +94,8 @@ class OpenMeteoClient:
             KeyError,
             TypeError,
         ) as err:
-            raise UpdateFailed(f"Open-Meteo request failed: {err}") from err
+            detail = f"{type(err).__name__}: {err}" if str(err) else type(err).__name__
+            raise UpdateFailed(f"Open-Meteo request failed: {detail}") from err
 
     async def forecast(self):
         return await self._get(

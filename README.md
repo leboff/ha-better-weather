@@ -174,3 +174,13 @@ forecast in your unit system (same keys as `weather.get_forecasts`: `datetime`, 
 `temperature`, `templow`, `precipitation`, `precipitation_probability`, `wind_speed`,
 `wind_gust_speed`, `uv_index`). Dashboard cards can read it directly from state attributes without
 calling a service, which makes it a drop-in replacement for the common "template forecast sensor" pattern.
+
+### Correction recovery (v0.2.1)
+
+- A failed correction refresh (Open-Meteo timeout/5xx, recorder error) or a run that pairs **zero**
+  station samples keeps the last good corrections and retries every 15 minutes instead of waiting a day.
+  The `corrections` sensor shows `error` until a retry succeeds.
+- The fallback warning now names the exception type (`TimeoutError`, `ClientResponseError`, ...) so a
+  timeout no longer logs as an empty message.
+- Station history is converted using the recorder's stored statistics unit when the station sensor hasn't
+  loaded yet (common right after a Home Assistant restart), so an early refresh no longer reads as "no data".

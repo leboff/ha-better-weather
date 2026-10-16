@@ -40,14 +40,26 @@ def station_values(hass, data):
     return result
 
 
-def metric_statistics(hass, data, stats):
+def metric_statistics(hass, data, stats, stat_units=None):
+    """Convert recorder rows to metric.
+
+    The recorder returns rows in the sensor's current unit when the sensor has a
+    valid one, otherwise in the statistics' stored unit (e.g. right after a
+    restart, before the station integration has loaded). Mirror that so early
+    refreshes don't throw the history away.
+    """
+    stat_units = stat_units or {}
     result = {}
     for key in STATION_KEYS:
         entity_id = data.get(f"station_{key}")
-        state = hass.states.get(entity_id) if entity_id else None
-        if state is None or entity_id not in stats:
+        if not entity_id or entity_id not in stats:
             continue
-        unit = state.attributes.get("unit_of_measurement")
+        state = hass.states.get(entity_id)
+        unit = state.attributes.get("unit_of_measurement") if state else None
+        if unit is None or metric_value(1, key, unit) is None:
+            unit = stat_units.get(entity_id, unit)
+        if unit is None and entity_id not in stat_units:
+            continue
         result[key] = [
             {
                 **row,

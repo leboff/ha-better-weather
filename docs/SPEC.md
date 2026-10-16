@@ -45,7 +45,7 @@ custom_components/better_weather/
   blend.py             PURE functions: blend members, apply corrections, aggregate daily
   correction.py        PURE: compute corrections from (prev-run forecasts, station stats); frozen guard
   nice.py              PURE: nice_score(...) — Python port of the canonical Jinja (see §5)
-  coordinator.py       ForecastCoordinator (30 min), CorrectionCoordinator (daily + on setup)
+  coordinator.py       ForecastCoordinator (30 min), CorrectionCoordinator (daily + on setup; 15-min retry after a failed or empty run)
   weather.py           WeatherEntity (current + hourly + daily)
   sensor.py            nice_right_now, nice_today, nice_tomorrow, forecast_skill, correction diagnostics
   skill.py             forecast-skill log (Store) + scoring

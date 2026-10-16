@@ -2,10 +2,14 @@
 
 import logging
 from datetime import datetime, time, timedelta
+from functools import partial
 from zoneinfo import ZoneInfo
 
 from homeassistant.components.recorder import get_instance
-from homeassistant.components.recorder.statistics import statistics_during_period
+from homeassistant.components.recorder.statistics import (
+    get_metadata,
+    statistics_during_period,
+)
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 from homeassistant.util import dt as dt_util
@@ -24,6 +28,11 @@ from .station import metric_statistics
 
 _LOGGER = logging.getLogger(__name__)
 
+CORRECTION_INTERVAL = timedelta(days=1)
+# A failed or empty correction run retries soon instead of waiting a full day
+# (one Open-Meteo hiccup otherwise leaves forecasts uncorrected until tomorrow).
+CORRECTION_RETRY = timedelta(minutes=15)
+
 
 class CorrectionCoordinator(DataUpdateCoordinator):
     """Daily corrections, retaining neutral or last-good corrections on failure."""
@@ -34,7 +43,7 @@ class CorrectionCoordinator(DataUpdateCoordinator):
             _LOGGER,
             name=f"{DOMAIN} corrections",
             config_entry=entry,
-            update_interval=timedelta(days=1),
+            update_interval=CORRECTION_INTERVAL,
         )
         self.entry = entry
         self.client = client
@@ -53,7 +62,8 @@ class CorrectionCoordinator(DataUpdateCoordinator):
         ids = {v for k, v in self.entry.data.items() if k.startswith("station_") and v}
         if not ids:
             return {}
-        raw = await get_instance(self.hass).async_add_executor_job(
+        recorder = get_instance(self.hass)
+        raw = await recorder.async_add_executor_job(
             statistics_during_period,
             self.hass,
             dt_util.as_utc(start),
@@ -63,7 +73,11 @@ class CorrectionCoordinator(DataUpdateCoordinator):
             None,
             {"mean", "min", "max"},
         )
-        return metric_statistics(self.hass, self.entry.data, raw)
+        meta = await recorder.async_add_executor_job(
+            partial(get_metadata, self.hass, statistic_ids=ids)
+        )
+        units = {sid: m[1].get("unit_of_measurement") for sid, m in meta.items()}
+        return metric_statistics(self.hass, self.entry.data, raw, units)
 
     async def async_recent_statistics(self):
         now = dt_util.utcnow()
@@ -115,6 +129,20 @@ class CorrectionCoordinator(DataUpdateCoordinator):
                     )
                     else "ok"
                 )
+            if self.status != "disabled" and not any(
+                v["n"] for m in result.values() for v in m.values()
+            ):
+                # Nothing paired at all (station history not readable yet): keep
+                # the last good corrections and try again shortly.
+                if not self.warned:
+                    _LOGGER.warning(
+                        "No station samples paired with forecasts; keeping last good corrections, retrying in %s",
+                        CORRECTION_RETRY,
+                    )
+                    self.warned = True
+                self.status = "error"
+                self.update_interval = CORRECTION_RETRY
+                return self.data
             if self.status == "insufficient_data" and not self.insufficient_warned:
                 _LOGGER.warning(
                     "Some corrections have insufficient station history; neutral corrections will be used for those variables"
@@ -122,6 +150,7 @@ class CorrectionCoordinator(DataUpdateCoordinator):
                 self.insufficient_warned = True
             self.computed_at = dt_util.utcnow().isoformat()
             self.warned = False
+            self.update_interval = CORRECTION_INTERVAL
             return result
         except (
             HomeAssistantError,
@@ -131,9 +160,11 @@ class CorrectionCoordinator(DataUpdateCoordinator):
             OSError,
         ) as err:
             self.status = "error"
+            self.update_interval = CORRECTION_RETRY
             if not self.warned:
                 _LOGGER.warning(
-                    "Correction refresh failed; using last good or neutral corrections: %s",
+                    "Correction refresh failed; using last good or neutral corrections, retrying in %s: %s",
+                    CORRECTION_RETRY,
                     err,
                 )
                 self.warned = True
