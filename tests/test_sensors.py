@@ -60,7 +60,10 @@ async def test_tomorrow_rain_cap(hass, setup_entry):
 
 async def test_corrections_and_diagnostics(hass, setup_entry):
     state = hass.states.get("sensor.better_weather_corrections")
-    assert state.state == "insufficient_data"  # ECMWF has no previous-run gust data.
+    # ECMWF never publishes previous-run gusts: flagged unsupported, not a data gap.
+    assert state.state == "ok"
+    gust = state.attributes["models"]["ecmwf_ifs025"]["wind_gusts_10m"]
+    assert gust["unsupported"] and gust["value"] == 1
     assert state.attributes["window_days"] == 60
     assert (
         state.attributes["frozen_days_in_window"]

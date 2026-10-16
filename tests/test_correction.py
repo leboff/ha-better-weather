@@ -119,3 +119,31 @@ def test_preceding_solar_midpoint_and_gust_max():
     )["a"]
     assert result["wind_gusts_10m"]["value"] == 2
     assert result["shortwave_radiation"]["value"] == 0.5
+
+
+def test_unpublished_variable_is_unsupported_not_insufficient():
+    from custom_components.better_weather.correction import correction_status
+
+    members = parse_members(
+        fixture_json("openmeteo_previous_runs.json"),
+        ["gem_seamless", "icon_seamless", "ecmwf_ifs025"],
+        previous=True,
+    )
+    computed = compute_corrections(
+        members, metric_stats(), date(2026, 10, 15), 60, TZ, LAT, LON
+    )
+    gust = computed["ecmwf_ifs025"]["wind_gusts_10m"]
+    assert gust["insufficient_data"] and gust["unsupported"]
+    assert not any(
+        v.get("unsupported")
+        for m, vs in computed.items()
+        for k, v in vs.items()
+        if (m, k) != ("ecmwf_ifs025", "wind_gusts_10m")
+    )
+    assert correction_status(computed) == "ok"
+    # A real station gap on a published variable still reports insufficient_data.
+    stats = metric_stats()
+    stats["dew_point"] = stats["dew_point"][-24:]
+    gap = compute_corrections(members, stats, date(2026, 10, 15), 60, TZ, LAT, LON)
+    assert not gap["gem_seamless"]["dew_point_2m"].get("unsupported")
+    assert correction_status(gap) == "insufficient_data"

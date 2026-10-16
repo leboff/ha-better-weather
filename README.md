@@ -112,9 +112,10 @@ statistics for the trailing local-date window:
 - Irradiance: learn a ratio using hours with solar elevation at least 20°.
 
 Each model/variable needs 72 paired samples. Ratios stay between 0.2 and 2.0;
-insufficient variables use neutral corrections. ECMWF has no previous-run gusts
-in the supplied data, so its gust correction is neutral and the diagnostic state
-can remain `insufficient_data` while other corrections work normally.
+insufficient variables use neutral corrections. A variable a model never publishes
+(ECMWF has no previous-run gusts) is marked `unsupported: true` and stays neutral; it
+doesn't count against the diagnostic state, which is `ok` when every correction the
+models can provide has enough data and `insufficient_data` only for a real station gap.
 
 A run of three consecutive hourly temperature buckets with less than 0.01 variation
 inside each bucket excludes every local date it touches. Three flat recent completed
@@ -184,3 +185,9 @@ calling a service, which makes it a drop-in replacement for the common "template
   timeout no longer logs as an empty message.
 - Station history is converted using the recorder's stored statistics unit when the station sensor hasn't
   loaded yet (common right after a Home Assistant restart), so an early refresh no longer reads as "no data".
+
+### Honest correction status (v0.2.2)
+
+Variables a model doesn't publish at all (ECMWF previous-run gusts) are flagged `unsupported` in the
+correction attributes and no longer hold the `corrections` sensor at `insufficient_data`. The state is now
+`ok` when everything that can be corrected is corrected.

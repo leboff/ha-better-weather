@@ -20,6 +20,7 @@ from .blend import blend_members
 from .const import DOMAIN, OPTION_DEFAULTS
 from .correction import (
     compute_corrections,
+    correction_status,
     frozen_days,
     neutral_corrections,
     station_stale,
@@ -120,15 +121,7 @@ class CorrectionCoordinator(DataUpdateCoordinator):
                     self.entry.data["longitude"],
                     frozen=self.frozen,
                 )
-                self.status = (
-                    "insufficient_data"
-                    if any(
-                        v["insufficient_data"]
-                        for m in result.values()
-                        for v in m.values()
-                    )
-                    else "ok"
-                )
+                self.status = correction_status(result)
             if self.status != "disabled" and not any(
                 v["n"] for m in result.values() for v in m.values()
             ):

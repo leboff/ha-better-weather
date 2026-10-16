@@ -70,6 +70,15 @@ def compute_corrections(
     indexed = {key: {r["start"]: r for r in rows} for key, rows in stats.items()}
     result = neutral_corrections(members)
     for model, rows in members.items():
+        # Variables this model has data for somewhere in the window. A model that
+        # returns data but never this variable (ECMWF gusts) doesn't publish it:
+        # that's permanent, not a station-history gap, so it's flagged separately.
+        published = {
+            var
+            for row in rows.values()
+            for var in CORRECTION_VARS
+            if row.get(var) is not None
+        }
         for var, (station_key, kind) in CORRECTION_VARS.items():
             forecasts, observed = [], []
             for t, row in rows.items():
@@ -103,4 +112,19 @@ def compute_corrections(
             result[model][var] = dict(
                 kind=kind, value=value, n=n, insufficient_data=not sufficient
             )
+            if published and var not in published:
+                result[model][var]["unsupported"] = True
     return result
+
+
+def correction_status(result):
+    """ok unless a correction the models actually publish is missing data."""
+    return (
+        "insufficient_data"
+        if any(
+            v["insufficient_data"] and not v.get("unsupported")
+            for m in result.values()
+            for v in m.values()
+        )
+        else "ok"
+    )

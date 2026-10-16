@@ -156,7 +156,8 @@ Same convention applies when scoring forecast hours (§4.6) and when building th
 (present the value at the hour it actually describes — document your choice in NOTES_FOR_REVIEW).
 
 All golden corrections must match to **±0.002**. `ecmwf_ifs025` has **no gust data** in previous-runs
-(all null) → its gust correction must come out `n=0` → neutral (ratio 1, `insufficient_data`).
+(all null) → its gust correction must come out `n=0` → neutral (ratio 1, `insufficient_data`, `unsupported: true`;
+unsupported variables don't affect the sensor state).
 Reference generator: `tools/make_fixtures.py` (+ `tools/solar.py`, `tools/live_score.j2`) — read it if
 anything in the golden file is unclear; it is the source of truth for the fixtures.
 
@@ -258,7 +259,7 @@ Must match **every** case in `tests/fixtures/golden_nice_scores.json` exactly (4
   correction is unavailable, multiply by 0.75), sun elevation at hour **midpoint**.
 
 ### 4.7 Correction diagnostic sensor
-`sensor.<name>_corrections` — state = `ok` | `insufficient_data` | `disabled` | `error`; attributes:
+`sensor.<name>_corrections` — state = `ok` | `insufficient_data` (a published variable lacks samples) | `disabled` | `error`; attributes:
 per-model dict of {variable: {kind, value, n}}, `window_days`, `frozen_days_in_window`, `computed_at`.
 `entity_category: diagnostic`.
 
