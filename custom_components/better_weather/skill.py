@@ -89,6 +89,28 @@ class SkillLog:
         self.samples = await self.observation_store.async_load() or {}
 
     @property
+    def score_cfg(self):
+        """Scoring options plus the station's learned clear-sky curve (sun factor)."""
+        return self.cfg | {"clear_sky_curve": self.corrections.clear_sky_curve}
+
+    @property
+    def forecast_cfg(self):
+        """Forecast hours: the model can't see the station's horizon, so judge its sun as cloudiness.
+
+        Corrected forecast irradiance is on the station's midday scale (the ratio is learned at >=20
+        deg), so compare it with the station's clear-sky level over those same angles, flat.
+        """
+        curve = self.corrections.clear_sky_curve
+        calibrated = any(
+            not m.get("shortwave_radiation", {}).get("insufficient_data", True)
+            for m in (self.corrections.data or {}).values()
+        )
+        high = [f for e, f in curve if e >= 20]
+        if not (calibrated and high):
+            return self.cfg
+        return self.cfg | {"clear_sky_frac": sum(high) / len(high)}
+
+    @property
     def summary(self):
         return skill_summary(self.records, dt_util.now(self.tz).date())
 
@@ -116,12 +138,12 @@ class SkillLog:
                 values["irradiance"],
                 values.get("precipitation_rate") or 0,
                 elevation(now, self.latitude, self.longitude),
-                self.cfg,
+                self.score_cfg,
             )
             return score, attrs | {"source": "station"}
         row = self.current_hour()
         scored = (
-            forecast_score(row, self.latitude, self.longitude, self.cfg)
+            forecast_score(row, self.latitude, self.longitude, self.forecast_cfg)
             if row
             else None
         )
@@ -192,7 +214,7 @@ class SkillLog:
                 irr,
                 rain,
                 elevation(t + timedelta(minutes=30), self.latitude, self.longitude),
-                self.cfg,
+                self.score_cfg,
             )[0]
             result[t.isoformat()] = {
                 "score": score,
@@ -227,7 +249,7 @@ class SkillLog:
             self.tz,
             self.latitude,
             self.longitude,
-            self.cfg,
+            self.forecast_cfg,
             observed,
             now,
         )

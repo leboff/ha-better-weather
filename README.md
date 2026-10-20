@@ -191,3 +191,25 @@ calling a service, which makes it a drop-in replacement for the common "template
 Variables a model doesn't publish at all (ECMWF previous-run gusts) are flagged `unsupported` in the
 correction attributes and no longer hold the `corrections` sensor at `insufficient_data`. The state is now
 `ok` when everything that can be corrected is corrected.
+
+### Why the score is what it is, and a station-specific clear sky (v0.3.0)
+
+**Explanation attributes.** Every comfort score now carries:
+- `why`: one plain-English line with the factors that cost points, biggest first, e.g.
+  `Temp −7: feels 58°, cool (ideal 60–71° right now) · Sun −1: 95% of a clear sky at this sun angle`
+  (or `Nothing holding it back`).
+- `breakdown`: one row per factor (`temp`, `dew`, `wind`, `sun`) with `points`, `max`, `lost` and
+  `detail`, sorted by `lost`. The `max` values add up to 100 and the `points` add up to the score (before the rain cap).
+  The sun row is absent when the sun is below `sun_min_elev`.
+
+**Learned clear sky (sun factor).** The sun factor compares station irradiance with a theoretical clear sky.
+A single flat `clear_sky_frac` (0.75) assumed the station sees the same share of a clear sky at every sun angle.
+Real stations don't: tilt and nearby buildings cut low-sun readings hard. The reference station measured about
+40% at 10–20° against about 72% at midday on cloudless days, so every clear morning and evening lost up to ten points.
+
+Once a day, the corrections refresh now learns a **clear-sky curve** from the station's own history: the 90th
+percentile of measured/theoretical irradiance in each 5° elevation band (at least 10 samples per band, and at least 3 bands).
+Clouds only lower that ratio, so the upper tail is the station's clear sky. Live and observed hours divide by this curve.
+Forecast hours (whose corrected irradiance is already on the station's midday scale) use the curve's mean at
+elevations of 20° or more as a flat clear-sky level. The curve is shown in `sensor.<name>_corrections` → `clear_sky_curve`.
+With thin history, it keeps the last good curve (or falls back to `clear_sky_frac`). Disabling corrections disables the curve.

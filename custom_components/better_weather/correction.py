@@ -1,5 +1,6 @@
 """Pure flat corrections and frozen-station detection. Statistics are metric."""
 
+import math
 from datetime import datetime, timedelta
 from statistics import mean
 
@@ -115,6 +116,45 @@ def compute_corrections(
             if published and var not in published:
                 result[model][var]["unsupported"] = True
     return result
+
+
+CLEAR_SKY_BIN_DEG = 5
+CLEAR_SKY_MIN_SAMPLES = 10
+CLEAR_SKY_PERCENTILE = 0.9
+CLEAR_SKY_FLOOR = 0.3
+
+
+def learn_clear_sky_curve(irradiance_stats, tz, latitude, longitude, *, frozen=(), min_elev=5):
+    """What a clear sky looks like on THIS station, by sun angle.
+
+    For every daylight hour, ratio = station irradiance / theoretical clear-sky irradiance. Clouds only
+    pull that ratio down, so the upper tail (90th percentile) of each 5-degree elevation bin is the
+    station's clear-sky level there. It captures sensor tilt, horizon obstructions (rowhouses at low
+    sun) and sensor calibration in one curve. Returns [[bin_mid_deg, fraction], ...] ascending, or []
+    when there isn't enough history (callers fall back to the flat clear_sky_frac option).
+    """
+    bins = {}
+    for row in irradiance_stats:
+        irr = row.get("mean")
+        if irr is None:
+            continue
+        start = datetime.fromtimestamp(row["start"], tz)
+        if start.date() in frozen:
+            continue
+        elev = elevation(start + timedelta(minutes=30), latitude, longitude)
+        if elev < min_elev:
+            continue
+        sz = math.sin(math.radians(elev))
+        clear = 1098 * sz * math.exp(-0.057 / sz)
+        bins.setdefault(int(elev // CLEAR_SKY_BIN_DEG), []).append(irr / clear)
+    curve = []
+    for b, ratios in sorted(bins.items()):
+        if len(ratios) < CLEAR_SKY_MIN_SAMPLES:
+            continue
+        ratios.sort()
+        p = ratios[min(len(ratios) - 1, int(CLEAR_SKY_PERCENTILE * len(ratios)))]
+        curve.append([b * CLEAR_SKY_BIN_DEG + CLEAR_SKY_BIN_DEG / 2, round(max(CLEAR_SKY_FLOOR, min(1.0, p)), 3)])
+    return curve if len(curve) >= 3 else []
 
 
 def correction_status(result):

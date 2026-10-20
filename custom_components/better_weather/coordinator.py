@@ -22,6 +22,7 @@ from .correction import (
     compute_corrections,
     correction_status,
     frozen_days,
+    learn_clear_sky_curve,
     neutral_corrections,
     station_stale,
 )
@@ -55,6 +56,7 @@ class CorrectionCoordinator(DataUpdateCoordinator):
         self.station_stale = False
         self.status = "insufficient_data"
         self.computed_at = None
+        self.clear_sky_curve = []
         self.warned = False
         self.insufficient_warned = False
         self.data = neutral_corrections(client.models)
@@ -106,6 +108,19 @@ class CorrectionCoordinator(DataUpdateCoordinator):
             self.station_stale = station_stale(
                 self.stats.get("temperature", []), dt_util.utcnow()
             )
+            if not self.cfg["correction_enabled"]:
+                self.clear_sky_curve = []
+            else:
+                # Thin history (fresh install, recorder hiccup) keeps the last good curve.
+                curve = learn_clear_sky_curve(
+                    self.stats.get("irradiance", []),
+                    self.tz,
+                    self.entry.data["latitude"],
+                    self.entry.data["longitude"],
+                    frozen=self.frozen,
+                )
+                if curve:
+                    self.clear_sky_curve = curve
             if not self.cfg["correction_enabled"]:
                 self.status = "disabled"
                 result = neutral_corrections(self.client.models)

@@ -125,6 +125,7 @@ async def test_snapshot_finalize_persist(hass, setup_entry, freezer, statistics)
             val("irradiance"),
             val("precipitation_intensity"),
             elevation(t + timedelta(minutes=30), log.latitude, log.longitude),
+            log.score_cfg,  # observed hours use the station's learned clear-sky curve
         )
         scores.append(min(score, 10) if wet else score)
         rain |= wet
@@ -283,3 +284,24 @@ async def test_daily_forecast_sensor_matches_weather_service(hass, setup_entry):
         assert abs(day["templow"] - ref["templow"]) <= 0.51
         assert day["temperature"] >= day["templow"]
     assert state.state == fc[0]["condition"]
+
+
+async def test_right_now_explains_itself(hass, setup_entry):
+    state = hass.states.get("sensor.better_weather_nice_right_now")
+    rows = state.attributes["breakdown"]
+    assert {r["factor"] for r in rows} >= {"temp", "dew", "wind"}
+    # Points add up to the score (before rounding / rain cap) and each factor's max to 100.
+    assert sum(r["max"] for r in rows) == pytest.approx(100, abs=0.3)
+    assert sum(r["points"] for r in rows) == pytest.approx(float(state.state), abs=0.6)
+    assert [r["lost"] for r in rows] == sorted((r["lost"] for r in rows), reverse=True)
+    assert isinstance(state.attributes["why"], str) and state.attributes["why"]
+
+
+async def test_clear_sky_curve_learned(hass, setup_entry):
+    runtime = setup_entry.runtime_data
+    curve = runtime.corrections.clear_sky_curve
+    assert len(curve) >= 3
+    assert [e for e, _ in curve] == sorted(e for e, _ in curve)
+    assert all(0.3 <= f <= 1 for _, f in curve)
+    state = hass.states.get("sensor.better_weather_corrections")
+    assert state.attributes["clear_sky_curve"] == curve

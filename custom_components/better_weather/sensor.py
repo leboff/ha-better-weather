@@ -33,7 +33,9 @@ async def async_setup_entry(hass, entry, async_add_entities):
 class BetterWeatherSensor(CoordinatorEntity, SensorEntity):
     _attr_has_entity_name = True
     # Large list attributes are for dashboards, not the recorder.
-    _unrecorded_attributes = frozenset({"forecast", "hourly", "last_10", "models"})
+    _unrecorded_attributes = frozenset(
+        {"forecast", "hourly", "last_10", "models", "breakdown", "clear_sky_curve"}
+    )
 
     def __init__(self, entry, key):
         super().__init__(entry.runtime_data.forecast)
@@ -112,6 +114,7 @@ class BetterWeatherSensor(CoordinatorEntity, SensorEntity):
             window_days=cc.cfg["correction_window_days"],
             frozen_days_in_window=frozen,
             computed_at=cc.computed_at,
+            clear_sky_curve=cc.clear_sky_curve,
         )
 
     @property

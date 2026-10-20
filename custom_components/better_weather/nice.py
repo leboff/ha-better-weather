@@ -2,10 +2,41 @@
 
 import math
 from datetime import timedelta
+from itertools import pairwise
 from statistics import mean
 
 from .const import DEFAULTS, FORECAST_RAIN_MM, OPTION_DEFAULTS
 from .solar import elevation
+
+
+def clear_sky_fraction(c, sun_elev_deg):
+    """Station clear-sky fraction at this sun angle: learned curve if present, else the flat option.
+
+    The curve is a list of [elevation_deg, fraction] points (ascending) learned from the station's own
+    clear hours; between points it is linear, outside them it holds the end value.
+    """
+    curve = c.get("clear_sky_curve") or []
+    if not curve:
+        return c["clear_sky_frac"]
+    if sun_elev_deg <= curve[0][0]:
+        return curve[0][1]
+    for (e0, f0), (e1, f1) in pairwise(curve):
+        if sun_elev_deg <= e1:
+            return f0 + (f1 - f0) * (sun_elev_deg - e0) / (e1 - e0)
+    return curve[-1][1]
+
+
+def _f(v):
+    return f"{v:.0f}"
+
+
+def breakdown(parts, rain_capped, rain_cap):
+    """Plain-English 'why': each factor's points out of its max, biggest loss first."""
+    rows = sorted(parts, key=lambda p: p["lost"], reverse=True)
+    bits = [f"{p['label']} −{p['lost']:.0f}: {p['detail']}" for p in rows if p["lost"] >= 0.5]
+    if rain_capped:
+        bits.insert(0, f"Raining: capped at {rain_cap:.0f}")
+    return rows, " · ".join(bits) if bits else "Nothing holding it back"
 
 
 def score_components(
@@ -36,21 +67,50 @@ def score_components(
     )
     num = c["w_temp"] * temp + c["w_dew"] * dew + c["w_wind"] * wind
     den = c["w_temp"] + c["w_dew"] + c["w_wind"]
-    sun = None
+    sun = sun_raw = None
     if sun_elev_deg > c["sun_min_elev"]:
         sz = math.sin(math.radians(sun_elev_deg))
         clear = 1098 * sz * math.exp(-0.057 / sz)
-        sun = min(1, irr_wm2 / (clear * c["clear_sky_frac"]))
+        sun_raw = irr_wm2 / (clear * clear_sky_fraction(c, sun_elev_deg))
+        sun = min(1, sun_raw)
         num += c["w_sun"] * sun
         den += c["w_sun"]
     score = 100 * num / den
+    rain_capped = rain_rate > 0 and score > c["rain_cap"]
     if rain_rate > 0:
         score = min(score, c["rain_cap"])
+
+    def part(key, label, weight, s, detail):
+        mx = 100 * weight / den
+        return {
+            "factor": key,
+            "label": label,
+            "points": round(mx * s, 1),
+            "max": round(mx, 1),
+            "lost": round(mx * (1 - s), 1),
+            "detail": detail,
+        }
+
+    temp_word = "in range" if temp == 1 else "cool" if feels_f < lo else "warm"
+    parts = [
+        part("temp", "Temp", c["w_temp"], temp,
+             f"feels {_f(feels_f)}°, {temp_word} (ideal {_f(lo)}–{_f(hi)}° right now)"),
+        part("dew", "Humidity", c["w_dew"], dew,
+             f"dew point {_f(dew_f)}°" + (" (dry)" if dew == 1 else f" (sticky above {_f(c['dew_ok'])}°)")),
+        part("wind", "Wind", c["w_wind"], wind, f"{_f(wind_mph)} mph, gusts {_f(gust_mph)}"),
+    ]
+    if sun is not None:
+        parts.append(part("sun", "Sun", c["w_sun"], sun,
+                          f"{min(100, round(100 * sun_raw))}% of a clear sky at this sun angle"))
+    rows, summary = breakdown(parts, rain_capped, c["rain_cap"])
     return int(round(score)), {
         "s_temp": round(temp, 2),
         "s_dew": round(dew, 2),
         "s_wind": round(wind, 2),
         "s_sun": round(sun, 2) if sun is not None else None,
+        "why": summary,
+        "breakdown": rows,
+        "sun_counted": sun is not None,
     }
 
 
