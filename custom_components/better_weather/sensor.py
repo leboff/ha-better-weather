@@ -24,6 +24,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
                 "nice_tomorrow",
                 "corrections",
                 "forecast_skill",
+                "nice_rank",
                 "daily_forecast",
             )
         ]
@@ -34,7 +35,7 @@ class BetterWeatherSensor(CoordinatorEntity, SensorEntity):
     _attr_has_entity_name = True
     # Large list attributes are for dashboards, not the recorder.
     _unrecorded_attributes = frozenset(
-        {"forecast", "hourly", "last_10", "models", "breakdown", "clear_sky_curve", "inputs"}
+        {"forecast", "hourly", "last_10", "models", "breakdown", "clear_sky_curve", "inputs", "top_10"}
     )
 
     def __init__(self, entry, key):
@@ -45,6 +46,8 @@ class BetterWeatherSensor(CoordinatorEntity, SensorEntity):
         self._attr_device_info = device_info(entry)
         if key == "daily_forecast":
             self._attr_icon = "mdi:calendar-weather"
+        elif key == "nice_rank":
+            self._attr_icon = "mdi:podium"
         elif key in ("corrections", "forecast_skill"):
             self._attr_entity_category = EntityCategory.DIAGNOSTIC
             self._attr_icon = "mdi:chart-line"
@@ -97,6 +100,12 @@ class BetterWeatherSensor(CoordinatorEntity, SensorEntity):
                 days=self.key == "nice_tomorrow"
             )
             return skill.score_day(day)
+        if self.key == "nice_rank":
+            # State = rank of the latest fully measured day among every measured day (1 = best).
+            n, attrs = self.runtime.history.summary
+            if not n:
+                return None, {}
+            return attrs["latest"]["rank"], attrs | {"days_ranked": n}
         if self.key == "forecast_skill":
             summary = skill.summary
             return summary["mae_30d"], {

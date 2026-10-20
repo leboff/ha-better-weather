@@ -233,6 +233,23 @@ class SkillLog:
                     }
         return result
 
+    def observed_day(self, observed, day):
+        """(score, rainy) for a fully measured waking day, else None. Shared by grading and ranking."""
+        wake, sleep = self.cfg["nice_wake_hour"], self.cfg["nice_sleep_hour"]
+        hours = [
+            v
+            for k, v in observed.items()
+            if (t := datetime.fromisoformat(k).astimezone(self.tz)).date() == day
+            and wake <= t.hour < sleep
+        ]
+        if len(hours) < sleep - wake:
+            return None
+        score = mean(min(v["score"], 10) if v["rain"] else v["score"] for v in hours)
+        rainy = any(v["rain"] for v in hours)
+        if rainy:
+            score = min(score, self.cfg["day_rain_cap"])
+        return round(score, 1), rainy
+
     def score_day(self, day, *, raw=False):
         rows = (self.forecast.data or {}).get("raw_hourly" if raw else "hourly", [])
         now = dt_util.utcnow() if day == dt_util.now(self.tz).date() else None
@@ -298,23 +315,10 @@ class SkillLog:
             record["skipped"] = "frozen_station"
             await self.async_save()
             return
-        observed = self.observed_hours(stats)
-        hours = [
-            (t, v)
-            for k, v in observed.items()
-            if (t := datetime.fromisoformat(k)).astimezone(self.tz).date() == target
-            and self.cfg["nice_wake_hour"]
-            <= t.astimezone(self.tz).hour
-            < self.cfg["nice_sleep_hour"]
-        ]
-        if len(hours) < self.cfg["nice_sleep_hour"] - self.cfg["nice_wake_hour"]:
+        scored = self.observed_day(self.observed_hours(stats), target)
+        if scored is None:
             return
-        observed_score = mean(
-            min(v["score"], 10) if v["rain"] else v["score"] for _, v in hours
-        )
-        rainy = any(v["rain"] for _, v in hours)
-        if rainy:
-            observed_score = min(observed_score, self.cfg["day_rain_cap"])
+        observed_score, rainy = scored
         highs = [
             r["max"]
             for r in stats.get("temperature", [])
@@ -322,7 +326,7 @@ class SkillLog:
             and datetime.fromtimestamp(r["start"], self.tz).date() == target
         ]
         record.update(
-            observed=round(observed_score, 1),
+            observed=observed_score,
             observed_high_f=max(highs) * 1.8 + 32 if highs else None,
             observed_rain=rainy,
         )

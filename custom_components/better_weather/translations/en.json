@@ -111,6 +111,9 @@
       },
       "daily_forecast": {
         "name": "Daily forecast"
+      },
+      "nice_rank": {
+        "name": "Nice day rank"
       }
     }
   }

@@ -19,6 +19,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from .api import OpenMeteoClient
 from .const import DEFAULT_MODELS, STATION_KEYS
 from .coordinator import CorrectionCoordinator, ForecastCoordinator
+from .history import DayHistory
 from .skill import SkillLog
 
 PLATFORMS = [Platform.WEATHER, Platform.SENSOR]
@@ -30,6 +31,7 @@ class RuntimeData:
     forecast: ForecastCoordinator
     corrections: CorrectionCoordinator
     skill: SkillLog
+    history: DayHistory
 
 
 type BetterWeatherConfigEntry = ConfigEntry[RuntimeData]
@@ -50,7 +52,9 @@ async def async_setup_entry(
     await forecast.async_config_entry_first_refresh()
     skill = SkillLog(hass, entry, forecast, corrections)
     await skill.async_load()
-    entry.runtime_data = RuntimeData(forecast, corrections, skill)
+    history = DayHistory(hass, entry, skill)
+    await history.async_load()
+    entry.runtime_data = RuntimeData(forecast, corrections, skill, history)
 
     @callback
     def corrections_updated():
@@ -83,6 +87,15 @@ async def async_setup_entry(
         tick_running = True
         try:
             await skill.async_tick(recent=recent)
+            if history.stale:
+                # Never during setup: the full rescore is a few dozen recorder queries, so it starts
+                # on the first scheduled tick (≤5 min after startup) in the background.
+                if recent and not history.building:
+                    entry.async_create_background_task(
+                        hass, rebuild_history(), "Better Weather day ranking rebuild"
+                    )
+            else:
+                await history.async_tick()
             forecast.async_update_listeners()
         except (
             HomeAssistantError,
@@ -94,6 +107,15 @@ async def async_setup_entry(
             _LOGGER.warning("Station history/skill refresh failed: %s", err)
         finally:
             tick_running = False
+
+    async def rebuild_history():
+        try:
+            await history.async_rebuild()
+            forecast.async_update_listeners()
+        except (HomeAssistantError, SQLAlchemyError, OSError, ValueError, TypeError) as err:
+            _LOGGER.warning("Day ranking rebuild failed (retries next tick): %s", err)
+        except RuntimeError as err:  # recorder executor gone: HA is stopping mid-rebuild
+            _LOGGER.debug("Day ranking rebuild stopped: %s", err)
 
     @callback
     def scheduled_tick(now):

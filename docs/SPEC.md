@@ -276,6 +276,17 @@ per-model dict of {variable: {kind, value, n}}, `window_days`, `frozen_days_in_w
   `nice_day_recall` (threshold 85), `last_10` (list of {date, forecast, raw_forecast, observed}).
   `entity_category: diagnostic`. Keep max 400 days in the store.
 
+### 4.9 Day ranking (history.py)
+- `sensor.<name>_nice_day_rank`: every complete, non-frozen station day in recorder long-term stats (≤3 years),
+  scored with `SkillLog.observed_day` (the same function that grades `observed`), current options. Store
+  `.storage/better_weather.<entry_id>.days` with a signature of the scoring options; a signature change rescores
+  everything in the background (31-day recorder slices), never during setup. Clear-sky curve excluded from the
+  signature.
+- State = rank of the latest ranked day (1 = best, ties share the better rank); attributes `latest`
+  {date, score, rain, rank, tied, of}, `days_ranked`, `since`, `top_10` (unrecorded).
+- Today is added after `sleep_hour` once all waking hours are in the recorder; the previous 7 days are retried
+  once each; a frozen run found later removes an already-ranked day.
+
 ---
 
 ## 5. Engineering rules

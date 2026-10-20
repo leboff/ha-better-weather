@@ -66,6 +66,7 @@ already exists. All six entities belong to one service device.
 | `sensor.better_weather_nice_tomorrow` | Tomorrow's forecast comfort; suitable for a “nice day tomorrow” automation |
 | `sensor.better_weather_corrections` | Correction status, per-model offsets/ratios, sample counts and frozen days |
 | `sensor.better_weather_forecast_skill` | Corrected comfort-score MAE over the last 30 local dates |
+| `sensor.better_weather_nice_day_rank` | Rank of the latest fully measured day among every measured station day (1 = best) |
 
 Weather values use Home Assistant's display units. Comfort thresholds always use
 °F and mph, matching the canonical comfort formula; irradiance stays in W/m².
@@ -89,6 +90,16 @@ Snapshots are taken at local 20:00 for tomorrow; grading happens after sleep hou
 once recorder has published all waking-hour statistics. Startup catches up missed
 grading and an evening snapshot. Historical forecasts that were never captured
 are not reconstructed. Frozen station days are excluded.
+
+### Day ranking
+
+`nice_day_rank` rescores every day in the station's recorder long-term statistics (up to three years) with the
+current comfort options, using exactly the same observed-hours score as forecast grading, so a day's "measured"
+score and its rank always agree. State is the latest complete day's rank (1 = best; ties share the better
+rank). Attributes: `latest` (`date`, `score`, `rain`, `rank`, `tied`, `of`), `days_ranked`, `since` and
+`top_10`. Frozen-station days and partial days are never ranked. Today joins after sleep hour once the
+recorder has every waking hour. Changing a comfort option rescores the whole history in the background on the
+next five-minute tick; the learned clear-sky curve does not trigger a rescore.
 
 ## Move from another weather integration
 
