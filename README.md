@@ -213,3 +213,10 @@ Clouds only lower that ratio, so the upper tail is the station's clear sky. Live
 Forecast hours (whose corrected irradiance is already on the station's midday scale) use the curve's mean at
 elevations of 20° or more as a flat clear-sky level. The curve is shown in `sensor.<name>_corrections` → `clear_sky_curve`.
 With thin history, it keeps the last good curve (or falls back to `clear_sky_frac`). Disabling corrections disables the curve.
+
+### Day breakdowns (v0.3.1)
+
+`nice_today` and `nice_tomorrow` also carry `why` and `breakdown`, averaged over the day's **forecast** hours
+(`breakdown_hours` says how many; observed hours keep only their score). Details describe the day, e.g.
+`Temp −9: feels 47–64°, too cool 7 of 12 hours`. `nice_right_now` adds raw `inputs` (feels, dew, wind, gust,
+sun %, ideal band). Built for the daily Nice Jawn post, but any automation can read them.

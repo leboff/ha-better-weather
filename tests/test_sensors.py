@@ -305,3 +305,15 @@ async def test_clear_sky_curve_learned(hass, setup_entry):
     assert all(0.3 <= f <= 1 for _, f in curve)
     state = hass.states.get("sensor.better_weather_corrections")
     assert state.attributes["clear_sky_curve"] == curve
+
+
+async def test_tomorrow_explains_itself(hass, setup_entry):
+    state = hass.states.get("sensor.better_weather_nice_tomorrow")
+    rows = state.attributes["breakdown"]
+    assert state.attributes["breakdown_hours"] == len(state.attributes["hourly"])
+    assert {r["factor"] for r in rows} >= {"temp", "dew", "wind"}
+    assert sum(r["max"] for r in rows) == pytest.approx(100, abs=0.5)
+    if not state.attributes["rain_hours"]:
+        assert sum(r["points"] for r in rows) == pytest.approx(float(state.state), abs=1)
+    assert all(r["detail"] for r in rows)
+    assert state.attributes["why"]

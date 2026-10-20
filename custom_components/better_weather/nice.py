@@ -111,7 +111,60 @@ def score_components(
         "why": summary,
         "breakdown": rows,
         "sun_counted": sun is not None,
+        "inputs": {
+            "feels_f": round(feels_f, 1),
+            "dew_f": round(dew_f, 1),
+            "wind_mph": round(wind_mph, 1),
+            "gust_mph": round(gust_mph, 1),
+            "sun_pct": min(100, round(100 * sun_raw)) if sun_raw is not None else None,
+            "ideal_lo": round(lo, 1),
+            "ideal_hi": round(hi, 1),
+        },
     }
+
+
+def day_breakdown(components):
+    """Average each factor's points over a day's scored hours, with a day-level reason.
+
+    `components` are score_components() attrs for the hours that have them (forecast hours; observed
+    hours only keep their score). Points average to the day's mean pre-rain-cap score.
+    """
+    if not components:
+        return [], None
+    n = len(components)
+    labels = {"temp": "Temp", "dew": "Humidity", "wind": "Wind", "sun": "Sun"}
+    acc = {k: {"points": 0.0, "max": 0.0, "lost": 0.0} for k in labels}
+    for comp in components:
+        for row in comp["breakdown"]:
+            for key in ("points", "max", "lost"):
+                acc[row["factor"]][key] += row[key] / n
+    ins = [c["inputs"] for c in components]
+    feels = [i["feels_f"] for i in ins]
+    cool = sum(i["feels_f"] < i["ideal_lo"] for i in ins)
+    warm = sum(i["feels_f"] > i["ideal_hi"] for i in ins)
+    temp_word = (
+        "in range all day"
+        if not cool and not warm
+        else f"too cool {cool} of {n} hours"
+        if cool >= warm
+        else f"too warm {warm} of {n} hours"
+    )
+    sun = [i["sun_pct"] for i in ins if i["sun_pct"] is not None]
+    dews = [i["dew_f"] for i in ins]
+    detail = {
+        "temp": f"feels {_f(min(feels))}–{_f(max(feels))}°, {temp_word}",
+        "dew": f"dew point {_f(min(dews))}–{_f(max(dews))}°",
+        "wind": f"up to {_f(max(i['wind_mph'] for i in ins))} mph, gusts {_f(max(i['gust_mph'] for i in ins))}",
+        "sun": f"{_f(sum(sun) / len(sun))}% of a clear sky on average" if sun else "",
+    }
+    parts = [
+        {"factor": k, "label": labels[k], "points": round(v["points"], 1), "max": round(v["max"], 1),
+         "lost": round(v["lost"], 1), "detail": detail[k]}
+        for k, v in acc.items()
+        if v["max"] > 0
+    ]
+    rows, summary = breakdown(parts, False, 0)
+    return rows, summary
 
 
 def nice_score(
@@ -153,7 +206,7 @@ def forecast_score(row, latitude, longitude, cfg=None):
 def day_score(rows, day, tz, latitude, longitude, cfg=None, observed=None, now=None):
     """Mix elapsed observed hours and future forecasts; never invent missing observations."""
     c = OPTION_DEFAULTS | (cfg or {})
-    hourly, rain_hours = [], 0
+    hourly, rain_hours, components = [], 0, []
     for row in rows:
         t = row["time"]
         local = t.astimezone(tz)
@@ -174,6 +227,7 @@ def day_score(rows, day, tz, latitude, longitude, cfg=None, observed=None, now=N
             if value is None:
                 continue
             score = value[0]
+            components.append(value[1])
             rain = forecast_rain(row)
         if rain:
             score = min(score, 10)
@@ -188,6 +242,10 @@ def day_score(rows, day, tz, latitude, longitude, cfg=None, observed=None, now=N
         observed_hours=sum(h["source"] == "station" for h in hourly),
         forecast_hours=sum(h["source"] == "forecast" for h in hourly),
     )
+    factors, why = day_breakdown(components)
+    if factors:
+        # Forecast hours only: observed hours keep just their score.
+        attrs |= {"breakdown": factors, "why": why, "breakdown_hours": len(components)}
     eligible = [r for r in rows if r["time"].astimezone(tz).date() == day]
     for key, var, fn, factor, offset in [
         ("high_f", "temperature_2m", max, 1.8, 32),
