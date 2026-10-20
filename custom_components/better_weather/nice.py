@@ -151,9 +151,13 @@ def day_breakdown(components):
     )
     sun = [i["sun_pct"] for i in ins if i["sun_pct"] is not None]
     dews = [i["dew_f"] for i in ins]
+    def span(vals):
+        lo_, hi_ = _f(min(vals)), _f(max(vals))
+        return lo_ if lo_ == hi_ else f"{lo_}–{hi_}"
+
     detail = {
-        "temp": f"feels {_f(min(feels))}–{_f(max(feels))}°, {temp_word}",
-        "dew": f"dew point {_f(min(dews))}–{_f(max(dews))}°",
+        "temp": f"feels {span(feels)}°, {temp_word}",
+        "dew": f"dew point {span(dews)}°",
         "wind": f"up to {_f(max(i['wind_mph'] for i in ins))} mph, gusts {_f(max(i['gust_mph'] for i in ins))}",
         "sun": f"{_f(sum(sun) / len(sun))}% of a clear sky on average" if sun else "",
     }
