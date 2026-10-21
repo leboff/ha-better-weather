@@ -96,8 +96,9 @@ are not reconstructed. Frozen station days are excluded.
 `nice_day_rank` rescores every day in the station's recorder long-term statistics (up to three years) with the
 current comfort options, using exactly the same observed-hours score as forecast grading, so a day's "measured"
 score and its rank always agree. State is the latest complete day's rank (1 = best; ties share the better
-rank). Attributes: `latest` (`date`, `score`, `rain`, `rank`, `tied`, `of`), `days_ranked`, `since` and
-`top_10`. Frozen-station days and partial days are never ranked. Today joins after sleep hour once the
+rank). Attributes: `latest` (`date`, `score`, `rain`, `rank`, `tied`, `of`), `days_ranked`, `since`,
+`top_10`, `neighbors` (the latest day with the two days ranked either side) and `histogram` (101 counts:
+how many ranked days had each whole score 0–100). Frozen-station days and partial days are never ranked. Today joins after sleep hour once the
 recorder has every waking hour. Changing a comfort option rescores the whole history in the background on the
 next five-minute tick; the learned clear-sky curve does not trigger a rescore.
 

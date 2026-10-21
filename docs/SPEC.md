@@ -283,7 +283,8 @@ per-model dict of {variable: {kind, value, n}}, `window_days`, `frozen_days_in_w
   everything in the background (31-day recorder slices), never during setup. Clear-sky curve excluded from the
   signature.
 - State = rank of the latest ranked day (1 = best, ties share the better rank); attributes `latest`
-  {date, score, rain, rank, tied, of}, `days_ranked`, `since`, `top_10` (unrecorded).
+  {date, score, rain, rank, tied, of}, `days_ranked`, `since`, `top_10`, `neighbors` (5 days around the latest
+  by rank, window kept full at the ends), `histogram` (101 whole-score counts) (lists unrecorded).
 - Today is added after `sleep_hour` once all waking hours are in the recorder; the previous 7 days are retried
   once each; a frozen run found later removes an already-ranked day.
 

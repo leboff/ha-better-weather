@@ -35,7 +35,7 @@ class BetterWeatherSensor(CoordinatorEntity, SensorEntity):
     _attr_has_entity_name = True
     # Large list attributes are for dashboards, not the recorder.
     _unrecorded_attributes = frozenset(
-        {"forecast", "hourly", "last_10", "models", "breakdown", "clear_sky_curve", "inputs", "top_10"}
+        {"forecast", "hourly", "last_10", "models", "breakdown", "clear_sky_curve", "inputs", "top_10", "neighbors", "histogram"}
     )
 
     def __init__(self, entry, key):

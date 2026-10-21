@@ -104,3 +104,19 @@ async def test_scheduled_tick_starts_rebuild_in_background(hass, setup_entry, fr
     assert history.days and not history.stale
     state = hass.states.get("sensor.better_weather_nice_day_rank")
     assert state.state not in ("unknown", "unavailable")
+
+
+def test_neighbors_window_and_histogram():
+    from custom_components.better_weather.history import histogram
+
+    days = {f"2026-10-{i:02d}": {"score": float(s)} for i, s in enumerate([98.2, 90, 95, 40, 70, 97.4, 98.1, 12], 1)}
+    n, attrs = history_summary(days)
+    nb = attrs["neighbors"]
+    # Latest day (Oct 8, 12) is the worst: window stays full, ending at it.
+    assert len(nb) == 5 and nb[-1]["date"] == "2026-10-08" and nb[-1]["rank"] == 8
+    assert [d["rank"] for d in nb] == sorted(d["rank"] for d in nb)
+    days["2026-10-09"] = {"score": 98.15}
+    nb = history_summary(days)[1]["neighbors"]
+    assert [d["rank"] for d in nb] == [1, 2, 3, 4, 5] and nb[1]["date"] == "2026-10-09"
+    h = histogram(days)
+    assert len(h) == 101 and sum(h) == len(days) and h[98] == 3 and h[12] == 1

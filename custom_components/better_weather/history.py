@@ -36,6 +36,24 @@ def rank_of(days, key):
     return 1 + sum(1 for d in days.values() if d["score"] > score)
 
 
+def histogram(days):
+    """Count of days at each whole score 0..100: enough to draw the all-time distribution."""
+    counts = [0] * 101
+    for d in days.values():
+        counts[max(0, min(100, int(d["score"])))] += 1
+    return counts
+
+
+def neighbors(days, ordered, key, around=2):
+    """The latest day with the days ranked just above and below it (window kept full at the ends)."""
+    pos = next(i for i, (k, _) in enumerate(ordered) if k == key)
+    lo = max(0, min(pos - around, len(ordered) - (2 * around + 1)))
+    return [
+        dict(rank=rank_of(days, k), date=k, score=d["score"], rain=d.get("rain", False))
+        for k, d in ordered[lo : lo + 2 * around + 1]
+    ]
+
+
 def history_summary(days, limit=10):
     if not days:
         return None, {}
@@ -43,6 +61,8 @@ def history_summary(days, limit=10):
     score = days[latest]["score"]
     ordered = sorted(days.items(), key=lambda kv: (-kv[1]["score"], kv[0]))
     return len(days), dict(
+        neighbors=neighbors(days, ordered, latest),
+        histogram=histogram(days),
         since=min(days),
         latest=dict(
             date=latest,
