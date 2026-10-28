@@ -5,6 +5,7 @@ import pytest
 
 from custom_components.better_weather.api import parse_members
 from custom_components.better_weather.blend import (
+    feels_like_c,
     aggregate_daily,
     apply_corrections,
     blend_members,
@@ -31,6 +32,7 @@ def test_mean_nulls_circular_vote():
 
 
 def test_rh_recomputed_and_apparent_offset():
+    # Without wind, apparent temperature can't be rebuilt, so it only gets the temperature offset.
     row = apply_corrections(
         dict(
             temperature_2m=20,
@@ -43,6 +45,29 @@ def test_rh_recomputed_and_apparent_offset():
     assert row["temperature_2m"] == 18
     assert row["apparent_temperature"] == 19
     assert row["relative_humidity_2m"] == pytest.approx(59.548, abs=0.1)
+
+
+def test_apparent_rebuilt_from_corrected_wind():
+    # 65F with 6 mph model wind: the model says it feels 3F cooler. A sheltered station
+    # (wind ratio 0.4) never gets that chill, and feels-like is just the air temperature.
+    raw = dict(
+        temperature_2m=(65.6 - 32) / 1.8,
+        dew_point_2m=(42.5 - 32) / 1.8,
+        apparent_temperature=(62.7 - 32) / 1.8,
+        wind_speed_10m=6 * 1.609344,
+    )
+    row = apply_corrections(raw, {"wind_speed_10m": dict(kind="ratio", value=0.4)})
+    assert row["apparent_temperature"] == pytest.approx(row["temperature_2m"])
+
+
+def test_feels_like_matches_nws():
+    def f(t_f, td_f, mph):
+        return feels_like_c((t_f - 32) / 1.8, (td_f - 32) / 1.8, mph * 1.609344) * 1.8 + 32
+
+    assert f(40, 30, 10) == pytest.approx(33.6, abs=0.2)  # NWS wind chill chart
+    assert f(40, 30, 2) == pytest.approx(40)  # calm: no chill
+    assert f(90, 72.6, 5) == pytest.approx(98.0, abs=1.0)  # ~55% RH heat index ~98F
+    assert f(70, 60, 15) == pytest.approx(70)  # in between: air temperature
 
 
 def test_preceding_hour_alignment():
