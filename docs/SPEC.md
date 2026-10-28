@@ -166,7 +166,9 @@ Minimum samples: a correction is only applied if `n >= 72` (3 days of hours); ot
 Station sensors not configured → that variable is uncorrected.
 
 Apply: `corrected = raw - offset` (offset vars) or `raw * ratio` (ratio vars). `apparent_temperature`
-gets the **temperature_2m offset** subtracted. Relative humidity is **recomputed** from corrected
+is **rebuilt** from corrected temperature, dew point and wind speed with the NWS feels-like rule
+(wind chill at <=50F and >3 mph, heat index at >=80F, else air temperature), because the model's own
+value bakes in uncorrected wind; if any of those is missing it gets the **temperature_2m offset** subtracted. Relative humidity is **recomputed** from corrected
 temperature + corrected dew point (Magnus formula). Precipitation, weather_code, cloud cover,
 pressure, uv, probability are **not** corrected.
 
