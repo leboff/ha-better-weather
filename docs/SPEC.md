@@ -246,6 +246,9 @@ Must match **every** case in `tests/fixtures/golden_nice_scores.json` exactly (4
   Attributes: `s_temp, s_dew, s_wind, s_sun` (0..1, 2dp), `source` (`station`|`forecast`), `why` (plain-English
   factor losses), `breakdown` (per-factor points/max/lost/detail). v0.3.0: the sun factor's clear-sky fraction comes from
   a curve learned per station (see README → v0.3.0); the golden cases still use the flat `clear_sky_frac`.
+- Day sensors carry `breakdown`/`why`/`breakdown_hours` averaged over every scored hour that has factor
+  components: all forecast hours, plus (v0.3.6) today's measured hours, whose components come from the
+  hour's recorder-mean station conditions (a live sample mean may still set the hour's score).
 - `sensor.<name>_nice_today` — blended **day score**: for local hours `wake..sleep-1` of today use the
   station's hourly score for hours already elapsed (from recorder hourly stats / an in-memory per-hour
   running mean of the right-now score — simplest: keep an in-memory dict hour→list of right-now samples,

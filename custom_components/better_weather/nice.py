@@ -126,8 +126,10 @@ def score_components(
 def day_breakdown(components):
     """Average each factor's points over a day's scored hours, with a day-level reason.
 
-    `components` are score_components() attrs for the hours that have them (forecast hours; observed
-    hours only keep their score). Points average to the day's mean pre-rain-cap score.
+    `components` are score_components() attrs for the hours that have them: every forecast hour, and
+    measured hours whose recorder-mean conditions were kept (observed_hours(explain=True)). Points
+    average to the day's mean pre-rain-cap score (measured hours only approximately: their score is
+    the live sample mean, their factors come from the hour's mean conditions).
     """
     if not components:
         return [], None
@@ -226,6 +228,8 @@ def day_score(rows, day, tz, latitude, longitude, cfg=None, observed=None, now=N
                 continue
             score, rain = obs["score"], obs["rain"]
             source = "station"
+            if obs.get("components"):
+                components.append(obs["components"])
         else:
             value = forecast_score(row, latitude, longitude, c)
             if value is None:
@@ -248,7 +252,7 @@ def day_score(rows, day, tz, latitude, longitude, cfg=None, observed=None, now=N
     )
     factors, why = day_breakdown(components)
     if factors:
-        # Forecast hours only: observed hours keep just their score.
+        # Forecast hours plus measured hours that kept their conditions (today).
         attrs |= {"breakdown": factors, "why": why, "breakdown_hours": len(components)}
     eligible = [r for r in rows if r["time"].astimezone(tz).date() == day]
     for key, var, fn, factor, offset in [

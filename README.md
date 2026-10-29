@@ -228,7 +228,8 @@ With thin history, it keeps the last good curve (or falls back to `clear_sky_fra
 
 ### Day breakdowns (v0.3.1)
 
-`nice_today` and `nice_tomorrow` also carry `why` and `breakdown`, averaged over the day's **forecast** hours
-(`breakdown_hours` says how many; observed hours keep only their score). Details describe the day, e.g.
+`nice_today` and `nice_tomorrow` also carry `why` and `breakdown`, averaged over the day's scored hours
+(`breakdown_hours` says how many). Since v0.3.6 today's already-measured hours count too, using each hour's
+recorder-mean station conditions, so a mostly-elapsed day still explains itself. Details describe the day, e.g.
 `Temp −9: feels 47–64°, too cool 7 of 12 hours`. `nice_right_now` adds raw `inputs` (feels, dew, wind, gust,
 sun %, ideal band). Built for the daily Nice Jawn post, but any automation can read them.

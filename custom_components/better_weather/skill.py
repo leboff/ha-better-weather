@@ -179,8 +179,13 @@ class SkillLog:
         self.samples = {k: v for k, v in self.samples.items() if k >= cutoff}
         self.observation_store.async_delay_save(lambda: self.samples, 5)
 
-    def observed_hours(self, stats=None):
-        """Build observed hour scores from recorder stats, then prefer live score means."""
+    def observed_hours(self, stats=None, *, explain=False):
+        """Build observed hour scores from recorder stats, then prefer live score means.
+
+        explain=True also keeps each stats hour's score_components() attrs as "components" so a day
+        made of measured hours can still say why it scored what it did (live sample means only have a
+        number, so an overridden hour keeps the components of its recorder-mean conditions).
+        """
         stats = self.corrections.stats if stats is None else stats
         indexed = {key: {r["start"]: r for r in rows} for key, rows in stats.items()}
         result = {}
@@ -206,7 +211,7 @@ class SkillLog:
             if any(v is None for v in (feels, dew, wind, gust, irr, rain_rate)):
                 continue
             rain = rain_rate / 25.4
-            score = score_components(
+            score, comp = score_components(
                 feels * 1.8 + 32,
                 dew * 1.8 + 32,
                 wind / 1.609344,
@@ -215,22 +220,27 @@ class SkillLog:
                 rain,
                 elevation(t + timedelta(minutes=30), self.latitude, self.longitude),
                 self.score_cfg,
-            )[0]
+            )
             result[t.isoformat()] = {
                 "score": score,
                 "rain": rain >= self.cfg["rain_hour_min_in"],
             }
+            if explain:
+                result[t.isoformat()]["components"] = comp
         if stats is self.corrections.stats:
             for key, sample in self.samples.items():
                 if (
                     datetime.fromisoformat(key).astimezone(self.tz).date()
                     not in self.corrections.frozen
                 ):
+                    prior = result.get(key) or {}
                     result[key] = {
                         "score": mean(sample["scores"]),
                         "rain": mean(sample["rain_rates"])
                         >= self.cfg["rain_hour_min_in"],
                     }
+                    if prior.get("components"):
+                        result[key]["components"] = prior["components"]
         return result
 
     def observed_day(self, observed, day):
@@ -254,7 +264,7 @@ class SkillLog:
         rows = (self.forecast.data or {}).get("raw_hourly" if raw else "hourly", [])
         now = dt_util.utcnow() if day == dt_util.now(self.tz).date() else None
         # Add observed-only hours if the current API response no longer covers them.
-        observed = self.observed_hours() if now is not None else {}
+        observed = self.observed_hours(explain=True) if now is not None else {}
         by_hour = {r["time"]: r for r in rows}
         for key in observed:
             t = datetime.fromisoformat(key)

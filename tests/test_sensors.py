@@ -317,3 +317,37 @@ async def test_tomorrow_explains_itself(hass, setup_entry):
         assert sum(r["points"] for r in rows) == pytest.approx(float(state.state), abs=1)
     assert all(r["detail"] for r in rows)
     assert state.attributes["why"]
+
+
+async def test_today_explains_measured_hours(hass, setup_entry, freezer):
+    """Today's elapsed hours are measured, and they still say why (from the hour's mean conditions)."""
+    log = setup_entry.runtime_data.skill
+    # Real, non-frozen Oct 14 station hours moved onto Oct 15.
+    keys = {v: k.removeprefix("station_") for k, v in log.entry.data.items() if k.startswith("station_")}
+    shifted = {}
+    for sid, rows in fixture_json("station_statistics.json").items():
+        if sid not in keys:
+            continue
+        shifted[keys[sid]] = [
+            {**r, "start": r["start"] + 86400, "end": r["end"] + 86400}
+            for r in rows
+            if datetime.fromtimestamp(r["start"], log.tz).date() == date(2026, 10, 14)
+        ]
+    log.corrections.stats = shifted
+    log.samples = {}
+    freezer.move_to("2026-10-15T20:00:00Z")  # local 16:00: 8 measured hours, 4 forecast
+    value, attrs = log.score_day(date(2026, 10, 15))
+    assert attrs["observed_hours"] == 8 and attrs["forecast_hours"] == 4
+    assert attrs["breakdown_hours"] == 12
+    rows = attrs["breakdown"]
+    assert {r["factor"] for r in rows} >= {"temp", "dew", "wind"}
+    assert sum(r["max"] for r in rows) == pytest.approx(100, abs=0.5)
+    if not attrs["rain_hours"]:
+        assert sum(r["points"] for r in rows) == pytest.approx(value, abs=1)
+    assert attrs["why"]
+    # A live sample mean overrides the hour's score but keeps its explanation.
+    hour = "2026-10-15T12:00:00+00:00"
+    log.samples[hour] = {"scores": [42], "rain_rates": [0]}
+    obs = log.observed_hours(explain=True)
+    assert obs[hour]["score"] == 42 and obs[hour]["components"]["breakdown"]
+    assert "components" not in log.observed_hours()[hour]
