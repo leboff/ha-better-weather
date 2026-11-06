@@ -37,7 +37,7 @@ OPTION_DEFAULTS = {
     "correction_enabled": True,
     "nice_wake_hour": 8,
     "nice_sleep_hour": 20,
-    "day_rain_cap": 35,
+    "day_rain_cap": 85,
     "rain_hour_min_in": 0.01,
 }
 STATION_KEYS = [

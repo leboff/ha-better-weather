@@ -211,19 +211,21 @@ class SkillLog:
             if any(v is None for v in (feels, dew, wind, gust, irr, rain_rate)):
                 continue
             rain = rain_rate / 25.4
+            wet = rain >= self.cfg["rain_hour_min_in"]
             score, comp = score_components(
                 feels * 1.8 + 32,
                 dew * 1.8 + 32,
                 wind / 1.609344,
                 gust / 1.609344,
                 irr,
-                rain,
+                # A trace below the rainy-hour threshold (a few drops) doesn't sink the hour either.
+                rain if wet else 0,
                 elevation(t + timedelta(minutes=30), self.latitude, self.longitude),
                 self.score_cfg,
             )
             result[t.isoformat()] = {
                 "score": score,
-                "rain": rain >= self.cfg["rain_hour_min_in"],
+                "rain": wet,
             }
             if explain:
                 result[t.isoformat()]["components"] = comp

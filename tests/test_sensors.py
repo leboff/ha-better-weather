@@ -47,7 +47,7 @@ async def test_tomorrow_rain_cap(hass, setup_entry):
     await hass.async_block_till_done()
     state = hass.states.get("sensor.better_weather_nice_tomorrow")
     assert state.state != "unavailable"
-    assert float(state.state) <= 35
+    assert float(state.state) <= 85
     assert state.attributes["rain_hours"] >= 1
     assert all(h["source"] == "forecast" for h in state.attributes["hourly"])
     wet = next(
@@ -129,7 +129,7 @@ async def test_snapshot_finalize_persist(hass, setup_entry, freezer, statistics)
         )
         scores.append(min(score, 10) if wet else score)
         rain |= wet
-    expected = round(mean(scores) * 35 / 100 if rain else mean(scores), 1)
+    expected = round(min(mean(scores), 85) if rain else mean(scores), 1)
     assert finalized["observed"] == expected
     runtime.forecast.async_update_listeners()
     await hass.async_block_till_done()

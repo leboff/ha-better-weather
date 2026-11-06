@@ -80,7 +80,7 @@ Options flow (plain `OptionsFlow` + update listener → reload; NOT `OptionsFlow
 - `correction_enabled` (bool, default true)
 - Nice-score thresholds (all from §5 `DEFAULTS`, each a NumberSelector) — keep them in one dict in const.py
 - `nice_wake_hour` (default 8), `nice_sleep_hour` (default 20)
-- `day_rain_cap` (default 35), `rain_hour_min_in` (default 0.01)
+- `day_rain_cap` (default 85), `rain_hour_min_in` (default 0.01)
 
 All station sensors may be changed later via a **reconfigure** step (`async_step_reconfigure`).
 
@@ -254,8 +254,8 @@ Must match **every** case in `tests/fixtures/golden_nice_scores.json` exactly (4
   running mean of the right-now score — simplest: keep an in-memory dict hour→list of right-now samples,
   persisted via `Store`) and the corrected forecast hourly score for future hours; day score = mean of
   hourly scores; if any hour (observed: station rain rate mean ≥ `rain_hour_min_in` in/h; forecast:
-  precipitation ≥ 0.25 mm in that hour) is rainy → each such hour scored min(score,10) and the day scaled into 0..`day_rain_cap`
-  (score × cap / 100; v0.3.7 — was a flat min(score, cap) that tied most rainy days at the cap). Attributes: `observed_hours`, `forecast_hours`, `hourly` (list of {hour, score, source}),
+  precipitation ≥ 0.25 mm in that hour) is rainy → each such hour scored min(score,10) and the day held under `day_rain_cap` (default 85 since v0.3.8 —
+  was 35, which tied most rainy days at 35; observed hours below `rain_hour_min_in` aren't capped). Attributes: `observed_hours`, `forecast_hours`, `hourly` (list of {hour, score, source}),
   `rain_hours`.
 - `sensor.<name>_nice_tomorrow` — same day-score over tomorrow's wake..sleep hours, forecast only.
   Attributes: `hourly`, `rain_hours`, `high_f`, `low_f`, `dew_point_avg_f`, `model_spread_f`.

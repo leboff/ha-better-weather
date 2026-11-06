@@ -210,10 +210,10 @@ def forecast_score(row, latitude, longitude, cfg=None):
 
 
 def rainy_day(score, rain_cap):
-    """A rainy day keeps its shape, squeezed under the cap: a sprinkle on a gorgeous day lands near the
-    top of 0..cap, a washout near the bottom. Still never beats the cap, so any dry day at the cap or
-    above outranks it."""
-    return score * rain_cap / 100
+    """Rain costs only the hours it fell in (each scored <= rain_cap per hour, 10 by default); the day
+    keeps the rest. A sprinkle before 9 on a gorgeous day stays a good day; an all-day soaker sinks on its
+    own. day_rain_cap is just a ceiling: a day with any rain is never 'gorgeous'."""
+    return min(score, rain_cap)
 
 
 def day_score(rows, day, tz, latitude, longitude, cfg=None, observed=None, now=None):
@@ -259,7 +259,7 @@ def day_score(rows, day, tz, latitude, longitude, cfg=None, observed=None, now=N
     )
     factors, why = day_breakdown(components)
     if factors and rain_hours:
-        why = f"Rain {rain_hours} of {len(hourly)} hours: scaled into 0–{c['day_rain_cap']:.0f} · {why}"
+        why = f"Rain {rain_hours} of {len(hourly)} hours (those hours count ≤{c['rain_cap']:.0f}) · {why}"
     if factors:
         # Forecast hours plus measured hours that kept their conditions (today).
         attrs |= {"breakdown": factors, "why": why, "breakdown_hours": len(components)}

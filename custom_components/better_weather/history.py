@@ -18,7 +18,7 @@ CHUNK = timedelta(days=31)
 BACKFILL_DAYS = 3 * 366
 CATCHUP_DAYS = 7
 # Bump when the day formula itself changes (not an option), so stored history is rescored.
-DAY_RULES = 2  # 2: rainy days scaled into 0..day_rain_cap instead of clamped at it
+DAY_RULES = 3  # 3: rain costs only its own hours (no 35 clamp); sub-threshold traces ignored
 DAY_KEYS = ("nice_wake_hour", "nice_sleep_hour", "day_rain_cap", "rain_hour_min_in")
 
 

@@ -95,25 +95,27 @@ def test_learn_clear_sky_curve_from_real_station():
     assert learn_clear_sky_curve(stats[:20], ZoneInfo("America/New_York"), 39.94, -75.18) == []
 
 
-def test_rainy_day_keeps_its_shape_under_the_cap():
-    """A sprinkle on a gorgeous day beats a washout; neither beats the cap."""
+def test_rain_costs_only_its_own_hours():
+    """A sprinkle before 9 on a gorgeous day stays good; an all-day soaker sinks; rain is never gorgeous."""
     from datetime import UTC, datetime, timedelta
     from zoneinfo import ZoneInfo
 
-    from custom_components.better_weather.nice import day_score, rainy_day
+    from custom_components.better_weather.nice import day_score
 
-    assert rainy_day(100, 35) == 35 and rainy_day(0, 35) == 0
-    assert rainy_day(90, 35) > rainy_day(40, 35)
     tz = ZoneInfo("America/New_York")
     start = datetime(2026, 5, 14, 12, tzinfo=UTC)  # 08:00 local
-    nice = dict(apparent_temperature=20, dew_point_2m=3, wind_speed_10m=6, wind_gusts_10m=15,
+    nice = dict(apparent_temperature=18, dew_point_2m=3, wind_speed_10m=6, wind_gusts_10m=15,
                 score_irradiance=0)
-    def day(wet_hours):
+    def day(wet_hours, cfg=None):
         rows = [dict(nice, time=start + timedelta(hours=i), precipitation=1.0 if i < wet_hours else 0)
                 for i in range(12)]
-        return day_score(rows, start.astimezone(tz).date(), tz, 39.94, -75.18)
+        return day_score(rows, start.astimezone(tz).date(), tz, 39.94, -75.18, cfg)
+    dry, _ = day(0)
     sprinkle, s_attrs = day(1)
     washout, _ = day(12)
-    dry, _ = day(0)
-    assert washout < sprinkle <= 35 < dry
+    assert washout == 10
+    dry_hours = [h["score"] for h in day(0)[1]["hourly"]]
+    assert sprinkle == round((10 + sum(dry_hours[1:])) / 12, 1)  # only the wet hour pays
+    assert washout < day(4)[0] < sprinkle < dry
+    assert day(0, {"day_rain_cap": 85})[0] == dry  # ceiling only applies to days with rain
     assert s_attrs["rain_hours"] == 1 and s_attrs["why"].startswith("Rain 1 of 12 hours")
