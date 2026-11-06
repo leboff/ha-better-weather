@@ -93,3 +93,27 @@ def test_learn_clear_sky_curve_from_real_station():
     # This station sees less of a clear sky at low sun than at midday (horizon/tilt).
     assert low and high and max(low) < min(high)
     assert learn_clear_sky_curve(stats[:20], ZoneInfo("America/New_York"), 39.94, -75.18) == []
+
+
+def test_rainy_day_keeps_its_shape_under_the_cap():
+    """A sprinkle on a gorgeous day beats a washout; neither beats the cap."""
+    from datetime import UTC, datetime, timedelta
+    from zoneinfo import ZoneInfo
+
+    from custom_components.better_weather.nice import day_score, rainy_day
+
+    assert rainy_day(100, 35) == 35 and rainy_day(0, 35) == 0
+    assert rainy_day(90, 35) > rainy_day(40, 35)
+    tz = ZoneInfo("America/New_York")
+    start = datetime(2026, 5, 14, 12, tzinfo=UTC)  # 08:00 local
+    nice = dict(apparent_temperature=20, dew_point_2m=3, wind_speed_10m=6, wind_gusts_10m=15,
+                score_irradiance=0)
+    def day(wet_hours):
+        rows = [dict(nice, time=start + timedelta(hours=i), precipitation=1.0 if i < wet_hours else 0)
+                for i in range(12)]
+        return day_score(rows, start.astimezone(tz).date(), tz, 39.94, -75.18)
+    sprinkle, s_attrs = day(1)
+    washout, _ = day(12)
+    dry, _ = day(0)
+    assert washout < sprinkle <= 35 < dry
+    assert s_attrs["rain_hours"] == 1 and s_attrs["why"].startswith("Rain 1 of 12 hours")

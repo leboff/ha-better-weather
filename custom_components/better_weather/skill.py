@@ -9,7 +9,7 @@ from homeassistant.util import dt as dt_util
 
 from .const import DOMAIN, OPTION_DEFAULTS
 from .correction import frozen_days
-from .nice import day_score, forecast_score, score_components
+from .nice import day_score, forecast_score, rainy_day, score_components
 from .solar import elevation
 from .station import station_values
 
@@ -257,7 +257,7 @@ class SkillLog:
         score = mean(min(v["score"], 10) if v["rain"] else v["score"] for v in hours)
         rainy = any(v["rain"] for v in hours)
         if rainy:
-            score = min(score, self.cfg["day_rain_cap"])
+            score = rainy_day(score, self.cfg["day_rain_cap"])
         return round(score, 1), rainy
 
     def score_day(self, day, *, raw=False):

@@ -254,8 +254,8 @@ Must match **every** case in `tests/fixtures/golden_nice_scores.json` exactly (4
   running mean of the right-now score — simplest: keep an in-memory dict hour→list of right-now samples,
   persisted via `Store`) and the corrected forecast hourly score for future hours; day score = mean of
   hourly scores; if any hour (observed: station rain rate mean ≥ `rain_hour_min_in` in/h; forecast:
-  precipitation ≥ 0.25 mm in that hour) is rainy → each such hour scored min(score,10) and day capped at
-  `day_rain_cap`. Attributes: `observed_hours`, `forecast_hours`, `hourly` (list of {hour, score, source}),
+  precipitation ≥ 0.25 mm in that hour) is rainy → each such hour scored min(score,10) and the day scaled into 0..`day_rain_cap`
+  (score × cap / 100; v0.3.7 — was a flat min(score, cap) that tied most rainy days at the cap). Attributes: `observed_hours`, `forecast_hours`, `hourly` (list of {hour, score, source}),
   `rain_hours`.
 - `sensor.<name>_nice_tomorrow` — same day-score over tomorrow's wake..sleep hours, forecast only.
   Attributes: `hourly`, `rain_hours`, `high_f`, `low_f`, `dew_point_avg_f`, `model_spread_f`.

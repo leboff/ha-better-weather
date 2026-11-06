@@ -17,6 +17,8 @@ STORE_VERSION = 1
 CHUNK = timedelta(days=31)
 BACKFILL_DAYS = 3 * 366
 CATCHUP_DAYS = 7
+# Bump when the day formula itself changes (not an option), so stored history is rescored.
+DAY_RULES = 2  # 2: rainy days scaled into 0..day_rain_cap instead of clamped at it
 DAY_KEYS = ("nice_wake_hour", "nice_sleep_hour", "day_rain_cap", "rain_hour_min_in")
 
 
@@ -27,7 +29,7 @@ def scoring_signature(cfg):
     of recorder history daily would cost more than the drift is worth.
     """
     keys = sorted(DEFAULTS) + list(DAY_KEYS)
-    return json.dumps({k: cfg.get(k) for k in keys}, sort_keys=True, default=str)
+    return json.dumps({k: cfg.get(k) for k in keys} | {"_rules": DAY_RULES}, sort_keys=True, default=str)
 
 
 def rank_of(days, key):

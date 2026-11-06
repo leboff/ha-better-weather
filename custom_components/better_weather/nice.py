@@ -209,6 +209,13 @@ def forecast_score(row, latitude, longitude, cfg=None):
     )
 
 
+def rainy_day(score, rain_cap):
+    """A rainy day keeps its shape, squeezed under the cap: a sprinkle on a gorgeous day lands near the
+    top of 0..cap, a washout near the bottom. Still never beats the cap, so any dry day at the cap or
+    above outranks it."""
+    return score * rain_cap / 100
+
+
 def day_score(rows, day, tz, latitude, longitude, cfg=None, observed=None, now=None):
     """Mix elapsed observed hours and future forecasts; never invent missing observations."""
     c = OPTION_DEFAULTS | (cfg or {})
@@ -243,7 +250,7 @@ def day_score(rows, day, tz, latitude, longitude, cfg=None, observed=None, now=N
         hourly.append(dict(hour=t.isoformat(), score=score, source=source))
     score = mean(h["score"] for h in hourly) if hourly else None
     if rain_hours and score is not None:
-        score = min(score, c["day_rain_cap"])
+        score = rainy_day(score, c["day_rain_cap"])
     attrs = dict(
         hourly=hourly,
         rain_hours=rain_hours,
@@ -251,6 +258,8 @@ def day_score(rows, day, tz, latitude, longitude, cfg=None, observed=None, now=N
         forecast_hours=sum(h["source"] == "forecast" for h in hourly),
     )
     factors, why = day_breakdown(components)
+    if factors and rain_hours:
+        why = f"Rain {rain_hours} of {len(hourly)} hours: scaled into 0–{c['day_rain_cap']:.0f} · {why}"
     if factors:
         # Forecast hours plus measured hours that kept their conditions (today).
         attrs |= {"breakdown": factors, "why": why, "breakdown_hours": len(components)}

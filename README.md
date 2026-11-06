@@ -72,7 +72,8 @@ Weather values use Home Assistant's display units. Comfort thresholds always use
 °F and mph, matching the canonical comfort formula; irradiance stays in W/m².
 Low-sun comfort favors cooler temperatures and omits the sunshine weight below
 10° solar elevation. Any rain caps an hourly comfort score at 10. A rainy waking
-hour also caps the day score at 35 by default. Day attributes show each hour,
+hour also squeezes the day score into 0–35 by default (day score × 35/100), so a
+passing sprinkle on a gorgeous day still outranks an all-day washout. Day attributes show each hour,
 its score and source, plus rain-hour counts. Tomorrow also exposes temperature
 high/low, average dew point and mean model temperature spread in °F.
 

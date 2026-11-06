@@ -129,7 +129,7 @@ async def test_snapshot_finalize_persist(hass, setup_entry, freezer, statistics)
         )
         scores.append(min(score, 10) if wet else score)
         rain |= wet
-    expected = round(min(mean(scores), 35) if rain else mean(scores), 1)
+    expected = round(mean(scores) * 35 / 100 if rain else mean(scores), 1)
     assert finalized["observed"] == expected
     runtime.forecast.async_update_listeners()
     await hass.async_block_till_done()
